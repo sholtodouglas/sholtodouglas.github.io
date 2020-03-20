@@ -5,7 +5,7 @@ categories: [Hierarchial, RL]
 img: images/lin_reps/hierarchy_header.png
 ---
 
-WIP
+All of this is a work in progress - its just motivating to put some nice pics up as a milestone
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
 
