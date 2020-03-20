@@ -5,7 +5,7 @@ layout: default
 <div class="posts">
   {% for post in paginator.posts %}
     <article class="post">
-      <a href="{{site.baseurl}}{{post.custom_url}}">
+      <a href="{{site.baseurl}}{{post.url}}">
         <h1>{{ post.title }}</h1>
         <img src="{{site.baseurl}}{{post.img}}">
 
