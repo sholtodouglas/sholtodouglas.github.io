@@ -20,3 +20,7 @@ Controllable : -178.09558823529412 0.3014705882352941
 Full state : -166.472 0.424
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
