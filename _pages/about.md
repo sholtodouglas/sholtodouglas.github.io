@@ -4,26 +4,9 @@ title: About
 permalink: /about/
 ---
 
-[Reverie](https://github.com/amitmerchant1990/reverie) is a Jekyll theme which is simple and opinionated. It's actually a fork of [jekyll-now](https://github.com/barryclark/jekyll-now) with some additional features and personal touches which I've implemented to suit my needs for [my blog](https://www.amitmerchant.com).
+I'm interested in robotics and how machine learning can help us bring it to tackling problems in the real world. Long term, I'd like to play a part in making work a choice. Currently I'm playing around with representation learning and hierarchial RL as it applies to robotic manipulation.
 
-This is a plug-and-play Jekyll theme which you can use on GitHub Pages without even setting up a local environment.
+I also love fencing! At my best, I've been ranked 43rd in the World for Men's Foil and I'm currently trying to qualify for the Tokyo Olympics - though Coronavirus has made that complicated! I've just graduated from Sydney University in Mechatronic (Space) Engineering, where I was advised by Ian Manchester and Stefan Williams. During my degree I spent a year split between Beijing and Hong Kong during which I studied at Tsinghua University on a New Colombo Scholarship, and interned at Zeroth.AI (a VC firm) and JD.com (China's analogue to Amazon). In Sydney I've interned at the Australian Centre for Field Robotics (ACFR),  Gronade (an analytics consultancy) and Language Confidence (AI for correcting spoken English).
 
-## Features
+If you're ever in Sydney drop me a message at any of the contacts at the bottom of the page!
 
-- Command-line free fork-first workflow, using GitHub.com to create, customize and post to your blog
-- Fully responsive and mobile optimized base theme
-- Sass/Coffeescript support using Jekyll 2.0
-- Free hosting on your GitHub Pages user site
-- All the SEO goodies comes in-built
-- Markdown blogging
-- Syntax highlighting using Pygments
-    - [Dracula syntax theme](https://draculatheme.com/) included
-- Disqus commenting
-- Google Analytics integration
-- Fuzzy search across blog posts
-- Pagination of posts works out-of-the-box.
-- Categorize posts out-of-the box
-- RSS Feed
-- In-built sitemap
-
-Learn more about it [here](https://github.com/amitmerchant1990/reverie) on how to get started.
