@@ -11,6 +11,9 @@ All of this is a work in progress - its just motivating to put some nice pics up
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/benefitsofexplorationhierarchially.png "Hierarchy vs Single Layer")
 
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/goalsfaraway.png "Hierarchy vs Single Layer")
+
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/sgtestingvsnot.png "Hierarchy vs Single Layer")
 
 ## Relay Pre Training
@@ -24,3 +27,8 @@ Full state : -166.472 0.424
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
+
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
