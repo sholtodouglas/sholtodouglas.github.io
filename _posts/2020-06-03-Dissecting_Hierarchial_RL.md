@@ -14,7 +14,7 @@ Two pieces of work made me interested in exploring whether this was about to cha
 - [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning finetuned with RL. 
 - [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf) is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of a non stationary lower level. They achieve results on a set of simple problems that exceed single layer benchmarks. 
 
-I decided to try to extend RPL by using off policy, hindsight based learning like Levy et al because this should be significantly more sample efficient than the on policy learning used in RPL. 
+I decided to try extend RPL by using off policy, hindsight based learning like Levy et al because this should be significantly more sample efficient than the on policy learning used in RPL, especially considering the sparse reward function.
 
 This post is broken into a few parts. Firstly, reimplementing HAC and verifying that hierarchy does improve upon a single model. I then look into what the model is really learning using Q-heatmaps, what components of the framework are critical to performance and whether HAC effectively amounts to a better exploration regime. Then, I implement RPL and use HAC as the RL component to see whether integrating HRL with goal conditioned behavioural cloning is sufficient to tackle interesting robotic manipulation tasks.
 
