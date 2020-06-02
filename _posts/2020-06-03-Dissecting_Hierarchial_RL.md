@@ -11,8 +11,8 @@ Despite this, it has largely failed to deliver on the hype. No major results use
 > "RL researchers (including ourselves) have generally believed that long time horizons would require fundamentally new advances, such as hierarchical reinforcement learning. Our results suggest that we haven’t been giving today’s algorithms enough credit — at least when they’re run at sufficient scale and with a reasonable way of exploring."
 
 Two pieces of work made me interested in exploring whether this was about to change. 
-- [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning finetuned with RL. 
-- [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf) is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of a non stationary lower level. They achieve results on a set of simple problems that exceed single layer benchmarks. 
+- [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/), by Gupta et al achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning finetuned with RL. 
+- [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf), by Levy et al is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of non stationary lower levels. They achieve results on a set of simple problems that exceed non-hierarchial models. 
 
 I decided to try extend RPL by using off policy, hindsight based learning like Levy et al because this should be significantly more sample efficient than the on policy learning used in RPL, especially considering that a sparse reward function is superior for manipulation tasks.
 
@@ -22,9 +22,13 @@ This blog post uses a simple test environment where a pointmass must push a bloc
  
 # What is Hierarchial Reinforcement Learning? 
 
-[This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). 
+[This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). As a quick refresher, the standard formulation of RL involves an environment with state 's_t' and a model which outputs a action 'a_t' at each timestep. In response to the action, the environment transitions to a new state 's_{t+1}' and outputs a scalar reward value r_t.  The specific formulation of HRL that we will use here is based on goal conditioned RL. 
+
+
 
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
+
+Understanding HAC requires understanding Hindsight Experience Replay (HER). 
 
 
 
