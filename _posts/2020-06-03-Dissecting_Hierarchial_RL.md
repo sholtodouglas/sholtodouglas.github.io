@@ -25,13 +25,14 @@ This blog post uses a simple test environment where a pointmass must push a bloc
 [This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). 
 As a quick refresher, the standard formulation of RL involves an environment with state s<sub>t</sub>  and a policy which outputs  action a<sub>t</sub> = Pi(s<sub>t</sub>) at each timestep. In response to the action, the environment transitions s<sub>t+1</sub>,  r<sub>t+1</sub> = f(s<sub>t</sub> ,a<sub>t</sub> ), outputting a new state and a scalar reward value.  
 
-Goal conditioned RL extends this by introducing a goal state (or subset of the state). The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). The specific formulation of HRL that we will use here is based on goal conditioned RL. 
-
+Goal conditioned RL extends this by introducing a goal state (or subset of the state). The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). HRL typically adapts this goal conditioned framework. In the 2 layer case, this means that the higher model, which acts at a lower time frequency, will take in the goal state and output an easier to achieve goal on the path to that goal (a sub goal). The lower model, which acts at the full time frequency of the environment takes the sub goal as input and attempts to reach that - without a knowledge of the end goal. This means that one model is responsible for partitioning a task into subgoals, and another for solving each sub goal.   
 
 
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
 
-Understanding HAC requires understanding Hindsight Experience Replay (HER). 
+HAC extends Hindsight Experience Replay (HER) to the hierarchial setting. Sparse rewards give 0 for success and a -1 for failure, while dense rewards resemble a continuous function, such as euclidean distance between the current state and the goal state. Sparse rewards are preferred to dense rewards because dense rewards can contain local minima and require time consuming design. However, dense rewards guide an agent gradually through the environment, unlike with sparse rewards where an agent only receives signal when it succeeds, meaning that at first it randomly fails until it accidentally succeeds. 
+
+HER provides more signal by replacing the desired goal with the achieved goal at the end of each trajectory that the agent experiences in the environment. This means that even if the agent never achieves it's desired goal
 
 
 
