@@ -16,11 +16,15 @@ I decided to try to extend RPL by using off policy, hindsight based learning lik
 
 This post is broken into a few parts. Firstly, reimplementing HAC and verifying that hierarchy does improve upon a single model. I then look into what the model is really learning using Q-heatmaps, what components of the framework are critical to performance and whether HAC effectively amounts to a better exploration regime. Then, I implement RPL and use HAC as the RL component to see whether integrating HRL with goal conditioned behavioural cloning is sufficient to tackle interesting robotic manipulation tasks.
 
-This blog post uses a simple test environment where a pointmass must push a block to a target position. This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and a robotic manipulation environment. I'd appreciate any thoughts as to why this may be the case. 
+This blog post uses a simple test environment where a pointmass must push a block to a target position. This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and a robotic manipulation environment, but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this with that in mind. 
  
 # What is Hierarchial Reinforcement Learning? 
 
+[This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). 
+
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
+
+
 
 # Analysing Relay Policy Learning
 
