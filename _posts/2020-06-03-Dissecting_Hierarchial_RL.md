@@ -35,9 +35,36 @@ HER allows sparse reward environments to be efficiently solved. Sparse rewards g
 
 HER provides more signal by replacing the desired goal with the goal achieved at the end of each trajectory that the agent experiences in the environment. This means that even if the agent never achieves the desired goal in any trajectory (such as placing a block in the commanded position), instead of only learning how not to succeed - it learns how to succeed at other potential goals (by knocking the block into them accidentally). This becomes a natural curriculum that leads the agent to learn how to succeed at more and more precise goals. 
 
-HAC uses hindsight experience replay to train the hierarchy. However, if the lower levels are unable to achieve the sub goals which are set, then even if the higher level is setting the correct sub goals, it will not reach it's own goal and thus learn that the sub goals it set (i.e the action it took) are incorrect to reach that goal. Furthermore, because the lower levels are still training, the states reached will always be different and the higher level will be unable to learn any relation between the subgoals it outputs and the behaviour of the lower levels. To solve this, in the (s, a, s', r,s<sub>g</sub>) tuple recorded by the replay buffer of the higher level, HAC substitutes the action (i.e, the subgoal commanded) with the state that was actually achieved by the lower level. This means that the model is always training as though the lower level is perfect at achieving the goals set, and learns the correct relationship between goals set and progress toward the real goal. This is a more elegant approach than their [original idea](https://arxiv.org/pdf/1712.00948.pdf), which was to penalise the higher level for setting currently unreachable subgoals, and may have been inspired by the [HER+HRL request for research](https://openai.com/blog/ingredients-for-robotics-research/). As they found and we will confirm, a small amount of this 'subgoal testing' is still required, as while the model should learn the correct value for states than are ultimately reachable by the lower level, the model can overestimate the value of genuinely unreachable goals (for example, coordinates within walls), because substituting the achieved goal for the higher level action means it would appear they are never commanded. 
+HAC uses hindsight experience replay to train the hierarchy. However, if the lower levels are unable to achieve the sub goals which are set, then even if the higher level is setting the correct sub goals, it will not reach it's own goal and thus learn that the sub goals it set (i.e the action it took) are incorrect to reach that goal. Furthermore, because the lower levels are still training, the states reached will always be different and the higher level will be unable to learn any relation between the subgoals it outputs and the behaviour of the lower levels. To solve this, in the (s, a, s', r,s_g) tuple recorded by the replay buffer of the higher level, HAC substitutes the action (i.e, the subgoal commanded) with the state that was actually achieved by the lower level. This means that the model is always training as though the lower level is perfect at achieving the goals set, and learns the correct relationship between goals set and progress toward the real goal. This is a more elegant approach than their [original idea](https://arxiv.org/pdf/1712.00948.pdf), which was to penalise the higher level for setting currently unreachable subgoals, and may have been inspired by the [HER+HRL request for research](https://openai.com/blog/ingredients-for-robotics-research/). As they found and we will confirm, a small amount of this 'subgoal testing' is still required, as while the model should learn the correct value for states than are ultimately reachable by the lower level, the model can overestimate the value of genuinely unreachable goals (for example, coordinates within walls), because substituting the achieved goal for the higher level action means it would appear they are never commanded. 
 
-The lowest level recieves subgoals and Sub goal setting layers take in higher level goals and output a subgoal state, and they receive a reward for reaching the goal state
+So, in making this work we are interested in a couple of questions.
+
+- What time horizon works best for the higher level to reset the subgoal?
+- Is subgoal testing required?
+- Does hierarchy provide benefits beyond better exploration?
+- What is the higher level learning?
+
+## Time Horizon
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
+
+## Sub Goal Testing 
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/sgtestingvsnot.png "Hierarchy vs Single Layer")
+
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/goalsfaraway.png "Hierarchy vs Single Layer")
+
+## Benefits beyond Exploration
+
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/benefitsofexplorationhierarchially.png "Hierarchy vs Single Layer")
+
+## Effects Learnt by the Higher Level
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
 
 
 
@@ -53,14 +80,12 @@ Non stationarity means issues that higher levels can typically only converge onc
 
 , the practise of using models at different timescales (for example, one which considers long term goals and sets short term goals, and another which carries out the short term goals)
 
-![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
-
-![alt text](https://sholtodouglas.github.io/images/hierarchial/benefitsofexplorationhierarchially.png "Hierarchy vs Single Layer")
 
 
-![alt text](https://sholtodouglas.github.io/images/hierarchial/goalsfaraway.png "Hierarchy vs Single Layer")
 
-![alt text](https://sholtodouglas.github.io/images/hierarchial/sgtestingvsnot.png "Hierarchy vs Single Layer")
+
+
+
 
 ## Relay Pre Training
 
@@ -70,9 +95,7 @@ Full state : -166.472 0.424
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
