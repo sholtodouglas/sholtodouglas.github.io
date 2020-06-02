@@ -48,16 +48,18 @@ So, in making this work we are interested in a couple of questions.
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
-
+### Environment and Algorithm Details
+All models are trained with Soft Actor Critic and Hindsight experience replay for a fair comparison between hierarchial and nonhierarchial models. We only investigate two level hierarchies, as RPL found this sufficient for complex manipulation. 
 ## Time Horizon
 
-How often should the higher level reset the subgoal which the lower level is trying to reach? If it is every timestep, then this eliminates the expected advantages of hierarchy, but if it is too infreqent, then the model may not adapt to new circumstances effectively or explore diversely enough within each trajectory. On this problem, a new subgoal every 5 timesteps appears to be ideal. 
+How often should the higher level reset the subgoal which the lower level is trying to reach? If it is every timestep, then this eliminates the expected advantages of hierarchy, but if it is too infreqent, then the model may not adapt to new circumstances effectively or explore diversely enough within each trajectory. On this problem, a new subgoal every 5 timesteps appears to be ideal, learning 2-3x as fast as a nonhierarchial baseline.
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
 
 ## Sub Goal Testing 
  
-By substituting the goal
+As described earlier, by substituting the lower level achieved goal for the subgoal commanded, the higher level trains as though the lower level perfectly achieves the subgoals it commands. However, this will lead to the higher level assigning unknown value to states which are never reached. 
+
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/goalsfaraway.png "Hierarchy vs Single Layer")
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/sgtestingvsnot.png "Hierarchy vs Single Layer")
