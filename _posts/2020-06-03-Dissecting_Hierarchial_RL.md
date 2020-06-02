@@ -41,20 +41,29 @@ So, in making this work we are interested in a couple of questions.
 
 - What time horizon works best for the higher level to reset the subgoal?
 - Is subgoal testing required?
-- Does hierarchy provide benefits beyond better exploration?
 - What is the higher level learning?
 - What kind of sub goal performs best? Is it the full state of the environment, just the goal relevant dimensions, or just the directly controllable dimensions corresponding to the agent itself? 
+- Finally, does hierarchy provide benefits beyond better exploration?
+
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
+
 
 ## Time Horizon
+
+How often should the higher level reset the subgoal which the lower level is trying to reach? If it is every timestep, then this eliminates the expected advantages of hierarchy, but if it is too infreqent, then the model may not adapt to new circumstances effectively or explore diversely enough within each trajectory. On this problem, a new subgoal every 5 timesteps appears to be ideal. 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
 
 ## Sub Goal Testing 
+ 
+By substituting the goal
+![alt text](https://sholtodouglas.github.io/images/hierarchial/goalsfaraway.png "Hierarchy vs Single Layer")
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/sgtestingvsnot.png "Hierarchy vs Single Layer")
 
 
-![alt text](https://sholtodouglas.github.io/images/hierarchial/goalsfaraway.png "Hierarchy vs Single Layer")
+
 
 ## Benefits beyond Exploration
 
