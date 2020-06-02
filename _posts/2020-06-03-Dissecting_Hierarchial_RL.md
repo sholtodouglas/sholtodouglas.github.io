@@ -22,7 +22,7 @@ This blog post uses a simple test environment where a pointmass must push a bloc
  
 # What is Hierarchial Reinforcement Learning? 
 
-[This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). As a quick refresher, the standard formulation of RL involves an environment with state 's_t' and a model which outputs a action 'a_t' at each timestep. In response to the action, the environment transitions to a new state 's_{t+1}' and outputs a scalar reward value r_t.  The specific formulation of HRL that we will use here is based on goal conditioned RL. 
+[This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). As a quick refresher, the standard formulation of RL involves an environment with state s<sub>t</sub>  and a model which outputs a action a<sub>t</sub> at each timestep. In response to the action, the environment transitions to a new state s<sub>t+1</sub> and outputs a scalar reward value r<sub>t+1</sub>.  The specific formulation of HRL that we will use here is based on goal conditioned RL. 
 
 
 
