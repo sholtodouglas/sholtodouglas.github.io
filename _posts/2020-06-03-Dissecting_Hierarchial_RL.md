@@ -43,6 +43,7 @@ So, in making this work we are interested in a couple of questions.
 - Is subgoal testing required?
 - Does hierarchy provide benefits beyond better exploration?
 - What is the higher level learning?
+- What kind of sub goal performs best? Is it the full state of the environment, just the goal relevant dimensions, or just the directly controllable dimensions corresponding to the agent itself? 
 
 ## Time Horizon
 
@@ -66,7 +67,10 @@ So, in making this work we are interested in a couple of questions.
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
 
+# What kind of Sub goal performs best?
 
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
 # Analysing Relay Policy Learning
 
