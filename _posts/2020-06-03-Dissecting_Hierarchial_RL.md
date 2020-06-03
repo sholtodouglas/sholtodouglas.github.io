@@ -53,8 +53,11 @@ So, in making this work we are interested in a couple of questions.
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
+On the left, subgoals in the full environment state are visualised - with the transparent pointmass visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. 
+
 ### Environment and Algorithm Details
 All models are trained with Soft Actor Critic and Hindsight experience replay for a fair comparison between hierarchial and nonhierarchial models. We only investigate two level hierarchies, as RPL found this sufficient for complex manipulation. 
+
 ## Time Horizon
 
 How often should the higher level reset the subgoal which the lower level is trying to reach? If it is every timestep, then this eliminates the expected advantages of hierarchy, but if it is too infreqent, then the model may not adapt to new circumstances effectively or explore diversely enough within each trajectory. On this problem, a new subgoal every 5 timesteps appears to be ideal, learning 2-3x as fast as a nonhierarchial baseline.
@@ -84,9 +87,13 @@ Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Lea
 
 ## Effects Learnt by the Higher Level
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
+When using just the next position of the pointmass as a subgoal, we can visualise the expected value of every possible next position at any given state by passing them into the Q function (i.e the critic, Q(s,a)) of the higher level model. This lets us clearly visualise that the higher level is learning the correct behaviour. It assigns high value to the opposite side of the block to the goal, and low value around the block once it has placed it into the goal position.
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1")
+
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
 
 # What kind of Sub goal performs best?
 
@@ -126,3 +133,10 @@ Full state : -166.472 0.424
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
+
+
+
+
+![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
+//![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
+
