@@ -2,7 +2,7 @@
 layout: post
 title: Does Hierarchial Reinforcement Learning work yet?
 categories: [Hierarchial, RL]
-img: images/hierarchial/pickplacewsubgoal.gif
+img: images/hierarchial/pickplacewsubgoals.gif
 ---
 
 Hierarchial Reinforcment Learning (HRL) carries a lot of unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. Our brains do not operate at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
@@ -148,7 +148,7 @@ Non stationarity means issues that higher levels can typically only converge onc
 
 
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoal.gif "title-1") 
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") 
 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
