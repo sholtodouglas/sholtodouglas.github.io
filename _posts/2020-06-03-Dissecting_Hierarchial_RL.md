@@ -63,7 +63,7 @@ How often should the higher level reset the subgoal which the lower level is try
 
 ## Sub Goal Testing 
  
-As described earlier, by substituting the lower level achieved goal for the subgoal (higher level action) in the replay buffer, the higher level trains as though the lower level perfectly achieves the subgoals it commands. However, this will lead to the higher level assigning unknown value to states which are never reached, even if they are commanded. Levy et al's solution is to periodically set the lower level policy to deterministic instead of stochastic, not substitute the subgoal for the achieved goal and then assign a large negative reward to transitions where the higher level policy sets unreached subgoals. I wondered if instead, it would be sufficient to simply not subsitute subgoal for achieved goal some fraction of the time, so that the model would learn that uncreached goals do not progress it towards the goal. 
+As described earlier, by substituting the lower level achieved goal for the subgoal (higher level action) in the replay buffer, the higher level trains as though the lower level perfectly achieves the subgoals it commands. However, this will lead to the higher level assigning unknown value to states which are never reached, even if they are commanded. Levy et al's solution is to periodically set the lower level policy to deterministic instead of stochastic, not substitute the subgoal for the achieved goal and then assign a large negative reward to transitions where the higher level policy sets unreached subgoals. I wondered if instead, it would be sufficient to simply not subsitute subgoal for achieved goal some fraction of the time, so that the model would learn that unreached goals do not progress it towards the goal. 
 
 As expected, if we never keep the original action and don't directly penalise unreached subgoals, the model proposes impossible subgoals because each time it sets one, the replay buffer only sees the goal that was actually reached - not the proposed impossible goal. This totally fails to learn. 
 
@@ -78,7 +78,7 @@ Surprisingly, subgoal testing with the achieved goal instead of the original goa
 
 ## Benefits beyond Exploration
 
-Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Learning](https://arxiv.org/pdf/1909.10618.pdf), train a 'shadow learner', a single layer policy trained on the transitions collected by the hierarchial policy (using their algorithm HIRO). They do this to disentangle the benefits of HRL for exploration and the benefits as far as modelling capacity goes. My results here match theirs - there is no significant difference when the models are trained with the same transitions. The benefit of HRL is in exploration. 
+Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Learning](https://arxiv.org/pdf/1909.10618.pdf), train a 'shadow learner', a single layer policy trained on the transitions collected by the hierarchial policy (using their algorithm HIRO). They do this to disentangle the benefits of HRL for exploration and modelling capacity. My results here match theirs - there is no significant difference when the models are trained with the same transitions. The benefit of HRL is in exploration. 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/benefitsofexplorationhierarchially.png "Hierarchy vs Single Layer")
 
