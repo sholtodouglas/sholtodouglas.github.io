@@ -125,7 +125,7 @@ The pretrained baselines did learn to complete the task sometimes, but not relia
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
 
-By introducing the HAC finetuning on the lower level, our Relay learning model learns to solve the full task with equivalent performance to all other models, but in many less update steps. However, the results are not significantly better than behavioural cloning on a nonhierarchial model when that behavioural cloning model is exposed to extremely large amounts of training data - avoiding the brittleness inherent in pure supervised learning. 
+By introducing the HAC finetuning on the lower level, our Relay learning model learns to solve the full task with equivalent performance to all other models, but in many less update steps. It is even more efficient, with 10x less expert demonstrations than behavioural cloning on a nonhierarchial model (2000 timesteps of expert demonstration, vs 20000 timesteps of expert demonstration). 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
 
