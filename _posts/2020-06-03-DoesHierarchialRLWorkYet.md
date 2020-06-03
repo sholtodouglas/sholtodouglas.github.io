@@ -148,7 +148,7 @@ Non stationarity means issues that higher levels can typically only converge onc
 
 
 
-
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoal.gif "title-1") 
 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
