@@ -104,11 +104,24 @@ Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Lea
 
 
 
-# Analysing Relay Policy Learning
+# Relay Policy Learning
+[Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) uses the same two layer, goal conditioned hierarchial policy, but pretrains both layers with supervised learning based on the goal relabelling they used in [Learning from Play (LFP) ](https://arxiv.org/pdf/1903.01973.pdf). Rather than assuming demonstration data must correspond to a desired task, they interact widely with the environment and regard any state reached along these trajectories as a potential goal. 
 
+To create higher level training data, they sample a sub-trajectory from the data and take the final state as the goal state. If the higher level acts every n steps, then observation, action pairs are simply (o_t, a_t+n) for all timesteps t throughout the trajectory. Lower level training data takes windows of size n from the trajectories, and sets the final state as the goal state, using every timestep within each window as data. 
 
+This greatly expands the available data, because each observed state, action pair is valid for many goals. It also makes the data significantly easier to collect for a human teleoperator, as instead of having to reset the environment after each demonstration - the human can freely play. In LFP they found that models purely trained using supervised learning were able to comfortably complete a variety of robotic manipulation tasks. 
 
-Additionally, sparse rewards perform significantly better than dense rewards in manipulation based goal completion tasks, which would further add to the sample complexity if we did not use hindsight. THis blog also dives into whether hierarchy amounts to better exploration, and what the higher level is actually learning by analysing Q heatmaps.
+In RPL, they take the goal conditioned behavioural cloning model (GCBC) from LFP, make it hierarchial and finetune only the lower level model. They found this sufficient for very long horizon robotics tasks. They used a variant of TRPO, but here I used HAC from above, which should be both more efficient and better suited for the sparse rewards of manipulation tasks - but less stable as noted. 
+
+The training is composed of two parts, firstly the inital pretraining using supervised learning, then training with a combination of the supervised and reinforcement learning losses. 
+| Subgoal Components   | Reward for Pretrained Models           |
+|----------------------|----------------------------------------|
+| Block                | -193.80689655172415 0.0896551724137931 |
+| Point Mass           | -178.09558823529412 0.3014705882352941 |
+| Point Mass and Block | -166.472 0.424                         |
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
+
 
 Step 1
 
@@ -122,14 +135,6 @@ Non stationarity means issues that higher levels can typically only converge onc
 
 
 
-
-## Relay Pre Training
-
-Achieved : -193.80689655172415 0.0896551724137931
-Controllable : -178.09558823529412 0.3014705882352941
-Full state : -166.472 0.424
-
-![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
 
 
 
