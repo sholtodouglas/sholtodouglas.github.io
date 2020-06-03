@@ -65,7 +65,7 @@ How often should the higher level reset the subgoal which the lower level is try
 
 On the left, subgoals in the full environment state are visualised - with the transparent pointmass and block visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. In the center, a non hierarchial model without subgoals is shown. 
 
-If the subgoal is exclusively pointmass position, then the lower level should learn extremely quickly as this is an easy task, the higher level can then operate at a greater temporal extent by controlling pointmass position every n steps instead of each timestep. However, this has the disadvantage that the lower level is not considering the intended position of the block as it acts. By including block position in the subgoal, you avoid this issue but make the lower level's task significantly more complex. 
+If the subgoal is exclusively pointmass position, then the lower level should learn extremely quickly as this is an easy task. However, this has the disadvantage that the lower level is not considering the intended position of the block as it acts. By including block position in the subgoal, you avoid this issue but make the lower level's task significantly more complex. 
 
 I found that a subgoal consisting exclusively of the pointmass gave benefits to hierarchy, while a full state subgoal (or a subgoal including only the block position and not the mass positioin) was nearly as difficult as solving the task non-hierarchially and did not give any benefit. 
 
@@ -95,7 +95,7 @@ Surprisingly, subgoal testing with the achieved goal instead of the original goa
 
 ## Benefits beyond Exploration
 
-Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Learning](https://arxiv.org/pdf/1909.10618.pdf), train a 'shadow learner', a single layer policy trained on the transitions collected by the hierarchial policy (using their algorithm HIRO). They do this to disentangle the benefits of HRL for exploration and modelling capacity. My results here match theirs - there is no significant difference when the models are trained with the same transitions. The benefit of HRL is in exploration. 
+Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Learning](https://arxiv.org/pdf/1909.10618.pdf), train a 'shadow learner', a single layer policy trained on the transitions collected by the hierarchial policy (using their algorithm HIRO). They do this to disentangle the benefits of HRL for exploration and modelling capacity. My results here match theirs - there is no significant difference when the models are trained with the same transitions. As it stands, the benefit of HRL is in exploration. 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/benefitsofexplorationhierarchially.png "Hierarchy vs Single Layer")
 
