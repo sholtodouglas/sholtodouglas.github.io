@@ -51,10 +51,6 @@ So, in making this work we are interested in a couple of questions.
 - Finally, does hierarchy provide benefits beyond better exploration?
 
 
-![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
-
-On the left, subgoals in the full environment state are visualised - with the transparent pointmass visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. 
-
 ### Environment and Algorithm Details
 All models are trained with Soft Actor Critic and Hindsight experience replay for a fair comparison between hierarchial and nonhierarchial models. We only investigate two level hierarchies, as RPL found this sufficient for complex manipulation. 
 
@@ -63,6 +59,17 @@ All models are trained with Soft Actor Critic and Hindsight experience replay fo
 How often should the higher level reset the subgoal which the lower level is trying to reach? If it is every timestep, then this eliminates the expected advantages of hierarchy, but if it is too infreqent, then the model may not adapt to new circumstances effectively or explore diversely enough within each trajectory. On this problem, a new subgoal every 5 timesteps appears to be ideal, learning 2-3x as fast as a nonhierarchial baseline.
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
+
+
+# What kind of Sub goal performs best?
+
+On the left, subgoals in the full environment state are visualised - with the transparent pointmass and block visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. In the center, a non hierarchial model without subgoals is shown. 
+
+If the subgoal is exclusively pointmass position, then the lower level should learn extremely quickly as this is an easy task, the higher level can then operate at a greater temporal extent by controlling pointmass position every n steps instead of each timestep. However, this has the disadvantage that the lower level is not considering the intended position of the block as it acts. By including block position in the subgoal, you avoid this issue but make the lower level's task significantly more complex. 
+
+I found that a subgoal consisting exclusively of the pointmass gave benefits to hierarchy, while a full state subgoal (or a subgoal including only the block position and not the mass positioin) was nearly as difficult as solving the task non-hierarchially and did not give any benefit. 
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
 ## Sub Goal Testing 
  
@@ -93,11 +100,6 @@ When using just the next position of the pointmass as a subgoal, we can visualis
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
 
 
-
-# What kind of Sub goal performs best?
-
-
-![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
 # Analysing Relay Policy Learning
 
