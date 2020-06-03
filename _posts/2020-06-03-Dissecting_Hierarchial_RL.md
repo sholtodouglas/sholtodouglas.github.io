@@ -69,7 +69,7 @@ On the left, subgoals in the full environment state are visualised - with the tr
 
 If the subgoal is exclusively pointmass position, then the lower level should learn extremely quickly as this is an easy task. However, this has the disadvantage that the lower level is not considering the intended position of the block as it acts. By including block position in the subgoal, you avoid this issue but make the lower level's task significantly more complex. 
 
-I found that a subgoal consisting exclusively of the pointmass gave benefits to hierarchy, while a full state subgoal (or a subgoal including only the block position and not the mass positioin) was nearly as difficult as solving the task non-hierarchially and did not give any benefit. 
+I found that a subgoal consisting exclusively of the pointmass gave benefits to hierarchy, while a full state subgoal (or a subgoal including only the block position and not the mass positioin) was worse than solving the task non-hierarchially. In fact, the full state subgoal on the left was trained using the relay learning method later - where it is the best performer. 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
@@ -114,13 +114,23 @@ This greatly expands the available data, because each observed state, action pai
 In RPL, they take the goal conditioned behavioural cloning model (GCBC) from LFP, make it hierarchial and finetune only the lower level model. They found this sufficient for very long horizon robotics tasks. They used a variant of TRPO, but here I used HAC from above, which should be both more efficient and better suited for the sparse rewards of manipulation tasks - but less stable as noted. 
 
 The training is composed of two parts, firstly the inital pretraining using supervised learning, then training with a combination of the supervised and reinforcement learning losses. 
+
+The pretrained baselines did learn to complete the task sometimes, but not reliably or efficiently as seen by the average reward and visualisations of the models below. 
+
 | Subgoal Components   | Reward for Pretrained Models           |
 |----------------------|----------------------------------------|
 | Block                | -193.80689655172415 0.0896551724137931 |
 | Point Mass           | -178.09558823529412 0.3014705882352941 |
-| Point Mass and Block | -166.472 0.424                         |
+| Point Mass and Block | -166.472                               |
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
+
+By introducing the HAC finetuning on the lower level, our Relay learning model learns to solve the full task with equivalent performance to all other models, but in many less update steps. However, the results are not significantly better than behavioural cloning on a nonhierarchial model when that behavioural cloning model is exposed to extremely large amounts of training data - avoiding the brittleness inherent in pure supervised learning. 
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
+
 
 
 Step 1
@@ -139,9 +149,6 @@ Non stationarity means issues that higher levels can typically only converge onc
 
 
 
-![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
-
-![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
 
 
