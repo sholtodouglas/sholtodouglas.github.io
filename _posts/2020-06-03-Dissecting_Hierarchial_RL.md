@@ -90,10 +90,8 @@ Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Lea
 When using just the next position of the pointmass as a subgoal, we can visualise the expected value of every possible next position at any given state by passing them into the Q function (i.e the critic, Q(s,a)) of the higher level model. This lets us clearly visualise that the higher level is learning the correct behaviour. It assigns high value to the opposite side of the block to the goal, and low value around the block once it has placed it into the goal position.
 
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1")
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
 
-
-![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
 
 
 # What kind of Sub goal performs best?
