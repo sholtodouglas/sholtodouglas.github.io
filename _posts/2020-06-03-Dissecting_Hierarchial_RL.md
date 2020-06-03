@@ -93,7 +93,8 @@ When using just the next position of the pointmass as a subgoal, we can visualis
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1")
 
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
+![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
+
 
 # What kind of Sub goal performs best?
 
@@ -136,7 +137,6 @@ Full state : -166.472 0.424
 
 
 
-
-![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
 //![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
 
