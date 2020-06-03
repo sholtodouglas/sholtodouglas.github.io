@@ -13,10 +13,10 @@ Despite this, it has largely failed to deliver on the hype. No major results use
 > "RL researchers (including ourselves) have generally believed that long time horizons would require fundamentally new advances, such as hierarchical reinforcement learning. Our results suggest that we haven’t been giving today’s algorithms enough credit — at least when they’re run at sufficient scale and with a reasonable way of exploring."
 
 Two pieces of work made me interested in exploring whether this was about to change. 
-- [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/), by Gupta et al achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning finetuned with RL. 
+- [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/), by Gupta et al achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning fine-tuned with RL. Its simple, but the results are very impressive. 
 - [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf), by Levy et al is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of non stationary lower levels. They achieve results on a set of simple problems that exceed non-hierarchial models. 
 
-I decided to try extend RPL by using off policy, hindsight based learning like Levy et al because this should be significantly more sample efficient than the on policy learning used in RPL.
+I decided to try extend RPL by using off policy, hindsight based learning like Levy et al because this should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics.
 
 This post is broken into a few parts. Firstly, reimplementing HAC and verifying that hierarchy does improve upon a non-hierarchial model. I then look into what the model is really learning using Q-heatmaps, what components of the framework are critical to performance and whether HAC effectively amounts to a better exploration regime. Then, I implement RPL and use HAC as the RL component to see whether integrating HRL with goal conditioned behavioural cloning is sufficient to tackle interesting robotic manipulation tasks.
 
