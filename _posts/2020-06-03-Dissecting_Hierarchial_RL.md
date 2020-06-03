@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Dissecting Hierarchial Reinforcement Learning
+title: Does Hierarchial Reinforcement Learning work yet?
 categories: [Hierarchial, RL]
 img: images/lin_reps/hierarchy_header.png
 ---
