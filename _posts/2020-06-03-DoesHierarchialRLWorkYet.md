@@ -33,7 +33,7 @@ Goal conditioned RL extends this by introducing a goal state (or subset of the s
 
 ## Hierarchy
 
-[The Gradient published an excellent overview.](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). 
+[The Gradient published an excellent overview.](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/)
 
 Broadly, HRL consists of two or more models, where the lowest model acts at the full time frequency and controls the action space of the environment, while higher levels act less frequently and command lower levels to carry out behaviours or reach subgoals. Behaviours can be defined in a continuous space through [latent](https://arxiv.org/pdf/1903.01973.pdf) [variables](https://openreview.net/forum?id=rk07ZXZRb), or more distinctly by selecting from a set of learnt action primitives through [one-hot options](https://arxiv.org/abs/1710.09767). Similarly, goals can be defined through [latent](https://arxiv.org/pdf/1811.07819.pdf) [variables](https://arxiv.org/abs/1810.01257) or the full observation space of the environment. 
 
