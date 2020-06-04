@@ -5,7 +5,7 @@ categories: [Hierarchial, RL]
 img: images/hierarchial/pickplacewsubgoals.gif
 ---
 
-Hierarchial Reinforcment Learning (HRL) carries a lot of unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. Our brains do not operate at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
+Hierarchial Reinforcment Learning (HRL) carries a lot of unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
 
 Hierarchy directly addresses fundamental challenges in RL, such as credit assignment and exploration. All modern RL algorithms in continuous domains fail [as the time resolution approaches zero](https://openai.com/blog/ingredients-for-robotics-research/) because it becomes impossible to discern which actions in which states led to the positive or negative outcomes. Similarly, structuring and correlating exploration [is critical](https://arxiv.org/pdf/1802.07245.pdf), which is more difficult as temporal extent increases. 
 
@@ -13,20 +13,29 @@ Despite this, it has largely failed to deliver on the hype. No major results use
 > "RL researchers (including ourselves) have generally believed that long time horizons would require fundamentally new advances, such as hierarchical reinforcement learning. Our results suggest that we haven’t been giving today’s algorithms enough credit — at least when they’re run at sufficient scale and with a reasonable way of exploring."
 
 Two pieces of work made me interested in exploring whether this was about to change. 
-- [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/), by Gupta et al achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning fine-tuned with RL. 
+- [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/), by Gupta et al achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning fine-tuned with RL. They find hierarchially decomposing the problem makes it more amenable to RL finetuning than a flat policy would be. 
 
 - [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf), by Levy et al is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of non stationary lower levels. They achieve results on a set of simple problems that exceed non-hierarchial models. 
 
-I decided to try extend RPL by using off policy, hindsight based learning like because this should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics.
+I decided to try extend RPL by using off policy, hindsight based learning, which should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics.
 
-This blog post uses a [simple test environment](https://github.com/sholtodouglas/pointMass) where a pointmass must push a block to a target position. This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and a robotic manipulation environment, but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this with that in mind. 
+This blog post uses a [simple test environment](https://github.com/sholtodouglas/pointMass) where a pointmass must push a block to a target position. This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and my (robotic manipulation environment)[https://github.com/sholtodouglas/pandaRL], but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this with that in mind. 
+
+
  
 # What is Hierarchial Reinforcement Learning? 
 
-[This is an excellent explaination](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). 
+## RL Refresher. 
+
 As a quick refresher, the standard formulation of RL involves an environment with state s<sub>t</sub>  and a policy which outputs  action a<sub>t</sub> = Pi(s<sub>t</sub>) at each timestep. In response to the action, the environment transitions s<sub>t+1</sub>,  r<sub>t+1</sub> = f(s<sub>t</sub> ,a<sub>t</sub> ), outputting a new state and a scalar reward value.  
 
 Goal conditioned RL extends this by introducing a goal state (or subset of the state). The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). 
+
+## Hierarchy
+
+[The Gradient published an excellent overview.](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/). 
+
+Broadly, HRL consists of two or more models, where the lowest model acts at the full time frequency and controls the action space of the environment, while higher levels issue commands to lower levels in various forms. The higher level typically commands the lower level to carry out either behaviours, or reach subgoals. Behaviours can be defined in a continuous space through [latent](https://arxiv.org/pdf/1903.01973.pdf) [variables](https://openreview.net/forum?id=rk07ZXZRb), or more distinctly by selecting from a set of learnt action primitives through [one-hot options](https://arxiv.org/abs/1710.09767). Similarly, goals can be defined through [latent](https://arxiv.org/pdf/1811.07819.pdf) [variables](https://arxiv.org/abs/1810.01257) or the full observation space of the environment. 
 
 HRL typically adapts this goal conditioned framework. In the 2 layer case, this means that the higher model, which acts at a lower time frequency, will take as input the current and goal states and output as its action an easier to achieve goal on the path to that goal (a sub goal). The lower model, which acts at the full time frequency and in the action space of the environment, takes the sub goal as the input goal and attempts to reach that without a knowledge of the end goal. This means that one model is responsible for partitioning a task into subgoals, and another for solving each sub goal.   
 
