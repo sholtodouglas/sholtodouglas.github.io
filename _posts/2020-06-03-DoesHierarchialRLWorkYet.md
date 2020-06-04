@@ -37,8 +37,10 @@ Goal conditioned RL extends this by introducing a goal state (or subset of the s
 
 Broadly, HRL consists of two or more models, where the lowest model acts at the full time frequency and controls the action space of the environment, while higher levels issue commands to lower levels in various forms. The higher level typically commands the lower level to carry out either behaviours, or reach subgoals. Behaviours can be defined in a continuous space through [latent](https://arxiv.org/pdf/1903.01973.pdf) [variables](https://openreview.net/forum?id=rk07ZXZRb), or more distinctly by selecting from a set of learnt action primitives through [one-hot options](https://arxiv.org/abs/1710.09767). Similarly, goals can be defined through [latent](https://arxiv.org/pdf/1811.07819.pdf) [variables](https://arxiv.org/abs/1810.01257) or the full observation space of the environment. 
 
-HRL typically adapts this goal conditioned framework. In the 2 layer case, this means that the higher model, which acts at a lower time frequency, will take as input the current and goal states and output as its action an easier to achieve goal on the path to that goal (a sub goal). The lower model, which acts at the full time frequency and in the action space of the environment, takes the sub goal as the input goal and attempts to reach that without a knowledge of the end goal. This means that one model is responsible for partitioning a task into subgoals, and another for solving each sub goal.   
-
+- behaviours hard to be specific, must be learnt in common
+- latent goal definitions useful because they encode only the most relevant features
+- obs space of env tpyically learnt using planning based methods. 
+- Advantage of goal conditioned, full obs space is that HAC can be used to learn higher and lower level in parallel, off policy, and its easy to use unlabelled, cheap to collect interaction data to pretrain via RLP. Therefore cheap to collect data, computationally easy to train - very specifc. 
 
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
 
