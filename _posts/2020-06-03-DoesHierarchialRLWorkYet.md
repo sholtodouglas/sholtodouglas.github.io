@@ -166,14 +166,16 @@ By introducing the HAC finetuning on the lower level, our Relay learning model l
 
 ## At what level of environment complexity do our models tap out?
 
+### Multi Block
+
 The next step in complexity is to add another block with its own goal location. We can collect expert demonstrations for this by using a model trained to perform the task with one block - and indexing the state and goal input so that it only recieves the information on the state and goal of one block at a time. While this does mean the agent won't account for the other block as it moves the current block - if we just discard any demonstrations where both blocks are not at the target location in the final timestep we can collect great baseline demonstrations. 
 
 {: style="text-align:center"}
 <img src="https://sholtodouglas.github.io/images/hierarchial/nice.gif" alt="Snow" style="width:28%" vertical-align= "middle">
 <img src="https://sholtodouglas.github.io/images/hierarchial/emergent.gif" alt="Forest" style="width:28%" vertical-align="middle">
  
-What is interesting is that even with expert demonstrations, my implementation completely fails to learn not only this task, but to move either of the blocks to the goal. To encourage this, I made the reward piecewise - so that it would recieve +1 for each block on target. Our intuition would expect that it would be capable of learning to complete one of the blocks per run in this case - even if both is too long of a time horizon. It raises an interesting question - why is this so much harder? 
+What is interesting is that even with expert demonstrations, both our relay and flat models completely fail to learn to move either of the blocks to the goal. To encourage this, I made the reward piecewise - so that it would recieve +1 for each block on target. Our intuition would expect that it would be capable of learning to complete one of the blocks per run in this case - even if both is too long of a time horizon. It raises an interesting question - why is this so much harder? One aspect is that the state dimension has increased from 8 to 12 $(x_{pos}, y_{pos}, x_{vel}, y_{vel})$ , and the goal dimension has increased by 2 $(x_{pos}, y_{pos})$. The time horizon required to complete both tasks is double that of the single task - but why doesn't it learn to complete what it can regardless? 
 
-The dimension of the state has increased from 8 to 12 (an additonal two position and velocity dimensions), and the dimension of the goal has increased by 2 (two positional dimensions). The time horizon required to complete both tasks is double that of the single task - but why doesn't it learn to complete what it can regardless? 
+### Robotics Environments
 
 Similarly, for the Panda arm environment - my relay learning and flat algorithms fail to learn pushing and pick and place tasks despite scripted expert demonstations. OpenAI's baseline implementation of HER+DDPG with supervised losses is capable of learning even a difficult tool usage environment I created - but my RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) fail. Both of these are obsentisbly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. With the release of (Stable Baselines 3)[https://github.com/DLR-RM/stable-baselines3], I'd like to look into whether other implementations of RL algorithms also fail on these tasks. 
