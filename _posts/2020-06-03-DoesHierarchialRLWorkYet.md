@@ -5,7 +5,6 @@ categories: [Hierarchial, RL]
 img: images/hierarchial/pickplacewsubgoals.gif
 ---
 
-$ r_t = 3^4 + r_{r+t} $
 Hierarchial Reinforcment Learning (HRL) carries unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
 
 Hierarchy directly addresses two fundamental challenges in RL over long time horizons, credit assignment and exploration. All modern RL algorithms in continuous domains fail [as the time resolution approaches zero](https://openai.com/blog/ingredients-for-robotics-research/) because it becomes impossible to discern which actions in which states led to the positive or negative outcomes. Similarly, structuring and correlating exploration [is critical](https://arxiv.org/pdf/1802.07245.pdf), which is more difficult as temporal extent increases. 
@@ -27,7 +26,7 @@ This blog post uses two test environments. In the [first](https://github.com/sho
 
 ## RL Refresher. 
 
-As a quick refresher, the standard formulation of RL involves an environment with state s<sub>t</sub>  and a policy which outputs  action a<sub>t</sub> = Pi(s<sub>t</sub>) at each timestep. In response to the action, the environment transitions s<sub>t+1</sub>,  r<sub>t+1</sub> = f(s<sub>t</sub> ,a<sub>t</sub> ), outputting a new state and a scalar reward value.  
+As a quick refresher, the standard formulation of RL involves an environment with transition function $P(s_{t+1} | s_t, a_t)$, where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function R. The goal is to find a policy $\pi(a|s) which maximises the expected sum of rewards over each trajectory. 
 
 Goal conditioned RL extends this by introducing a goal state (or subset of the state). The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). 
 
