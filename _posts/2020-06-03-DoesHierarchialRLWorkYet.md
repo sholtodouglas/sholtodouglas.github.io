@@ -185,7 +185,7 @@ In past experiments, I found that [OpenAI's baseline implementation of HER+DDPG 
 
 {: style="text-align:center"}
 <figure>
-    <img src='https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif' alt='missing' />
+    <img src='https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif' alt='missing' style="width:35%" />
     <figcaption>Sub goal visualisation on the Panda Pick and Place Environment</figcaption>
 </figure>
 
