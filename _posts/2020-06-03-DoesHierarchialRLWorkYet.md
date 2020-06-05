@@ -11,6 +11,11 @@ img: images/hierarchial/pickplacewsubgoals.gif
 > "This post focuses on extending [Relay Policy Learning (RPL)](https://relay-policy-learning.github.io/) by making the RL phase off-policy based on [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf)". 
 
 
+* TOC
+{:toc}
+
+# Introduction
+
 Hierarchial Reinforcment Learning (HRL) carries unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
 
 Hierarchy directly addresses two fundamental challenges in RL over long time horizons, credit assignment and exploration. All modern RL algorithms in continuous domains fail [as the time resolution approaches zero](https://openai.com/blog/ingredients-for-robotics-research/) because it becomes impossible to discern which actions in which states led to the positive or negative outcomes. Similarly, structuring and correlating exploration [is critical](https://arxiv.org/pdf/1802.07245.pdf), which is more difficult as temporal extent increases. 
@@ -29,14 +34,12 @@ This blog post uses two test environments. In the [first](https://github.com/sho
 
 As it is, hierarchial reinforcement learning did produce significantly better results on the environment - but my experiments agree that it does not provide benefits beyond better exploration. 
 
-* TOC
-{:toc}
  
 # What is Hierarchial Reinforcement Learning? 
 
 [The Gradient published an excellent overview.](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/)
 
-## RL Refresher. 
+## RL Refresher
 
 
 
