@@ -30,7 +30,7 @@ Two pieces of work made me interested in exploring whether this was about to cha
 
 I decided to try extend RPL by using off policy, hindsight based learning, which should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics. 
 
-This blog post uses two test environments. In the [first](https://github.com/sholtodouglas/pointMass) a pointmass must push a block to a target position. This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and my [robotic manipulation environment](https://github.com/sholtodouglas/pandaRL), but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this.
+This blog post uses two test environments. In the [first a pointmass must push a block to a target position](https://github.com/sholtodouglas/pointMass) . This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and my [robotic manipulation environment](https://github.com/sholtodouglas/pandaRL), but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this.
 
 As it is, hierarchial reinforcement learning did produce significantly better results on the environment - but my experiments agree that it does not provide benefits beyond better exploration. 
 
@@ -83,8 +83,8 @@ So, lets take a look at the impact of HAC - and what it takes to make it work.
 - Does hierarchy provide benefits beyond better exploration?
 
 
-### Environment and Algorithm Details
-All models are trained with Soft Actor Critic and Hindsight experience replay for a fair comparison between hierarchial and nonhierarchial models. We only investigate two level hierarchies, as RPL found this sufficient for complex manipulation. 
+### Quick Algorithm Details
+All models are trained with Soft Actor Critic and Hindsight experience replay for a fair comparison between hierarchial and nonhierarchial models. We only investigate two level hierarchies, as RPL found this sufficient for complex manipulation. All models are 3 layer MLPs with 256 neurons in per layer. 
 
 ## Performance over Time Horizons
 
@@ -99,7 +99,7 @@ On the left, subgoals in the full environment state are visualised - with the tr
 
 If the subgoal is exclusively pointmass position, then the lower level should learn extremely quickly as this is an easy task. However, this has the disadvantage that the lower level is not considering the intended position of the block as it acts. By including block position in the subgoal, you avoid this issue but make the lower level's task significantly more complex. 
 
-I found that a subgoal consisting exclusively of the pointmass gave benefits to hierarchy, while a full state subgoal (or a subgoal including only the block position and not the mass positioin) was worse than solving the task non-hierarchially. In fact, the full state subgoal on the left had to be trained using relay learning - where it was the best performer. 
+I found that a subgoal consisting exclusively of the pointmass gave benefits to hierarchy, while a full state subgoal (or a subgoal including only the block position and not the mass positioin) was worse than solving the task non-hierarchially - even when piecewise rewards for the mass and block were implemented. In fact, the full state subgoal on the left had to be trained using relay learning - where it was the best performer. 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
@@ -143,7 +143,7 @@ This greatly expands the available data, because each observed state, action pai
 
 In RPL, they take the goal conditioned behavioural cloning model (GCBC) from LFP, make it hierarchial and finetune only the lower level model. They found this sufficient for very long horizon robotics tasks. They used a variant of TRPO, but here I used HAC from above, which should be both more efficient and better suited for the sparse rewards of manipulation tasks - but less stable as noted. 
 
-The training is composed of two parts, firstly the inital pretraining using supervised learning, then training with a combination of the supervised and reinforcement learning losses. 
+The training is composed of two parts, firstly the inital pretraining using supervised learning, then training with a combination of the supervised and reinforcement learning losses. The supervised loss was trialled with both MSE and maximising logliklihood of target actions under the actor distribution - and MSE performed better. This is likely because I'm only working with a single normal distribution per dimension as the action distribution - rather than a potentially multimodal mixture of distributions as they do. However, in a previous attempt to implement LFP I used mixtures of 3 beta distributions - and MSE still performed better. I'm extremely curious what error I'm making - it might have significant impact on the complexity of behaviour capable of being learnt by the pretrained model. 
 
 ## Pretrained Baseline
 The pretrained baselines did learn to complete the task sometimes, but not reliably or efficiently as seen by the average reward and visualisations of the models below. 
@@ -162,6 +162,9 @@ By introducing the HAC finetuning on the lower level, our Relay learning model l
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
+
+
+## At what level of environment complexity do our models tap out?
 
 
 
