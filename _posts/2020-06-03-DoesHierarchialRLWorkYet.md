@@ -180,13 +180,14 @@ What is interesting is that even with expert demonstrations, both our relay and 
 
 As expected, the algorithms solve the Panda Reaching environment within a few thousand steps in the environment. Reaching is an extremely easy task with hindsight because every state reached modifies the achieved goal. Unfortunately they fail to learn pushing and pick and place tasks despite scripted expert demonstations. 
 
-In past experiments, I found that [OpenAI's baseline implementation of HER+DDPG with supervised losses](https://github.com/openai/baselines/tree/master/baselines/her) is capable of learning even a difficult tool usage environment I created. My RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) cannot. Both of these are ostensibly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. This could lie in the implementations of the RL algorithms themselves, or in how I am integrating supervised losses. With the release of [Stable Baselines 3](https://github.com/DLR-RM/stable-baselines3), I'd like to look into how other RL implementations perform - and modify them to include include supervised losses from demonstration. 
 
 {: style="text-align:center"}
 <figure>
-    <img src='https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif' alt='missing' style="width:35%" />
+    <img src='https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif' alt='missing' style="width:55%" />
     <figcaption>Sub goal visualisation on the Panda Pick and Place Environment</figcaption>
 </figure>
+
+In past experiments, I found that [OpenAI's baseline implementation of HER+DDPG with supervised losses](https://github.com/openai/baselines/tree/master/baselines/her) is capable of learning even a difficult tool usage environment I created. My RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) cannot. Both of these are ostensibly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. This could lie in the implementations of the RL algorithms themselves, or in how I am integrating supervised losses. With the release of [Stable Baselines 3](https://github.com/DLR-RM/stable-baselines3), I'd like to look into how other RL implementations perform - and modify them to include include supervised losses from demonstration. 
 
 {: style="text-align:center"}
 <figure>
