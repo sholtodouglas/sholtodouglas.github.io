@@ -2,7 +2,6 @@
 layout: post
 title: Does Hierarchial Reinforcement Learning work yet?
 categories: [Hierarchial, RL]
-img: images/hierarchial/pickplacewsubgoals.gif
 ---
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1")
