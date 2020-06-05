@@ -8,7 +8,7 @@ img: images/hierarchial/pickplacewsubgoals.gif
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1")
 
 
-> "This post focuses on extending [Relay Policy Learning (RPL)](https://relay-policy-learning.github.io/) by making the RL phase off-policy based on [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf)". Code found at [here](https://github.com/sholtodouglas/hierarchial_robotics). 
+> "Code found [here](https://github.com/sholtodouglas/hierarchial_robotics). 
 
 
 * TOC
@@ -16,7 +16,7 @@ img: images/hierarchial/pickplacewsubgoals.gif
 
 # Introduction
 
-Hierarchial Reinforcment Learning (HRL) carries unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
+Hierarchial Reinforcment Learning (HRL) carries unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried out by the motor cortex. 
 
 Hierarchy directly addresses two fundamental challenges in RL over long time horizons, credit assignment and exploration. All modern RL algorithms in continuous domains fail [as the time resolution approaches zero](https://openai.com/blog/ingredients-for-robotics-research/) because it becomes impossible to discern which actions in which states led to the positive or negative outcomes. Similarly, structuring and correlating exploration [is critical](https://arxiv.org/pdf/1802.07245.pdf), which is more difficult as temporal extent increases. 
 
@@ -176,4 +176,4 @@ What is interesting is that even with expert demonstrations, my implementation c
 
 The dimension of the state has increased from 8 to 12 (an additonal two position and velocity dimensions), and the dimension of the goal has increased by 2 (two positional dimensions). The time horizon required to complete both tasks is double that of the single task - but why doesn't it learn to complete what it can regardless? 
 
-Similarly, for the Panda arm environment - my relay learning and flat algorithms fail to learn pushing and pick and place tasks despite scripted expert demonstations. OpenAI's baseline implementation of HER+DDPG is capable of learning both push and pick and place tasks - but my RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) fail. Both of these are obsentisbly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. With the release of (Stable Baselines 3)[https://github.com/DLR-RM/stable-baselines3], I'd like to look into whether other implementations of RL algorithms also fail on these tasks. 
+Similarly, for the Panda arm environment - my relay learning and flat algorithms fail to learn pushing and pick and place tasks despite scripted expert demonstations. OpenAI's baseline implementation of HER+DDPG with supervised losses is capable of learning even a difficult tool usage environment I created - but my RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) fail. Both of these are obsentisbly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. With the release of (Stable Baselines 3)[https://github.com/DLR-RM/stable-baselines3], I'd like to look into whether other implementations of RL algorithms also fail on these tasks. 
