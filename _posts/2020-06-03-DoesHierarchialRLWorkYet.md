@@ -7,7 +7,9 @@ img: images/hierarchial/pickplacewsubgoals.gif
 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") 
-{% include image.html url="/images/hierarchial/pickplacewsubgoals.gif" description="My cat, Robert Downey Jr." %}
+| ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") | 
+|:--:| 
+| *Space* |
 
 
 > "This post focuses on extending [Relay Policy Learning (RPL)](https://relay-policy-learning.github.io/) by making the RL phase off-policy based on [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf)". 
