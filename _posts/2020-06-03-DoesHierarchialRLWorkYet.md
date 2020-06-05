@@ -32,9 +32,9 @@ This blog post uses two test environments. In the [first](https://github.com/sho
 
 ## RL Refresher. 
 
-$P(s_{t+1} \| s_t, a_t)$
 
-As a quick refresher, the standard formulation of RL involves an environment with transition function , where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function R. The goal is to find a policy $\pi(a s)$ which maximises the expected sum of rewards over each trajectory $E_{\pi}$. 
+
+As a quick refresher, the standard formulation of RL involves an environment with transition function $P(s_{t+1} \| s_t, a_t)$, where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function $R(s_t, a_t)$. The goal is to find a policy $\pi(a \| s)$ which maximises the expected sum of rewards over each trajectory $E_{\pi} ( \sum_{t=0}^T \gamma^t R(s_t, a_t) $. 
 
 Goal conditioned RL extends this by making a goal state (or subset of the state) an input of both the policy and the reward function. The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). 
 
