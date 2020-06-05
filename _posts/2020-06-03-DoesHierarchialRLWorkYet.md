@@ -24,16 +24,19 @@ This blog post uses two test environments. In the [first](https://github.com/sho
  
 # What is Hierarchial Reinforcement Learning? 
 
+[The Gradient published an excellent overview.](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/)
+
 ## RL Refresher. 
-$ s_t | a_t $
 
-As a quick refresher, the standard formulation of RL involves an environment with transition function $P(s_{t+1} | s_t, a_t)$, where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function R. The goal is to find a policy $\pi(a s)$ which maximises the expected sum of rewards over each trajectory $E_{\pi}$. 
+$P(s_{t+1}| s_t, a_t)$
+\\(P(s_{t+1}|s_t, a_t)\\)
 
-Goal conditioned RL extends this by introducing a goal state (or subset of the state). The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). 
+As a quick refresher, the standard formulation of RL involves an environment with transition function , where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function R. The goal is to find a policy $\pi(a s)$ which maximises the expected sum of rewards over each trajectory $E_{\pi}$. 
+
+Goal conditioned RL extends this by making a goal state (or subset of the state) an input of both the policy and the reward function. The policy now acts based on the goal a<sub>t</sub> = Pi(s<sub>t</sub>, s<sub>g</sub>), and the reward function depends on the goal r = R(s<sub>t</sub>, s<sub>g</sub>). 
 
 ## Hierarchy
 
-[The Gradient published an excellent overview.](https://thegradient.pub/the-promise-of-hierarchical-reinforcement-learning/)
 
 Broadly, HRL consists of two or more models, where the lowest model acts at the full time frequency and controls the action space of the environment, while higher levels act less frequently and command lower levels to carry out behaviours or reach subgoals. Behaviours can be defined in a continuous space through [latent](https://arxiv.org/pdf/1903.01973.pdf) [variables](https://openreview.net/forum?id=rk07ZXZRb), or more distinctly by selecting from a set of learnt action primitives through [one-hot options](https://arxiv.org/abs/1710.09767). Similarly, goals can be defined through [latent](https://arxiv.org/pdf/1811.07819.pdf) [variables](https://arxiv.org/abs/1810.01257) or the full observation space of the environment. 
 
