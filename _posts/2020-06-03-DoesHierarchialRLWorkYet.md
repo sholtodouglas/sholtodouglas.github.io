@@ -32,7 +32,7 @@ I decided to try extend RPL by using off policy, hindsight based learning, which
 
 This blog post uses two test environments. In the [first a pointmass must push a block to a target position](https://github.com/sholtodouglas/pointMass) . This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and my [robotic manipulation environment](https://github.com/sholtodouglas/pandaRL), but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this.
 
-As it is, hierarchial reinforcement learning did produce significantly better results on the environment - but my experiments agree that it does not provide benefits beyond better exploration. 
+As it is, hierarchial reinforcement learning did produce significantly better results on the environment - but my experiments agree that it does not provide benefits beyond better exploration, nor does it increase the complexity of environment tackleable. This is by no means the final word on HRL, but how easy and effective reimplementing the work is gives a good idea of how robust the direction of research currently is. 
 
  
 # What is Hierarchial Reinforcement Learning? 
@@ -56,7 +56,14 @@ Encoding behaviours into latent space is clearly more effective than a sparse se
 
 Latent representations of goal states are useful in image domains because they free the lower levels to focus on only goal critical aspects of the environment, which follows a broader theme that reconstruction based representation learning is less effective than contrastive learning - because reconstruction is unnecesarily difficult and often focuses on irrelevant parts of the image. 
 
-When state space is available, specifying goals here is easy, inexpensive to compute and by using HAC we can train the layers of the hierarchy independently. In addition, it is easy to use unlabelled, cheap to collect interaction data to pretrain via RLP.
+When state space is available, specifying goals here is easy, inexpensive to compute and by using HAC we can train the layers of the hierarchy independently. In addition, it is easy to use unlabelled, cheap to collect interaction data to pretrain via RLP. 
+
+{: style="text-align:center"}
+<figure>
+    <img src='https://sholtodouglas.github.io/images/hierarchial/algo.png' style="width:65%" alt='missing' />
+    <figcaption>The goal conditioned hierarchial framework shared by HAC and RPL </figcaption>
+</figure>
+
 
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
 
