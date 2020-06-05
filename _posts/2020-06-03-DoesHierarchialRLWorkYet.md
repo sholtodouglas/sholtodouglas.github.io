@@ -135,7 +135,7 @@ Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Lea
 
 
 # Relay Policy Learning
-[Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) uses the same two layer, goal conditioned hierarchial policy, but pretrains both layers with supervised learning based on the goal relabelling they used in [Learning from Play (LFP) ](https://arxiv.org/pdf/1903.01973.pdf). Rather than assuming demonstration data must correspond to a desired task, they interact widely with the environment and regard any state reached along these trajectories as a potential goal. 
+[Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) uses the same two layer, goal conditioned hierarchial policy, but pretrains both layers with supervised learning from expert demonstrations based on the goal relabelling they used in [Learning from Play (LFP) ](https://arxiv.org/pdf/1903.01973.pdf). Rather than assuming demonstration data must correspond to a desired task, in demos they interact widely with the environment and regard any state reached along these trajectories as a potential goal. For our purposes we can use a model we've already trained to collect demonstration data, rather than teleoperating. 
 
 To create higher level training data, they sample a sub-trajectory from the data and take the final state as the goal state. If the higher level acts every n steps, then observation, action pairs are simply $(o_t, a_{t+n})$ for all timesteps t throughout the trajectory. Lower level training data takes windows from $t$ to $t+n$ from the trajectories, and sets $s_{t+n} as the goal state, using every timestep within each window as data. 
 
@@ -166,5 +166,9 @@ By introducing the HAC finetuning on the lower level, our Relay learning model l
 
 ## At what level of environment complexity do our models tap out?
 
+The next step in complexity is to add another block with its own goal location. We can collect expert demonstrations for this by using a model trained to perform the task with one block - and indexing the state and goal input so that it only recieves the information on the state and goal of one block at a time. While this does mean the agent won't account for the other block as it moves the current block - if we just discard any demonstrations where both blocks are not at the target location in the final timestep we can collect great baseline demonstrations. 
 
 
+![alt text](https://sholtodouglas.github.io/images/hierarchial/nice.gif "Multiblock")
+
+![alt text](https://sholtodouglas.github.io/images/hierarchial/emergent.gif "Multiblock almost looks smart")
