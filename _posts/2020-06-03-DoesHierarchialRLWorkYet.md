@@ -5,9 +5,7 @@ categories: [Hierarchial, RL]
 img: images/hierarchial/pickplacewsubgoals.gif
 ---
 
-| ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") | 
-|:--:| 
-| Subgoals are visualised by the transparent arm and block positions. |
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1")
 
 
 > "This post focuses on extending [Relay Policy Learning (RPL)](https://relay-policy-learning.github.io/) by making the RL phase off-policy based on [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf)". 
@@ -31,6 +29,8 @@ This blog post uses two test environments. In the [first](https://github.com/sho
 
 As it is, hierarchial reinforcement learning did produce significantly better results on the environment - but my experiments agree that it does not provide benefits beyond better exploration. 
 
+* TOC
+{:toc}
  
 # What is Hierarchial Reinforcement Learning? 
 
