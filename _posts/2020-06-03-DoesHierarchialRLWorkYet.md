@@ -44,8 +44,10 @@ Goal conditioned RL extends this by making a goal state (or subset of the state)
 Broadly, HRL consists of two or more models, where the lowest model acts at the full time frequency of and in the action space of the environment, while higher levels act less frequently and command lower levels to carry out behaviours or reach subgoals. Behaviours can be defined in a continuous space through [latent](https://arxiv.org/pdf/1903.01973.pdf) [variables](https://openreview.net/forum?id=rk07ZXZRb), or more distinctly by selecting from a set of learnt action primitives through [one-hot options](https://arxiv.org/abs/1710.09767). Similarly, goals can be defined through [latent](https://arxiv.org/pdf/1811.07819.pdf) [variables](https://arxiv.org/abs/1810.01257) or the full observation space of the environment. 
 
 Encoding behaviours into latent space is clearly more effective than a sparse set of options, as it allows behaviours to be [composed for new problems](https://openreview.net/forum?id=rk07ZXZRb). It is also an interesting way of [discovering a diverse array of behaviour](https://arxiv.org/pdf/1802.06070.pdf). However, its difficult to specify and debug learning here, and all layers must be learnt in concert. I've personally found the results of work in this vein difficult to recreate in the past.
+
 Latent representations of goal states are useful in image domains because they free the lower levels to focus on only goal critical aspects of the environment, which follows a broader theme that reconstruction based representation learning is less effective than contrastive learning - because reconstruction is unnecesarily difficult and often focuses on irrelevant parts of the image. 
-When state space is available, specifying goals here is easy, inexpensive to compute and by using HAC we can train the layers of the hierarchy independently. In addition, it is easy to use unlabelled, cheap to collect interaction data to pretrain via RLP as will be described later. 
+
+When state space is available, specifying goals here is easy, inexpensive to compute and by using HAC we can train the layers of the hierarchy independently. In addition, it is easy to use unlabelled, cheap to collect interaction data to pretrain via RLP.
 
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
 
