@@ -65,9 +65,9 @@ To solve this, in the $(s, a, s', r, s_g)$ tuple recorded by the replay buffer o
 
 This is a more elegant approach than their [original idea](https://arxiv.org/pdf/1712.00948.pdf), which was to penalise the higher level for setting unreachable subgoals, and may have been inspired by the [HER+HRL request for research](https://openai.com/blog/ingredients-for-robotics-research/). As they found and we will confirm, a small amount of this 'subgoal testing' is still required, as while the model should learn the correct value for states that are ultimately reachable by the lower level, the model can overestimate the value of genuinely unreachable goals (for example, coordinates within walls), because action substitution means they never appear in the replay buffer.
 
-So, in making this work we are interested in a couple of questions.
+So, lets take a look at the impact of HAC - and what it takes to make it work. 
 
-- What time horizon works best for the higher level to reset the subgoal?
+- How much can hierarchy improve learning over a flat model, at what kind of time horizon?
 - What kind of sub goal performs best? Is it the full state of the environment, just the goal relevant dimensions, or just the directly controllable dimensions corresponding to the agent itself? 
 - What is the higher level learning?
 - Is subgoal testing required?
