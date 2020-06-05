@@ -93,7 +93,7 @@ How often should the higher level reset the subgoal which the lower level is try
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
 
 
-# What kind of Sub goal performs best?
+## What kind of Sub goal performs best?
 
 On the left, subgoals in the full environment state are visualised - with the transparent pointmass and block visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. In the center, a non hierarchial model without subgoals is shown. 
 
