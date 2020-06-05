@@ -61,7 +61,7 @@ When state space is available, specifying goals here is easy, inexpensive to com
 {: style="text-align:center"}
 <figure>
     <img src='https://sholtodouglas.github.io/images/hierarchial/algo.png' style="width:65%" alt='missing' />
-    <figcaption>The goal conditioned hierarchial framework shared by HAC and RPL </figcaption>
+    <figcaption>The goal conditioned hierarchial framework shared by HAC and RPL.  The superscripts on the policys stand for higher and lower level. </figcaption>
 </figure>
 
 
