@@ -25,6 +25,7 @@ This blog post uses two test environments. In the [first](https://github.com/sho
 # What is Hierarchial Reinforcement Learning? 
 
 ## RL Refresher. 
+$ s_t | a_t $
 
 As a quick refresher, the standard formulation of RL involves an environment with transition function $P(s_{t+1} s_t, a_t)$, where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function R. The goal is to find a policy $\pi(a s)$ which maximises the expected sum of rewards over each trajectory $E_{\pi}$. 
 
