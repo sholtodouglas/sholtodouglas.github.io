@@ -169,6 +169,6 @@ By introducing the HAC finetuning on the lower level, our Relay learning model l
 The next step in complexity is to add another block with its own goal location. We can collect expert demonstrations for this by using a model trained to perform the task with one block - and indexing the state and goal input so that it only recieves the information on the state and goal of one block at a time. While this does mean the agent won't account for the other block as it moves the current block - if we just discard any demonstrations where both blocks are not at the target location in the final timestep we can collect great baseline demonstrations. 
 
 {: style="text-align:center"}
-<img src="https://sholtodouglas.github.io/images/hierarchial/nice.gif" alt="Snow" style="width:48%" vertical-align= "middle">
-<img src="https://sholtodouglas.github.io/images/hierarchial/emergent.gif" alt="Forest" style="width:48%" vertical-align="middle">
+<img src="https://sholtodouglas.github.io/images/hierarchial/nice.gif" alt="Snow" style="width:28%" vertical-align= "middle">
+<img src="https://sholtodouglas.github.io/images/hierarchial/emergent.gif" alt="Forest" style="width:28%" vertical-align="middle">
 
