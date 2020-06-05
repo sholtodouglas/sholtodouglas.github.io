@@ -8,6 +8,9 @@ img: images/hierarchial/pickplacewsubgoals.gif
 
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") 
 
+```python
+// This post focuses on extending Relay Policy Learning by making the RL phase off-policy based on 'Learning Multi-Level Hierarchies with Hindsight '. 
+```
 
 Hierarchial Reinforcment Learning (HRL) carries unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
 
