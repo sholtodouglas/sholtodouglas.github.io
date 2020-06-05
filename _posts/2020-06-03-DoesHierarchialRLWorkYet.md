@@ -128,7 +128,7 @@ Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Lea
 # Relay Policy Learning
 [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) uses the same two layer, goal conditioned hierarchial policy, but pretrains both layers with supervised learning based on the goal relabelling they used in [Learning from Play (LFP) ](https://arxiv.org/pdf/1903.01973.pdf). Rather than assuming demonstration data must correspond to a desired task, they interact widely with the environment and regard any state reached along these trajectories as a potential goal. 
 
-To create higher level training data, they sample a sub-trajectory from the data and take the final state as the goal state. If the higher level acts every n steps, then observation, action pairs are simply (o_t, a_t+n) for all timesteps t throughout the trajectory. Lower level training data takes windows of size n from the trajectories, and sets the final state as the goal state, using every timestep within each window as data. 
+To create higher level training data, they sample a sub-trajectory from the data and take the final state as the goal state. If the higher level acts every n steps, then observation, action pairs are simply $(o_t, a_{t+n})$ for all timesteps t throughout the trajectory. Lower level training data takes windows from $t$ to $t+n$ from the trajectories, and sets $s_{t+n} as the goal state, using every timestep within each window as data. 
 
 This greatly expands the available data, because each observed state, action pair is valid for many goals. It also makes the data significantly easier to collect for a human teleoperator, as instead of having to reset the environment after each demonstration - the human can freely play. In LFP they found that models purely trained using supervised learning were able to comfortably complete a variety of robotic manipulation tasks. 
 
@@ -152,27 +152,6 @@ By introducing the HAC finetuning on the lower level, our Relay learning model l
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
-
-
-Step 1
-
-Non stationarity means issues that higher levels can typically only converge once the lower level learns to complete the higher level's instructions. 
-
-, the practise of using models at different timescales (for example, one which considers long term goals and sets short term goals, and another which carries out the short term goals)
-
-
-
-
-
-
-
-
-
-
-
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") 
-
-
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
-//![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
+![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
 
