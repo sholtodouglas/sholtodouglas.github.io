@@ -21,9 +21,11 @@ Two pieces of work made me interested in exploring whether this was about to cha
 
 - [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf), by Levy et al is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of non stationary lower levels. They achieve results on a set of simple problems that exceed non-hierarchial models. 
 
-I decided to try extend RPL by using off policy, hindsight based learning, which should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics.
+I decided to try extend RPL by using off policy, hindsight based learning, which should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics. I was curious as to how stable and easy to replicate the results were. 
 
 This blog post uses two test environments. In the [first](https://github.com/sholtodouglas/pointMass) a pointmass must push a block to a target position. This is an ideal testing environment because it is fast to train but contains basic versions of the difficulties facing robotic manipulation tasks (namely, that working out how to even manipulate the block requires significant exploration of the environment). Unfortunately, I failed to succeed at more complex environments, such as the same task but with multiple blocks and my [robotic manipulation environment](https://github.com/sholtodouglas/pandaRL), but hey, [RL is hard](https://www.alexirpan.com/2018/02/14/rl-hard.html). The most likely issue is that the off-policy HRL framework I am using is too unstable compared to the on-policy algorithm used in RPL. With the recent release of the [architecture specifics](http://proceedings.mlr.press/v100/gupta20a/gupta20a.pdf) and [simulation environment](https://github.com/google-research/relay-policy-learning) of RPL I plan to revisit this.
+
+As it is, hierarchial reinforcement learning did produce significantly better results on the environment - but my experiments agree that it does not provide benefits beyond better exploration. 
 
  
 # What is Hierarchial Reinforcement Learning? 
