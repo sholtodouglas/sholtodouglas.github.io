@@ -8,7 +8,7 @@ img: images/hierarchial/pickplacewsubgoals.gif
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1")
 
 
-> "Code found [here](https://github.com/sholtodouglas/hierarchial_robotics). 
+> [Code found here](https://github.com/sholtodouglas/hierarchial_robotics). 
 
 
 * TOC
