@@ -171,4 +171,9 @@ The next step in complexity is to add another block with its own goal location. 
 {: style="text-align:center"}
 <img src="https://sholtodouglas.github.io/images/hierarchial/nice.gif" alt="Snow" style="width:28%" vertical-align= "middle">
 <img src="https://sholtodouglas.github.io/images/hierarchial/emergent.gif" alt="Forest" style="width:28%" vertical-align="middle">
+ 
+What is interesting is that even with expert demonstrations, my implementation completely fails to learn not only this task, but to move either of the blocks to the goal. To encourage this, I made the reward piecewise - so that it would recieve +1 for each block on target. Our intuition would expect that it would be capable of learning to complete one of the blocks per run in this case - even if both is too long of a time horizon. It raises an interesting question - why is this so much harder? 
 
+The dimension of the state has increased from 8 to 12 (an additonal two position and velocity dimensions), and the dimension of the goal has increased by 2 (two positional dimensions). The time horizon required to complete both tasks is double that of the single task - but why doesn't it learn to complete what it can regardless? 
+
+Similarly, for the Panda arm environment - my relay learning and flat algorithms fail to learn pushing and pick and place tasks despite scripted expert demonstations. OpenAI's baseline implementation of HER+DDPG is capable of learning both push and pick and place tasks - but my RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) fail. Both of these are obsentisbly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. With the release of (Stable Baselines 3)[https://github.com/DLR-RM/stable-baselines3], I'd like to look into whether other implementations of RL algorithms also fail on these tasks. 
