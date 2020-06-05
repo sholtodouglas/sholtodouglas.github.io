@@ -171,9 +171,9 @@ The next step in complexity is to add another block with its own goal location. 
 
 <div class="row">
   <div class="column">
-    <img src="https://sholtodouglas.github.io/images/hierarchial/nice.gif" alt="Snow" style="width:48%">
+    <img src="https://sholtodouglas.github.io/images/hierarchial/nice.gif" alt="Snow" style="width:48%" align="center">
   </div>
   <div class="column">
-    <img src="https://sholtodouglas.github.io/images/hierarchial/emergent.gif" alt="Forest" style="width:48%">
+    <img src="https://sholtodouglas.github.io/images/hierarchial/emergent.gif" alt="Forest" style="width:48%" align="center">
   </div>
 </div>
