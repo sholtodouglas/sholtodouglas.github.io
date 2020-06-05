@@ -5,6 +5,10 @@ categories: [Hierarchial, RL]
 img: images/hierarchial/pickplacewsubgoals.gif
 ---
 
+
+![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif "title-1") 
+
+
 Hierarchial Reinforcment Learning (HRL) carries unrealised promise. Using one model to break difficult, long time horizon goals into piecemeal, achievable goals handled by a different model should make solving tasks easier. It parallels the way we approach tasks. We do not think at the level of individual muscle fibres, but consider abstract goals which are broken into a sequence of stages that are then carried about by the motor cortex. 
 
 Hierarchy directly addresses two fundamental challenges in RL over long time horizons, credit assignment and exploration. All modern RL algorithms in continuous domains fail [as the time resolution approaches zero](https://openai.com/blog/ingredients-for-robotics-research/) because it becomes impossible to discern which actions in which states led to the positive or negative outcomes. Similarly, structuring and correlating exploration [is critical](https://arxiv.org/pdf/1802.07245.pdf), which is more difficult as temporal extent increases. 
@@ -28,8 +32,7 @@ This blog post uses two test environments. In the [first](https://github.com/sho
 
 ## RL Refresher. 
 
-$P(s_{t+1}| s_t, a_t)$
-\\(P(s_{t+1}|s_t, a_t)\\)
+$P(s_{t+1} \| s_t, a_t)$
 
 As a quick refresher, the standard formulation of RL involves an environment with transition function , where $s_t$ and $a_t$ are the states and actions at timestep t, and $r_t$ is the reward given by reward function R. The goal is to find a policy $\pi(a s)$ which maximises the expected sum of rewards over each trajectory $E_{\pi}$. 
 
