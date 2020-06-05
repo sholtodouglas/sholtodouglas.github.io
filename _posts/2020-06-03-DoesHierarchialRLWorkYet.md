@@ -61,17 +61,17 @@ HER provides more signal by replacing the desired goal with the goal achieved at
 ## Hierarchial Actor Critic
 HAC uses hindsight of both the action and the goal to train each level of the hierarchy independently. Typically even if the higher level is setting the correct sub goals, if lower levels are unable to achieve them, the higher level will learn that that they are incorrect for reaching the ultimate goal. Furthermore, because the lower levels are training, the behaviour will always be different and the higher level will be unable to learn any relation between the subgoals it outputs and where the agent ends up - the issue of non stationarity. 
 
-To solve this, in the $(s, a, s', r, s_g)$ tuple recorded by the replay buffer of the higher level, HAC substitutes the action (i.e, the subgoal commanded) with the state that was actually achieved by the lower level. This means that the model is always training as though the lower level is perfect at achieving the goals set, and learns the correct relationship between goals set and progress toward the real goal.
+To solve this, in the $(s, a, s', r, s_g)$ tuple recorded by the replay buffer of the higher level, HAC substitutes the action (i.e, the subgoal commanded) with the state that was actually achieved by the lower level. This means that the model is always training as though the lower level is perfect at achieving the goals set, and learns the correct relationship between goals set and progress toward the ultimate goal.
 
-This is a more elegant approach than their [original idea](https://arxiv.org/pdf/1712.00948.pdf), which was to penalise the higher level for setting unreachable subgoals, and may have been inspired by the [HER+HRL request for research](https://openai.com/blog/ingredients-for-robotics-research/). As they found and we will confirm, a small amount of this 'subgoal testing' is still required, as while the model should learn the correct value for states that are ultimately reachable by the lower level, the model can overestimate the value of genuinely unreachable goals (for example, coordinates within walls), because substituting the achieved goal for the higher level action means it would appear they are never commanded. 
+This is a more elegant approach than their [original idea](https://arxiv.org/pdf/1712.00948.pdf), which was to penalise the higher level for setting unreachable subgoals, and may have been inspired by the [HER+HRL request for research](https://openai.com/blog/ingredients-for-robotics-research/). As they found and we will confirm, a small amount of this 'subgoal testing' is still required, as while the model should learn the correct value for states that are ultimately reachable by the lower level, the model can overestimate the value of genuinely unreachable goals (for example, coordinates within walls), because action substitution means they never appear in the replay buffer.
 
 So, in making this work we are interested in a couple of questions.
 
 - What time horizon works best for the higher level to reset the subgoal?
-- Is subgoal testing required?
-- What is the higher level learning?
 - What kind of sub goal performs best? Is it the full state of the environment, just the goal relevant dimensions, or just the directly controllable dimensions corresponding to the agent itself? 
-- Finally, does hierarchy provide benefits beyond better exploration?
+- What is the higher level learning?
+- Is subgoal testing required?
+- Does hierarchy provide benefits beyond better exploration?
 
 
 ### Environment and Algorithm Details
@@ -94,7 +94,7 @@ I found that a subgoal consisting exclusively of the pointmass gave benefits to 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
-## Effects Learnt by the Higher Level
+## Visualising Subgoal Value
 
 When using just the next position of the pointmass as a subgoal, we can visualise the expected value of every possible next position at any given state by passing them into the Q function (i.e the critic, Q(s,a)) of the higher level model. This lets us clearly visualise that the higher level is learning the correct behaviour. It assigns high value to the opposite side of the block to the goal, and low value around the block once it has placed it into the goal position.
 
