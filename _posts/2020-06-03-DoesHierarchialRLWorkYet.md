@@ -68,7 +68,7 @@ HER allows goal conditioned sparse reward environments to be efficiently solved.
 HER provides more signal by replacing the desired goal with the goal achieved at the end of each trajectory. This means that even if the agent never achieves the desired goal in any trajectory (such as placing a block in the commanded position), it learns how to succeed at other potential goals (by knocking the block into them accidentally). This becomes a natural curriculum that leads the agent to learn how to succeed at more and more precise goals. 
 
 ## Hierarchial Actor Critic
-HAC uses hindsight of both the action and the goal to train each level of the hierarchy independently. Typically even if the higher level is setting the correct sub goals, if lower levels are unable to achieve them, the higher level will learn that that they are incorrect for reaching the ultimate goal. Furthermore, because the lower levels are training, the behaviour will always be different and the higher level will be unable to learn any relation between the subgoals it outputs and where the agent ends up - the issue of non stationarity. 
+HAC uses hindsight of both the action and the goal to train each level of the hierarchy independently. Typically even if the higher level is setting the correct subgoals, if lower levels are unable to achieve them, the higher level will learn that that they are incorrect for reaching the ultimate goal. Furthermore, because the lower levels are training, the behaviour will always be different and the higher level will be unable to learn any relation between the subgoals it outputs and where the agent ends up - the issue of non stationarity. 
 
 To solve this, in the $(s, a, s', r, s_g)$ tuple recorded by the replay buffer of the higher level, HAC substitutes the action (i.e, the subgoal commanded) with the state that was actually achieved by the lower level. This means that the model is always training as though the lower level is perfect at achieving the goals set, and learns the correct relationship between goals set and progress toward the ultimate goal.
 
@@ -77,7 +77,7 @@ This is a more elegant approach than their [original idea](https://arxiv.org/pdf
 So, lets take a look at the impact of HAC - and what it takes to make it work. 
 
 - How much can hierarchy improve learning over a flat model, at what kind of time horizon?
-- What kind of sub goal performs best? Is it the full state of the environment, just the goal relevant dimensions, or just the directly controllable dimensions corresponding to the agent itself? 
+- What kind of subgoal performs best? Is it the full state of the environment, just the goal relevant dimensions, or just the directly controllable dimensions corresponding to the agent itself? 
 - What is the higher level learning?
 - Is subgoal testing required?
 - Does hierarchy provide benefits beyond better exploration?
@@ -93,7 +93,7 @@ How often should the higher level reset the subgoal which the lower level is try
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/hiervsnot.png "Hierarchy vs Single Layer")
 
 
-## What kind of Sub goal performs best?
+## What kind of Subgoal performs best?
 
 On the left, subgoals in the full environment state are visualised - with the transparent pointmass and block visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. In the center, a non hierarchial model without subgoals is shown. 
 
@@ -110,7 +110,7 @@ When using just the next position of the pointmass as a subgoal, we can visualis
 ![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/qviz1.gif "title-1") ![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/qviz2.gif "title-2")
 
 
-## Sub Goal Testing 
+## Subgoal Testing 
  
 As described earlier, by substituting the lower level achieved goal for the subgoal (higher level action) in the replay buffer, the higher level trains as though the lower level perfectly achieves the subgoals it commands. However, this will lead to the higher level assigning unknown value to states which are never reached, even if they are commanded. Levy et al's solution is to periodically set the lower level policy to deterministic instead of stochastic, not substitute the subgoal for the achieved goal and then assign a large negative reward to transitions where the higher level policy sets unreached subgoals. I wondered if instead, it would be sufficient to simply not subsitute subgoal for achieved goal some fraction of the time, so that the model would learn that unreached goals do not progress it towards the goal. 
 
@@ -145,6 +145,7 @@ In RPL, they take the goal conditioned behavioural cloning model (GCBC) from LFP
 
 The training is composed of two parts, firstly the inital pretraining using supervised learning, then training with a combination of the supervised and reinforcement learning losses. 
 
+## Pretrained Baseline
 The pretrained baselines did learn to complete the task sometimes, but not reliably or efficiently as seen by the average reward and visualisations of the models below. 
 
 | Subgoal Components   | Reward for Pretrained Models           |
@@ -155,12 +156,12 @@ The pretrained baselines did learn to complete the task sometimes, but not relia
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/comparison.gif "Hierarchy vs Single Layer")
 
+## RL Finetuning
 By introducing the HAC finetuning on the lower level, our Relay learning model learns to solve the full task with equivalent performance to all other models, but in many less update steps. It is even more efficient, with 10x less expert demonstrations than behavioural cloning on a nonhierarchial model (2000 timesteps of expert demonstration, vs 20000 timesteps of expert demonstration). 
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/final_comparison.png "Hierarchy vs Single Layer")
 
 ![alt text](https://sholtodouglas.github.io/images/hierarchial/workingcomparison.gif "Hierarchy vs Single Layer")
 
-![alt-text-1](https://sholtodouglas.github.io/images/hierarchial/HACworks.gif "title-1") 
-![alt-text-2](https://sholtodouglas.github.io/images/hierarchial/HACworks2.gif "title-2")
+
 
