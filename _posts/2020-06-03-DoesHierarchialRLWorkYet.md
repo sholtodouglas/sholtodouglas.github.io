@@ -206,4 +206,5 @@ In past experiments, I found that [OpenAI's baseline implementation of HER+DDPG 
 Hierarchial RL does appear to offer benefits over flat policies due to better exploration, and it does benefit well from supervised pretraining. However, I haven't found that it increases the complexity nor time horizon of tackleable environments, nor are the benefits currently worth the extra complexity and hyperparameter tuning. The most powerful RL implementation for manipulation tasks which I have found is the flat DDPG+HER+BC, which none of my experiments have managed to superceed. This is by no means the definitive word on hierarchial learning - but based on the results of these experiments I am currently more interested in looking at better exploration strategies, or decomposing problems hierarchially by combining planning based methods with RL which has seen [recent](https://arxiv.org/abs/2002.12336) [promise](https://arxiv.org/pdf/1906.05253.pdf).
 
 
+> I'd love any feedback you have on this piece. In particular, I'd love to know if the level of detail + referring to outside sources is appropriate, or if more explaination is necessary. 
 
