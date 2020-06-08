@@ -101,7 +101,7 @@ How often should the higher level reset the subgoal which the lower level is try
 
 ## What kind of Subgoal performs best?
 
-On the left, subgoals in the full environment state are visualised - with the transparent pointmass and block visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visulised - only the pointmass itself. In the center, a non hierarchial model without subgoals is shown. 
+On the left, subgoals in the full environment state are visualised - with the transparent pointmass and block visualising the subgoal. On the right, subgoals exclusively in the controllable dimensions of the environment are visualised - only the pointmass itself. In the center, a non hierarchial model without subgoals is shown. 
 
 If the subgoal is exclusively pointmass position, then the lower level should learn extremely quickly as this is an easy task. However, this has the disadvantage that the lower level is not considering the intended position of the block as it acts. By including block position in the subgoal, you avoid this issue but make the lower level's task significantly more complex. 
 
@@ -143,7 +143,7 @@ Ofir et al, in [Why does Hierarchy (Sometimes) Work So Well in Reinforcement Lea
 # Relay Policy Learning
 [Relay Policy Learning (RPL) ](https://relay-policy-learning.github.io/) uses the same two layer, goal conditioned hierarchial policy, but pretrains both layers with supervised learning from expert demonstrations based on the goal relabelling they used in [Learning from Play (LFP) ](https://arxiv.org/pdf/1903.01973.pdf). Rather than assuming demonstration data must correspond to a desired task, in demos they interact widely with the environment and regard any state reached along these trajectories as a potential goal. For our purposes we can use a model we've already trained to collect demonstration data, rather than teleoperating. 
 
-To create higher level training data, they sample a sub-trajectory from the data and take the final state as the goal state. If the higher level acts every n steps, then observation, action pairs are simply $(o_t, a_{t+n})$ for all timesteps t throughout the trajectory. Lower level training data takes windows from $t$ to $t+n$ from the trajectories, and sets $s_{t+n} as the goal state, using every timestep within each window as data. 
+To create higher level training data, they sample a sub-trajectory from the data and take the final state as the goal state. If the higher level acts every n steps, then observation, action pairs are simply $(o_t, a_{t+n})$ for all timesteps t throughout the trajectory. Lower level training data takes windows from $t$ to $t+n$ from the trajectories, and sets $s_{t+n}$ as the goal state, using every timestep within each window as data. 
 
 This greatly expands the available data, because each observed state, action pair is valid for many goals. It also makes the data significantly easier to collect for a human teleoperator, as instead of having to reset the environment after each demonstration - the human can freely play. In LFP they found that models purely trained using supervised learning were able to comfortably complete a variety of robotic manipulation tasks. 
 
@@ -190,15 +190,15 @@ As expected, the algorithms solve the Panda Reaching environment within a few th
 {: style="text-align:center"}
 <figure>
     <img src='https://sholtodouglas.github.io/images/hierarchial/pickplacewsubgoals.gif' alt='missing' style="width:55%" />
-    <figcaption>Sub goal visualisation on the Panda Pick and Place Environment</figcaption>
+    <figcaption>Subgoal visualisation on the Panda Pick and Place Environment</figcaption>
 </figure>
 
-In past experiments, I found that [OpenAI's baseline implementation of HER+DDPG with Behavioural Cloning](https://github.com/openai/baselines/tree/master/baselines/her) is capable of learning even a difficult tool usage environment I created. My RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) cannot. Both of these are ostensibly stronger algorithms than DPPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. This could lie in the implementations of the RL algorithms themselves, or in how I am integrating supervised losses. With the release of [Stable Baselines 3](https://github.com/DLR-RM/stable-baselines3), I'd like to look into how other RL implementations perform - and modify them to include include supervised losses from demonstration. 
+In past experiments, I found that [OpenAI's baseline implementation of HER+DDPG with Behavioural Cloning](https://github.com/openai/baselines/tree/master/baselines/her) is capable of learning even a difficult tool usage environment I created. My RL algorithms (which are effectively wrappers around the Spinning Up implementation of SAC and TD3) cannot. Both of these are ostensibly stronger algorithms than DDPG - and both successfully learn the pointmass and block task but fail to scale to more complex tasks. This could lie in the implementations of the RL algorithms themselves, or in how I am integrating supervised losses. With the release of [Stable Baselines 3](https://github.com/DLR-RM/stable-baselines3), I'd like to look into how other RL implementations perform - and modify them to include include supervised losses from demonstration. 
 
 {: style="text-align:center"}
 <figure>
     <img src='https://sholtodouglas.github.io/images/hierarchial/toolusage.gif' style="width:65%" alt='missing' />
-    <figcaption>Tool usage learnt with the OpenAI baselines HER+DPPG+Behavioural Cloning. </figcaption>
+    <figcaption>Tool usage learnt with the OpenAI baselines HER+DDPG+Behavioural Cloning. </figcaption>
 </figure>
 
 ### Conclusion
