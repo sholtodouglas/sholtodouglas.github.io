@@ -25,7 +25,7 @@ Despite this, it has largely failed to deliver on the hype. No major results use
 Two pieces of work made me interested in exploring whether this was about to change. 
 - [Relay Policy Learning (RPL)](https://relay-policy-learning.github.io/), by Gupta et al achieved state of the art robotic manipulation results by training a two layer hierarchy with behavioural cloning fine-tuned with RL. They find hierarchially decomposing the problem makes it more amenable to RL finetuning than a flat policy would be. 
 
-- [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf), by Levy et al is an elegant approach to training hierarchial models based on hindsight experience replay (HER) which solves the issue of non stationary lower levels. They achieve results on a set of simple problems that exceed non-hierarchial models. 
+- [Learning Multi-Level Hierarchies with Hindsight (HAC)](https://arxiv.org/pdf/1712.00948.pdf), by Levy et al is an elegant approach to training hierarchial models based on [hindsight experience replay (HER)](https://arxiv.org/abs/1707.01495) which solves the issue of non stationary lower levels. They achieve results on a set of simple problems that exceed non-hierarchial models. 
 
 I decided to try extend RPL by using off policy, hindsight based learning, which should be significantly more sample efficient than the on policy learning used in RPL and potentially make it viable for real world robotics. 
 
@@ -67,7 +67,7 @@ When state space is available, specifying goals here is easy, inexpensive to com
 # Analysing Learning Multi-Level Hierarchies with Hindsight (HAC)
 
 ## Hindsight 
-HAC extends Hindsight Experience Replay (HER) to the hierarchial setting.
+HAC extends [Hindsight Experience Replay (HER)](https://arxiv.org/abs/1707.01495) to the hierarchial setting.
 
 HER allows goal conditioned sparse reward environments to be efficiently solved by off-policy algorithms. Sparse rewards give 0 for success and -1 for failure, while dense rewards resemble a continuous function, such as euclidean distance between the current state and the goal state. Sparse rewards are preferred to dense rewards because dense rewards can contain local minima and require time consuming design. However, dense rewards guide an agent gradually through the environment, unlike with sparse rewards where an agent only receives signal when it succeeds, meaning that at first it randomly fails until it accidentally succeeds. 
 
