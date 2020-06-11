@@ -21,21 +21,16 @@ I like these ideas as they break down long horizon problems into achievable subg
 # Energy Models for Generative Modelling
 Concurrently, I was inspired to look into energy models after Yann LeCun's recent [video on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). These are an extremely promising form of model for generative modelling. Variational Autoencoders typically require the use of reconstruction losses - which do not perform well on more complex generative tasks like images because per pixel reconstruction error is a poor proxy for overall image quality. Generative Adversarial Nets overcome this with the learned discriminator (and thus produce much better quality generated samples), but balancing the adversarial training is extremely difficult. 
 
-Energy models offer a way to train a single model, with self-supervised losses that has much more expressive capacity than VAEs.
+Energy models offer a way to train a single model, with self-supervised losses that has much more expressive capacity than VAEs. In the simplest case, the goal is to train a function F(x) which outputs a low scalar 'energy' value for inputs of the type we would like to generate, and high for everything else. A conditional energy function F(x,y) outputs low energy for x,y pairings which follow from eachother given our data. For example, x and y could be the coordinates of points on a function, or x and y could be a textual question and answer respectively. 
 
-Scalar Valued Energy Function F(x,y)
+To generate using an energy function, you start off with random noise, input this into the energy function, take the gradient with respect to the energy and minimise it by changing the input.
 
-Low energy: y i s a good prediction from x 
-High energy: y is a bad prediction from x 
-Inference $ \hat{y} = \min_{y} F(x,y) $
+$ \hat{y} = \min_{y} F(x,y) $
 
-In other words, given some x, lets you predict y which would be likely given x (as determined by your dataset). You can either have conditional or unconditional 
+## Form of the energy function 
 
-E.g, given a set of points on a spiral (with x,y coordinates), make it so points on spiral are low energy, and points off spiral are high energy. Then, given random points we can descend down the energy function and generate a spiral! 
+Traditionally, energy models have been formalised probabilistically, with the model outputting a distribution - and the training objective being to decrease the negative log liklihood of 'low energy' examples. In the video, Yann argues that using distributions won't lead to as smooth an energy surface because the distribution will often be non probabilistic, "the distribution would be infinity on the [data] manifold, and 0 just outside it". To model this properly will require infinite weights and give a 'golf course'. What we want is a really smooth energy manifold to descend down, and probabilistic methods break that.
 
-Typically, people have done this with models which output a probability distribution. Yann Argues against this by saying that the "distribution would be infinity on the manifold, and 0 just outside it", which will lead to infinite weights.  which will give a 'golf course'. What we want is a really smooth manifold, probabilistic methods break that.
-
-The energy is akin to learning the negative log liklihood - but he is emphatic that what we don't want to learn is a probability distribution. 
 
 Contrastive and architectural methods. Contrastive F(x_i , y_i) is strictly smaller than F(x_i, y) for y not in the training examples. Similar to max-likilihood if you had a tractable  Architectural is methods like PCA, K-means - or his favourite which is to use a regularization term that measures the volume of space that has low energy. Sparse coding, sparse autoencoder. 
 
