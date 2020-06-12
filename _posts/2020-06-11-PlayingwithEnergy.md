@@ -8,7 +8,7 @@ categories: [Energy Models, RL]
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
 
 
-> [Run the code here](https://github.com/sholtodouglas/hierarchial_robotics). 
+> [Run the code on colab here](https://colab.research.google.com/drive/1qNyDSD2O6uFw_sJX8eyWNh9VZ6LyHI-O?usp=sharing). 
 
 
 * TOC
