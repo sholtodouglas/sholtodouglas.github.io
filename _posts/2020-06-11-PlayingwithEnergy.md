@@ -8,7 +8,7 @@ categories: [Energy Models, RL]
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
 
 
-# Playing with Energy Models for Generative Modelling
+# Playing with Energy Models
 I was inspired to look into energy models after Yann LeCun's [speak on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
 
 Energy models offer a way to train a single generative model which is simpler to train than Generative Adversarial Nets (GANs) and more expressive than Variational Autoencoders (VAEs). VAEs typically require the use of reconstruction losses - which do not perform well on more complex generative tasks like images because per pixel reconstruction error is a poor proxy for overall image quality. GANs overcome this with the learned discriminator (and thus produce much better quality generated samples), but coordinating the adversarial training is extremely difficult - it is much easier to train the discriminator than the generator. 
@@ -25,7 +25,9 @@ Traditionally, energy models have been formalised probabilistically, with the mo
 
 In the simplest form, the models are just a neural net with a single output node in the final layer representing the energy. To train this here is a whole taxonomy of potential methods, and in the video contrastive and architectural methods are highlighted.  
 
-Contrastive methods have a training objective that optimises the model such that $F(x_i , y_i)$ is strictly smaller than $F(x_i, y)$, where $x_i, y_i$ are paired examples, and $y$ are negative examples. Architectural methods restrict the informational capacity of the model, and include everything from PCA and K-means to sparse autoencoders which use a regularization term to limit the volume of space that has low energy.  
+Contrastive methods have a training objective that optimise
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")s the model such that $F(x_i , y_i)$ is strictly smaller than $F(x_i, y)$, where $x_i, y_i$ are paired examples, and $y$ are negative examples. Architectural methods restrict the informational capacity of the model, and include everything from PCA and K-means to sparse autoencoders which use a regularization term to limit the volume of space that has low energy.  
 
 ## Loss Function
 
@@ -49,13 +51,42 @@ As an initial test of the models, I created energy functions for simple 2D funct
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
 
+Other examples include two intersecting parabolas.
 
 
 
-# Planning and Reinforcement Learning
-Recently I became interested in looking at combining planning and reinforcment learning, inspired by: 
+![alt-text-1](https://sholtodouglas.github.io/images/energy/twoparabolas.png "Energy Model resolution increasse with neural net size")
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/animation.gif "Energy Model resolution increasse with neural net size")
+
+
+# Using Energy Models in Planning and Reinforcement Learning
+Recently I also became interested in looking at combining planning and reinforcment learning, inspired by: 
 - [Hallucinative Topological Memory for Zero-Shot Visual Planning (HTM)](https://arxiv.org/pdf/2002.12336.pdf), which uses a conditional VAE to sample from possible states in the environment, measures the distance between all of them using a model trained on example expert trajectories, then uses graph search to find the shortest path between start state and goal. A lower level tries to reach each state along this shortest path as a series of sub-goals. The C-VAE is able to adapt to unseen environments from the same theme at test time.
 
 - [Search on the Replay Buffer: Bridging Planning and Reinforcement Learning (SORB)](https://arxiv.org/abs/1906.05253), instead of using a conditional VAE they sample from observed states in the replay buffer, and then measure the distance between them using the value function of the lower level (by taking the value of a state conditional on the other state as a goal). Similar graph search and lower level subgoal reaching follows. 
 
-I like these ideas as they break down long horizon problems into achievable subgoals and are highly interpretable. I prefer the use of the q or value functions from the lower level to measure distance between states as per SORB, as this does not require expert trajectories. However, I find the idea of randomly sampling from the replay buffer to find potential subgoals inefficient - and would prefer to only search on states likely to be between the current state and the goal. By building off the C-VAE of HTM, I thought it might be possible to create a generative model which generated states likely to be between the states as opposed to from the environment generally. This could be done by using the trajectories collected during RL exploration, and training a model to generate the states in between observed states. These will not be generated in an optimal path - but thats what the graph search is for! 
+I like these ideas as they break down long horizon problems into achievable subgoals and are highly interpretable. I prefer the use of the q or value functions from the lower level to measure distance between states as per SORB, as this does not require expert trajectories. However, I find the idea of randomly sampling from the replay buffer to find potential subgoals inefficient - and would prefer to only search on states likely to be between the current state and the goal. 
+
+By building off the C-VAE of HTM, I thought it might be possible to create a generative model which generated states likely to be between the states as opposed to from the environment generally. This could be done by using the trajectories collected during RL exploration, and training a model to generate the states in between observed states. These will not be generated in an optimal path - but thats what the graph search is for! 
+
+## Generating States Along Potential Traectories with Energy Models
+
+For this generative model, I decided to experiment with an energy model. My first experiments involved a trivial task - moving a pointmass to a goal position on a flat plane. I thought it would be interesting to see if an energy model could learn to output low energy for states between the current state and the goal, and higher energy for other states.
+
+To train this, I trained a condtional energy model where $x$ was the current state and the goal, and $y_+$ was points along trajectories, and $y_-$ was randomly sampled states. 
+
+The model clearly learns to create an energy valley between the current state and the goal (represented by the red and blue dots).
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/pathenergy.png "Energy Model resolution increasse with neural net size")
+
+Generating random points and then letting them descend the energy surface gives a reasonable sample of points along the path.
+
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/pointMassPathConvergence.gif "Energy Model resolution increasse with neural net size")
+
+Using the Q value function of a model trained to reach goal positions allowed me to measure the distance between states, and connect states into a shortest path between the start and end. 
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/path.png "Energy Model resolution increasse with neural net size")
+
+
