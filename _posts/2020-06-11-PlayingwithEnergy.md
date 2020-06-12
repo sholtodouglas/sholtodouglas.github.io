@@ -98,5 +98,5 @@ Using the Q value function of a model trained to reach goal positions allowed me
 
 ## Conclusion
 
-I found it interesting to do a set of quick experiments with energy functions for generating states to plan with, but my results were not very compelling. Firstly, the generated states didn't include the direct straight line, optimal path - even in a very simple problem. Secondly, even spiral generation was flawed. EBMs have a lot of promise and have achieved extremely powerful results - but for my RL interests, I'm going to continue to experiment with other ideas rather than pursuing the path of trying to get this framework to work well.
+I found it interesting to do a set of quick experiments with energy functions for generating states to plan with, but my results were not very compelling. Firstly, the generated states didn't include the direct straight line, optimal path - even in a very simple problem. Secondly, even spiral generation was flawed. EBMs have a lot of promise and [have achieved extremely powerful results](https://arxiv.org/pdf/1903.08689.pdf) - but for my RL interests, I'm going to continue to experiment with other ideas rather than pursuing the path of trying to get this framework to work well.
 
