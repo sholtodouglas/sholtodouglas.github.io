@@ -74,7 +74,7 @@ I like these ideas as they break down long horizon problems into achievable subg
 
 By building off the C-VAE of HTM, I thought it might be possible to create a generative model which generated states likely to be between the states as opposed to from the environment generally. This could be done by using the trajectories collected during RL exploration, and training a model to generate the states in between observed states. These will not be generated in an optimal path - but thats what the graph search is for! 
 
-## Generating States Along Potential Traectories with Energy Models
+## Generating States Along  Trajectories with Energy Models
 
 For this generative model, I decided to experiment with an energy model. My first experiments involved a trivial task - moving a pointmass to a goal position on a flat plane. This is not the kind of long horizon task where planning should help, but its critical to ensure it performs reasonably in a simple and interpretable task.
 
