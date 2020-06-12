@@ -57,7 +57,7 @@ Other examples include two intersecting parabolas.
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/twoparabolas.png "Energy Model resolution increasse with neural net size")
 
-![alt-text-1](https://sholtodouglas.github.io/images/energy/animation.gif "Energy Model resolution increasse with neural net size")
+![alt-text-1](https://sholtodouglas.github.io/images/energy/spiral.gif "Energy Model resolution increasse with neural net size")
 
 
 # Using Energy Models in Planning and Reinforcement Learning
@@ -72,16 +72,15 @@ By building off the C-VAE of HTM, I thought it might be possible to create a gen
 
 ## Generating States Along Potential Traectories with Energy Models
 
-For this generative model, I decided to experiment with an energy model. My first experiments involved a trivial task - moving a pointmass to a goal position on a flat plane. I thought it would be interesting to see if an energy model could learn to output low energy for states between the current state and the goal, and higher energy for other states.
+For this generative model, I decided to experiment with an energy model. My first experiments involved a trivial task - moving a pointmass to a goal position on a flat plane. This is not the kind of long horizon task where planning should help, but its critical to ensure it performs reasonably in a simple and interpretable task.
 
 To train this, I trained a condtional energy model where $x$ was the current state and the goal, and $y_+$ was points along trajectories, and $y_-$ was randomly sampled states. 
 
-The model clearly learns to create an energy valley between the current state and the goal (represented by the red and blue dots).
+The model clearly learns to create an energy valley between the current state and the goal (represented by the red and blue dots). However, there is clearly a high energy saddle between them - this is likely because I sampled points randomly along the trajectories of the point mass - and it moves with highest velocity in the center, taking time to accelerate and decelerate. This means that points at either end will be overrepresented in the dataset. 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/pathenergy.png "Energy Model resolution increasse with neural net size")
 
-Generating random points and then letting them descend the energy surface gives a reasonable sample of points along the path.
-
+Generating random points and then letting them descend the energy surface gives a reasonable sample of points along the path. By not continuing to convergence, we eliminate the issue of dips in energy at the ends of the trajectory and ensure reasonable coverage along the path.
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/pointMassPathConvergence.gif "Energy Model resolution increasse with neural net size")
 
