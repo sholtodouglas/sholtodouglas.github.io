@@ -7,8 +7,9 @@ categories: [Energy Models, RL]
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
 
-# Energy Models for Generative Modelling
-I was inspired to look into energy models after Yann LeCun's recent [video on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
+
+# Playing with Energy Models for Generative Modelling
+I was inspired to look into energy models after Yann LeCun's [speak on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
 
 Energy models offer a way to train a single generative model which is simpler to train than Generative Adversarial Nets (GANs) and more expressive than Variational Autoencoders (VAEs). VAEs typically require the use of reconstruction losses - which do not perform well on more complex generative tasks like images because per pixel reconstruction error is a poor proxy for overall image quality. GANs overcome this with the learned discriminator (and thus produce much better quality generated samples), but coordinating the adversarial training is extremely difficult - it is much easier to train the discriminator than the generator. 
 
@@ -34,11 +35,21 @@ $ Loss = max(0, −(  F(x_i, y) - F(x_i , y_i) )+ margin ) $
 
 ## Predicting Under Uncertainty
 
-Latent Variables allow the EBM to predict multimodally, as you can sample from the latent variable while the EBM remains unprobabilistic. 
+Using latent variables allows us to recover the ability to predict under uncertainty. Without this, in stochastic environments like the real world, models will have blurry predictions that are an average of the possibilities rather than the most likely possiblity. By conditioning the energy model on a latent variable F(x,y,z), you can sample from the random vector z to introduce a degree of flexiblity into a nonprobabilistic EBM. Watch the video for more, as I am only dealing with deterministic environments in this post. 
 
 ## Choosing Negative Examples
 
-The primary difficulty with the training of energy functions is choosing the negative examples. GANs use a generator to produce realistic outputs which fool the discriminator, energy functions need similarly difficult negative examples to train properly - in high dimensional spaces random samples are insufficient. This is solved by 'hard negative mining', which amongst other methods can be approached by using mismatched pairs from the dataset (for example, video frames which do not follow after one another), and using prioritizied sampling of frames to select the negative samples wrongly given low energy values by the model. 
+The primary difficulty with the contrastive training of energy functions is choosing the negative examples. GANs use a generator to produce realistic outputs which fool the discriminator, energy functions need similarly difficult negative examples to train properly - in high dimensional spaces random samples are insufficient. This is solved by 'hard negative mining', which amongst other methods can be approached by using mismatched pairs from the dataset (for example, video frames which do not follow after one another), and using prioritizied sampling of frames to select the negative samples wrongly given low energy values by the model.
+
+## Results
+
+As an initial test of the models, I created energy functions for simple 2D functions - like a spiral. Its extremely easy to verify correctness by visualising the energy of sampled points on a 2D plane. The energy function for a spiral is the most clear visualisation I've seen of the increased modelling capacity of a neural network as layer size increases. I used a 3 layer network with varying layer size, and the energy of a plane is shown below. 
+
+
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
+
+
 
 
 # Planning and Reinforcement Learning
