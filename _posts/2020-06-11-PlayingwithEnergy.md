@@ -25,9 +25,7 @@ Traditionally, energy models have been formalised probabilistically, with the mo
 
 In the simplest form, the models are just a neural net with a single output node in the final layer representing the energy. To train this here is a whole taxonomy of potential methods, and in the video contrastive and architectural methods are highlighted.  
 
-Contrastive methods have a training objective that optimise
-
-![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")s the model such that $F(x_i , y_i)$ is strictly smaller than $F(x_i, y)$, where $x_i, y_i$ are paired examples, and $y$ are negative examples. Architectural methods restrict the informational capacity of the model, and include everything from PCA and K-means to sparse autoencoders which use a regularization term to limit the volume of space that has low energy.  
+Contrastive methods have a training objective that optimises the model such that $F(x_i , y_i)$ is strictly smaller than $F(x_i, y)$, where $x_i, y_i$ are paired examples, and $y$ are negative examples. Architectural methods restrict the informational capacity of the model, and include everything from PCA and K-means to sparse autoencoders which use a regularization term to limit the volume of space that has low energy.  
 
 ## Loss Function
 
