@@ -20,11 +20,11 @@ $ \hat{y} = \min_{y} F(x,y) $
 
 ## Form of the energy function 
 
-Traditionally, energy models have been formalised probabilistically, with the model outputting a distribution - and the training objective being to decrease the negative log liklihood of 'low energy' examples under this distribution, and vica-versa. In the video, Yann argues that using distributions won't lead to as smooth an energy surface because the distribution will often be non probabilistic, "the distribution would be infinity on the [data] manifold, and 0 just outside it". To model this properly will require infinite weights and give a 'golf course'. What we want is a really smooth energy manifold to descend down, and probabilistic methods break that.
+Traditionally, energy models have been formalised probabilistically, with the model outputting a distribution - and the training objective being to decrease the negative log likelihood of 'low energy' examples under this distribution, and vica-versa. In the video, Yann argues that using distributions won't lead to as smooth an energy surface because the distribution will often be non probabilistic, "the distribution would be infinity on the [data] manifold, and 0 just outside it". To model this properly will require infinite weights and give a 'golf course'. What we want is a really smooth energy manifold to descend down, and probabilistic methods break that.
 
-In the simplest form, the models are just a neural net with a single output node in the final layer, with no activation function, representing the energy. I've personally been most impressed by contrastive methods, which have a training objective that optimises the model such that $F(x_i , y_i)$ is strictly smaller than $F(x_i, y)$, where $x_i, y_i$ are paired examples, and $y$ is hard negative mined.  
+In the simplest form, the models are just a neural net with a single output node in the final layer representing the energy. To train this here is a whole taxonomy of potential methods, and in the video contrastive and architectural methods are highlighted.  
 
-There is a whole taxonomy of potential methods, and in the video contrastive and architectural methods are highlighted. Architectural methods restrict the informational capacity of the model, and include everything from PCA and K-means to sparse autoencoders which use a regularization term to limit the volume of space that has low energy. 
+Contrastive methods have a training objective that optimises the model such that $F(x_i , y_i)$ is strictly smaller than $F(x_i, y)$, where $x_i, y_i$ are paired examples, and $y$ are negative examples. Architectural methods restrict the informational capacity of the model, and include everything from PCA and K-means to sparse autoencoders which use a regularization term to limit the volume of space that has low energy.  
 
 ## Loss Function
 
