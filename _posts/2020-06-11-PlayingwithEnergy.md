@@ -8,11 +8,11 @@ categories: [Energy Models, RL]
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
 
 # Energy Models for Generative Modelling
-I was inspired to look into energy models after Yann LeCun's recent [video on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). Energy models offer a way to train a single model for generative modelling which is simpler to train than Generative Adversarial Nets (GANs) and more expressive than Variational Autoencoders (VAEs). VAEs typically require the use of reconstruction losses - which do not perform well on more complex generative tasks like images because per pixel reconstruction error is a poor proxy for overall image quality. GANs overcome this with the learned discriminator (and thus produce much better quality generated samples), but coordinating the adversarial training is extremely difficult - it is much easier to train the discriminator than the generator. 
+I was inspired to look into energy models after Yann LeCun's recent [video on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
 
-In the uncondtional case, the goal is to train a function $F(x)$ which outputs a low scalar 'energy' value for inputs of the type we would like to generate (positive examples), and high for everything else (negative examples). This is very similar to training the discriminator of a GAN (which outputs the probability that a generated sample is real). A conditional energy function $F(x,y)$ outputs low energy for $x,y$ pairings which follow from eachother given our data. For example, $x$ and $y$ could be the coordinates of points on a spiral, or $x$ and $y$ could be successive frames in a video respectively.  
+Energy models offer a way to train a single generative model which is simpler to train than Generative Adversarial Nets (GANs) and more expressive than Variational Autoencoders (VAEs). VAEs typically require the use of reconstruction losses - which do not perform well on more complex generative tasks like images because per pixel reconstruction error is a poor proxy for overall image quality. GANs overcome this with the learned discriminator (and thus produce much better quality generated samples), but coordinating the adversarial training is extremely difficult - it is much easier to train the discriminator than the generator. 
 
-The primary difficulty with the training of energy functions is choosing the negative examples. GANs use a generator to produce realistic outputs which fool the discriminator, energy functions need similarly difficult negative examples to train properly - in high dimensional spaces random samples are insufficient. This is solved by 'hard negative mining', which amongst other methods can be approached by using mismatched pairs from the dataset (for example, video frames which do not follow after one another), and using prioritizied sampling of frames to select the negative samples wrongly given low energy values by the model. 
+In the uncondtional case, the goal is to train a function $F(x)$ which outputs a low scalar 'energy' value for inputs of the type we would like to generate (positive examples), and high for everything else (negative examples). This is very similar to training the discriminator of a GAN (which outputs the probability that a generated sample is real). A conditional energy function $F(x,y)$ outputs low energy for $(x,y)$ pairings which follow from eachother given our data. For example, $x$ and $y$ could be the coordinates of points on a spiral, or $x$ and $y$ could be successive frames in a video.  
 
 To generate using an unconditional energy function, you begin with $x$ as random noise, input this into the energy function, take the gradient with respect to the energy and minimise it by changing $x$. With conditonal models, you only change $y$ to minimise the energy. Repeat until convergence. 
 
@@ -35,6 +35,10 @@ $ Loss = max(0, −(  F(x_i, y) - F(x_i , y_i) )+ margin ) $
 ## Predicting Under Uncertainty
 
 Latent Variables allow the EBM to predict multimodally, as you can sample from the latent variable while the EBM remains unprobabilistic. 
+
+## Choosing Negative Examples
+
+The primary difficulty with the training of energy functions is choosing the negative examples. GANs use a generator to produce realistic outputs which fool the discriminator, energy functions need similarly difficult negative examples to train properly - in high dimensional spaces random samples are insufficient. This is solved by 'hard negative mining', which amongst other methods can be approached by using mismatched pairs from the dataset (for example, video frames which do not follow after one another), and using prioritizied sampling of frames to select the negative samples wrongly given low energy values by the model. 
 
 
 # Planning and Reinforcement Learning
