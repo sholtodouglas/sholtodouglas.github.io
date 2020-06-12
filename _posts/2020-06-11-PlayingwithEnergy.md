@@ -9,7 +9,7 @@ categories: [Energy Models, RL]
 
 
 # Playing with Energy Models
-I was inspired to look into energy models after Yann LeCun's [speak on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
+I was inspired to look into energy models after Yann LeCun's [talk on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
 
 Energy models offer a way to train a single generative model which is simpler to train than Generative Adversarial Nets (GANs) and more expressive than Variational Autoencoders (VAEs). VAEs typically require the use of reconstruction losses - which do not perform well on more complex generative tasks like images because per pixel reconstruction error is a poor proxy for overall image quality. GANs overcome this with the learned discriminator (and thus produce much better quality generated samples), but coordinating the adversarial training is extremely difficult - it is much easier to train the discriminator than the generator. 
 
