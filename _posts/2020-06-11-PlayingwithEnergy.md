@@ -50,14 +50,14 @@ As an initial test of the models, I created energy functions for simple 2D funct
 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
+Sampling random points and decending the energy surface gives a reasonable distribution along the parabola - but even with as simple an object as this there are dips in the energy function where points overcollect. Ideally, all points along the spiral should have the same energy - but this is not directly optimised for. 
+
+![alt-text-1](https://sholtodouglas.github.io/images/energy/spiral.gif "Energy Model resolution increasse with neural net size")
 
 Other examples include two intersecting parabolas.
 
-
-
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/twoparabolas.png "Energy Model resolution increasse with neural net size")
 
-![alt-text-1](https://sholtodouglas.github.io/images/energy/spiral.gif "Energy Model resolution increasse with neural net size")
 
 
 # Using Energy Models in Planning and Reinforcement Learning
@@ -74,6 +74,10 @@ By building off the C-VAE of HTM, I thought it might be possible to create a gen
 
 For this generative model, I decided to experiment with an energy model. My first experiments involved a trivial task - moving a pointmass to a goal position on a flat plane. This is not the kind of long horizon task where planning should help, but its critical to ensure it performs reasonably in a simple and interpretable task.
 
+<p align="center">
+  <img src="https://github.com/sholtodouglas/pointMass/blob/master/images/self.gif?raw=true" alt="Object Manipulation?"/>
+</p>
+
 To train this, I trained a condtional energy model where $x$ was the current state and the goal, and $y_+$ was points along trajectories, and $y_-$ was randomly sampled states. 
 
 The model clearly learns to create an energy valley between the current state and the goal (represented by the red and blue dots). However, there is clearly a high energy saddle between them - this is likely because I sampled points randomly along the trajectories of the point mass - and it moves with highest velocity in the center, taking time to accelerate and decelerate. This means that points at either end will be overrepresented in the dataset. 
@@ -88,4 +92,7 @@ Using the Q value function of a model trained to reach goal positions allowed me
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/path.png "Energy Model resolution increasse with neural net size")
 
+## Conclusion
+
+I found it interesting to do a set of quick experiments with energy functions for generating states to plan with, but my results were not very compelling. Firstly, the generated states didn't include the direct straight line, optimal path - even in a very simple problem. Secondly, even spiral generation was flawed. EBMs have a lot of promise and have achieved extremely powerful results - but for my RL interests, I'm going to continue to experiment with other ideas rather than pursuing the path of trying to get this framework to work well.
 
