@@ -82,7 +82,7 @@ For this generative model, I decided to experiment with an energy model. My firs
   <img src="https://github.com/sholtodouglas/pointMass/blob/master/images/self.gif?raw=true" alt="Object Manipulation?"/>
 </p>
 
-To train this, I trained a condtional energy model where $x$ was the current state and the goal, and $y_+$ was points along trajectories, and $y_-$ was randomly sampled states. 
+To train this, I trained a condtional energy model where $x$ was the current state and the goal, $y_+$ was points along trajectories, $y_-$ was randomly sampled states. 
 
 The model clearly learns to create an energy valley between the current state and the goal (represented by the red and blue dots). However, there is clearly a high energy saddle between them - this is likely because I sampled points randomly along the trajectories of the point mass - and it moves with highest velocity in the center, taking time to accelerate and decelerate. This means that points at either end will be overrepresented in the dataset. 
 
