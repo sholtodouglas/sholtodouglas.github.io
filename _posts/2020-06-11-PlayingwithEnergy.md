@@ -48,7 +48,7 @@ As an initial test of the models, I created energy functions for simple 2D funct
 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
-Sampling random points and decending the energy surface gives a reasonable distribution along the parabola - but even with as simple an object as this there are dips in the energy function where points overcollect. Ideally, all points along the spiral should have the same energy - but this is not directly optimised for. 
+Sampling random points and decending the energy surface gives a reasonable distribution along the spiral - but even with as simple an object as this there are dips in the energy function where points overcollect. Ideally, all points along the spiral should have the same energy - but this is not directly optimised for. 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/spiral.gif "Energy Model resolution increasse with neural net size")
 
