@@ -8,6 +8,12 @@ categories: [Energy Models, RL]
 ![alt-text-1](https://sholtodouglas.github.io/images/energy/energyincreasing.png "Energy Model resolution increasse with neural net size")
 
 
+> [Run the code here](https://github.com/sholtodouglas/hierarchial_robotics). 
+
+
+* TOC
+{:toc}
+
 # Playing with Energy Models
 I was inspired to look into energy models after Yann LeCun's [talk on energy based self supervised learning](https://www.youtube.com/watch?v=A7AnCvYDQrU). 
 
