@@ -55,7 +55,7 @@ Encoding behaviours into latent space is clearly more effective than a sparse se
 
 Latent representations of goal states are useful in image domains because they free the lower levels to focus on only goal critical aspects of the environment, which follows a broader theme that reconstruction based representation learning is less effective than contrastive learning - because reconstruction is unnecesarily difficult and often focuses on irrelevant parts of the image. 
 
-When state space is available, specifying goals here is easy, inexpensive to compute and by using HAC we can train the layers of the hierarchy independently. In addition, it is easy to use unlabelled, cheap to collect interaction data to pretrain via RPL. 
+When state space is available, specifying goals here is easy, inexpensive to compute and by using HAC we can train the layers of the hierarchy independently. In addition, it is easy to use unlabelled interaction data to pretrain via RPL. 
 
 {: style="text-align:center"}
 <figure>
