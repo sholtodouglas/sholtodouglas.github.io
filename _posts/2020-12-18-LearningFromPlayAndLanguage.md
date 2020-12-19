@@ -37,7 +37,10 @@ Before we get into it? Check out this gorgeous embedding space of trajectories.
 
 # How hard can a great environment be? 
 
+### Teleoperation
 Insidiously hard. We tried re-implementing LFP for one of our senior year classes and failed due to a critical environment issue which we didn't discover till we came back to crack our 'great white whale'. Saving images of the environment took a variable amount of time, which was often long enough that it affected the frame rate of data capture. This meant that the time between actions in the dataset was variable, which meant that the time which the action was executed for was variable - decoupling the learnable link between action and outcome. We spent weeks trying to improve the algorithm itself - rather than making sure the environment was learnable. 
+
+### Keep it simple, stupid
 
 When we came back, we made sure to do it right. No cutting corners. 
 
@@ -45,6 +48,7 @@ First, learn 3DOF reaching with scripted demonstrations. Then use scripted demon
 
 Next issue. 
 
+### Representing Orientation
 What is the best way to represent orientation of the gripper? Corey et al use RPY - we thought we could be clever, and use quaternions to avoid the discontinuities inherent in RPY. A fun fact about quaternions is that the negative of the quaternion is an equivlant representation of orientation. pyBullet (the great simulator we used), is not consistent in the representation as you move in the environment. To correct this, you have to create a small check in the environment which checks if the sign on every element of the quaternion is the negative of the previous timestep, in which case - you flip the sign and thus smooth the signal. 
 
 Problem solved? Not quite. Quaternions must be normalised to be a valid orientation. Neural net outputs have no such constraint, besides, we still had a few discontinuities. This led us down the path of [5D and 6D rotational embeddings](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhou_On_the_Continuity_of_Rotation_Representations_in_Neural_Networks_CVPR_2019_paper.pdf)...
