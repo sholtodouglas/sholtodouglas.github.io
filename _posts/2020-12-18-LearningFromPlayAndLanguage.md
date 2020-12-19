@@ -16,7 +16,7 @@ categories: [play, language, imitation, latent]
 # Introduction
 
 
-> "Can we enable fast transfer learning to new scenes or behaviours by using language to exand the available training data for imitation learning?"
+> "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and much larger, diverse set of human video?"
 
 ### Inspiration
 We were inspired to ask this question by a pair of papers, [Learning from play (LFP)](https://learning-from-play.github.io/) and [Grounding language in play (LangLMP)](https://arxiv.org/abs/2005.07648). These present a couple of important ideas:
