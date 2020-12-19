@@ -32,7 +32,7 @@ Our hypothesis was that this would mean the entire architecture would be easier 
 First step though? We had to build the tech stack up to that point - a good environment to teach a robot to play in, then reimplement LFP and LangLMP.
 
 Before we get into it? Check out this gorgeous embedding space of trajectories.
-![alt-text-1](https://sholtodouglas.github.io/images/play/latent.png "latent space")
+![alt-text-1](https://sholtodouglas.github.io/images/play/latent_cropped.png "latent space")
 
 
 # How hard can a great environment be? 
