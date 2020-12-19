@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Learning from play and language [Work in Progress]
+title: Transfer learning from play and language [Work in Progress]
 categories: [play, language, imitation, latent]
 ---
 
@@ -37,4 +37,26 @@ Before we get into it? Check out this gorgeous embedding space of trajectories.
 
 # How hard can a great environment be? 
 
-Pretty damn hard. 
+Insidiously hard. We tried re-implementing LFP for one of our senior year classes and failed due to a critical environment issue which we didn't discover till we came back to crack out 'great white whale'. Saving images of the environment took a variable amount of time, which was often long enough that it affected the frame rate of data capture. This meant that the time between actions in the dataset was variable, which meant that the time which the action was executed for was variable - decoupling the learnable link between action and outcome. We spent weeks trying to improve the algorithm itself - rather than making sure the environment was learnable. 
+
+When we came back, we made sure to do it right. No cutting corners. 
+
+First, learn 3DOF reaching with scripted demonstrations. Then use scripted demonstrations to learn 3DOF pick/placing. Extend that to allow orientation control...
+
+Next issue. 
+
+What is the best way to represent orientation of the gripper? Corey et al use RPY - we thought we could be clever, and use quaternions to avoid the discontinuities inherent in RPY. A fun fact about quaternions is that the negative of the quaternion is an equivlant representation of orientation. pyBullet (the great simulator we used), is not consistent in the representation as you move in the environment. To correct this, you have to create a small check in the environment which checks if the sign on every element of the quaternion is the negative of the previous timestep, in which case - you flip the sign and smooth the signal. 
+
+Problem solved? Not quite. Quaternions must be normalised to be a valid orientation. Neural net outputs have no such constraint. pyBullet does this automatically - but it appeared as though the normalised quaternions were not quite what the model intended - besides, we still had a few discontinuities. This led us down the path of [5 and 6D rotational embeddings](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhou_On_the_Continuity_of_Rotation_Representations_in_Neural_Networks_CVPR_2019_paper.pdf)...
+
+Hold up! We had been playing with too many satellites. Does a robot's end effector really need to go beyond +/- $\pi/2$ in any axis of rotation? Will it ever encounter a discontinuity? Not unless you're trying to imitation learn off Houdini. 
+
+Long story short - RPY orientation control worked far better. Simple fix wins out again. 
+
+# Next steps
+
+The algorithm now works reasonably well - it reliably achieves complex, two step goals even without a latent trajectory space to capture the multimodality. 
+
+We're actually struggling to train a model which uses the latent space that is better than goal conditioned behavioural cloning (GCBC) - when the space is structured enough for the decoder to be able to perfectly recreate encoded trajectories, it is too sparse for the planner to guess potential trajectories. With sufficient regularisation to be plannable, the space quickly loses structure and meaning and performance is identical to GCBC. We've converged on sufficently low Beta values (see the LFP paper) that we do observe some structure, but haven't found the optimal point. We are also encountering overfitting issues - which we hope is due to the multimodality (past a point, GCBC must memorise which trajectory occured in order to replicate it, the goal state is insufficient information). We hope that the encoded trajectory space overcomes this by giving the model sufficient information to recreate the input trajectory without necessitating memorisation.
+
+In parallel, we are fixing the gripper.  Gripper loss magnitude is currently 10x higher than any other dimension in the action space. We suspect this is due to how discontinuous the teleoperated actions are, and are trying a smoother 'close' over more timesteps (as is done in LFP and LangLFP). Furthermore, there is often a trade off between gripper performance and position/orientation performance as the trajectory space is regularised. We think this is the key remaining environment fix. 
