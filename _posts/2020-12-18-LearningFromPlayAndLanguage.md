@@ -8,7 +8,7 @@ categories: [play, language, imitation, latent]
 
 
 > [Code found here](https://colab.research.google.com/github/sholtodouglas/learning_from_play/blob/master/languageXplay.ipynb). 
-> All of this was done with [Tristan Frizza](https://twitter.com/TristanVtx). 
+> I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this, and we had our questions both technical and directional patiently answered by Corey Lynch, Suraj Nair and Eric Jang. 
 
 * TOC
 {:toc}
