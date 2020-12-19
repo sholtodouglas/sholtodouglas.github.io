@@ -25,4 +25,12 @@ We were inspired to do this by a pair of papers, [Learning from play (LFP)](http
 - The model can be adapted to use sentences as a goal by labelling a small (<1% of total dataset in their experiments) number of trajectories. Goal images and sentences will share the same goal embedding space because they will correspond to the same sequences of actions, which will be maximised for by the same imitation learning objective as before. This allows language to control the robot, while still learning more robust control from a vastly bigger dataset. 
 
 
+We wondered whether you could similarly label a small number of videos from different contexts (e.g, human video) with sentences, then force the latent trajectory space to be structured around these so that similar behaviour across contexts is embedded in the same parts of the trajectory space. For example, draw opening is more similar across different drawers than block stacking is - and the language labels would allow you to define this. Corey advised that this could well work, and that their team had been interested in exploring effectively the same concept, by using contrastive learning, the sentence labels and pre-trained sentence embeddings to supply +ive/-ive pairs. 
+
+Our hypothesis was that this would mean the entire architecture would be easier to transfer learn to new environments or behaviours - as the feature encoder would be trained on a diverse array of inputs, and the trajectory space would be structured around behaviour and scenes outside the teleoperation dataset. 
+
+First step though? We had to build the tech stack up to that point - a good environment to teach a robot to play in. 
+
+# How hard can a great environment be? 
+
 
