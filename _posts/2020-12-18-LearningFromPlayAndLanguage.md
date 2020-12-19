@@ -4,7 +4,7 @@ title: Transfer learning from play and language [Work in Progress]
 categories: [play, language, imitation, latent]
 ---
 
-![alt-text-1](https://sholtodouglas.github.io/images/play/ai_9_1.gif "title-1")
+![alt-text-1](https://sholtodouglas.github.io/images/play/play_gif.gif "title-1")
 
 
 > [Code found here](https://colab.research.google.com/github/sholtodouglas/learning_from_play/blob/master/languageXplay.ipynb). 
