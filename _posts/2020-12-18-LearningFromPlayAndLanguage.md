@@ -40,7 +40,7 @@ Before we get into it? Check out this gorgeous (but slightly under-regularised) 
 ## Teleoperation
 Insidiously hard. We tried re-implementing LFP for one of our senior year classes and failed due to a critical environment issue which we didn't discover till we came back to crack our 'great white whale'. Saving images of the environment took a variable amount of time, which was often long enough that it affected the frame rate of data capture. This meant that the time between actions in the dataset was variable, which meant that the time which the action was executed for was variable - decoupling the learnable link between action and outcome. We spent weeks trying to improve the algorithm itself - rather than making sure the environment was learnable. 
 
-## Keep it simple, stupid
+## Keep it simple
 
 When we came back, we made sure to do it right. No cutting corners. 
 
