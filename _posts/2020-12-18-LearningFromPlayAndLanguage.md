@@ -25,22 +25,22 @@ We were inspired to ask this question by a pair of papers, [Learning from play (
 - The model can be adapted to use sentences as a goal by labelling a small (<1% of total dataset in their experiments) number of trajectories. Goal images and sentences will share the same goal embedding space because they will correspond to the same sequences of actions, which will be maximised for by the same imitation learning objective as before. This allows language to control the robot, while still learning more robust control from a vastly bigger dataset. 
 
 ### Hypothesis
-We wondered whether you could similarly label a small number of videos from different contexts (e.g, human video) with sentences, then force the latent trajectory space to be structured around these so that similar behaviour across contexts is embedded in the same parts of the trajectory space. Corey advised that this could well work, and that their team had been interested in exploring a very similar idea by using contrastive learning to structure a joint human/robot embedding space. In this case they would use the sentence embeddings of labelled trajectories to supply +ive/-ive pairs. 
+We wondered whether you could similarly label a small number of videos from different contexts (e.g, human video) with sentences, then force the latent trajectory space to be structured around these so that similar behaviour across contexts is embedded in the same parts of the trajectory space. We initially imagined doing this with standard VAE reconstruction loss of the trajectories themselves (while you can't reconstruct the actions for human video, you could have an additional head on the decoder which reconstructed the input images of both human and robot trajectories). Corey advised that this could well work, and that their team had been interested in exploring a very similar idea by using contrastive learning to structure the latent space. In this case they would use the sentence embeddings of labelled trajectories to supply +ive/-ive pairs. This should both work better and is significantly less computationally intensive - so it is the approach we are pursuing. 
 
 Our hypothesis was that this would mean the entire architecture would be easier to transfer learn to new environments or behaviours - as the feature encoder would be trained on a diverse array of inputs, and the trajectory space would be structured around behaviour and scenes outside the teleoperation dataset. 
 
 First step though? We had to build the tech stack up to that point - a good environment to teach a robot to play in, then reimplement LFP and LangLMP.
 
-Before we get into it? Check out this gorgeous (but slightly under-regularised) embedding space of trajectories.
+Before we get into it? Check out this gorgeous (but slightly under-regularised) embedding space of trajectories from recent experiments.
 ![alt-text-1](https://sholtodouglas.github.io/images/play/latent_cropped.png "latent space")
 
 
 # How hard can a great environment be? 
 
-### Teleoperation
+## Teleoperation
 Insidiously hard. We tried re-implementing LFP for one of our senior year classes and failed due to a critical environment issue which we didn't discover till we came back to crack our 'great white whale'. Saving images of the environment took a variable amount of time, which was often long enough that it affected the frame rate of data capture. This meant that the time between actions in the dataset was variable, which meant that the time which the action was executed for was variable - decoupling the learnable link between action and outcome. We spent weeks trying to improve the algorithm itself - rather than making sure the environment was learnable. 
 
-### Keep it simple, stupid
+## Keep it simple, stupid
 
 When we came back, we made sure to do it right. No cutting corners. 
 
@@ -49,13 +49,13 @@ First, learn 3DOF reaching with scripted demonstrations. Then use scripted demon
 Next issue. 
 
 ### Representing orientation
-What is the best way to represent orientation of the gripper? Corey et al use RPY - we thought we could be clever, and use quaternions to avoid the discontinuities inherent in RPY. A fun fact about quaternions is that the negative of the quaternion is an equivlant representation of orientation. pyBullet (the great simulator we used), is not consistent in the representation as you move in the environment. To correct this, you have to create a small check in the environment which checks if the sign on every element of the quaternion is the negative of the previous timestep, in which case - you flip the sign and thus smooth the signal. 
+What is the best way to represent orientation of the gripper? Corey et al use RPY - we thought we could be clever, and use quaternions to avoid the discontinuities inherent in RPY (typically at $ \pm \pi$. A fun fact about quaternions is that the negative of the quaternion is an equivlant representation of orientation. pyBullet (the great simulator we used), is not consistent in the representation as you move in the environment. To correct this, you have to create a small check in the environment which checks if the sign on every element of the quaternion is the negative of the previous timestep, in which case - you flip the sign and thus smooth the signal. 
 
 Problem solved? Not quite. Quaternions must be normalised to be a valid orientation. Neural net outputs have no such constraint, besides, we still had a few discontinuities. This led us down the path of [5D and 6D rotational embeddings](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhou_On_the_Continuity_of_Rotation_Representations_in_Neural_Networks_CVPR_2019_paper.pdf)...
 
-Hold up! We had been playing with too many satellites. Does a robot's end effector really need to go beyond +/- $\pi/2$ in any axis of rotation? Will it ever encounter a discontinuity? Not unless you're trying to imitation learn off Houdini. 
+Hold up! We had been playing with too many satellites. Does a robot's end effector really need to go beyond +/- $\pi$ in any axis of rotation? Will it ever encounter a discontinuity? Not unless you're trying to imitation learn off Houdini. 
 
-Long story short - RPY orientation control worked far better. Simple fix wins out again. 
+Long story short - RPY orientation control worked far better. Simplicity wins. 
 
 # Next steps
 
