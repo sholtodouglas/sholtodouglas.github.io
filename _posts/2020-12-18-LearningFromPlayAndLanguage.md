@@ -53,7 +53,7 @@ What is the best way to represent orientation of the gripper? Corey et al use RP
 
 Problem solved? Not quite. Quaternions must be normalised to be a valid orientation. Neural net outputs have no such constraint, besides, we still had a few discontinuities. This led us down the path of [5D and 6D rotational embeddings](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhou_On_the_Continuity_of_Rotation_Representations_in_Neural_Networks_CVPR_2019_paper.pdf)...
 
-Hold up! We had been playing with too many satellites. Does a robot's end effector really need to go beyond $ \pm \pi$ in any axis of rotation? Will it ever encounter a discontinuity? Not unless you're trying to imitation learn off Houdini. 
+Hold up! We had been playing with too many satellites. Does a robot's end effector really need to go beyond $ \pm \pi$ in any axis of rotation? Will it ever encounter a discontinuity? Not unless you're trying to imitation learn off Houdini. We already had an invisible link at the end of the arm which was positioned at the tips of the gripper to use for inverse kinematics - all you need to do is rotate that so that it is at 0,0,0 RPY in the arm's default pose.
 
 Long story short - RPY orientation control worked far better. Simplicity wins. 
 
