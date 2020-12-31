@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Transfer learning from play and language - laying down the infrastructure
+title: [DRAFT] Transfer learning from play and language - laying down the infrastructure
 categories: [play, language, imitation, latent]
 ---
 
