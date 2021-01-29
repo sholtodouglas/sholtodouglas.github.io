@@ -27,6 +27,7 @@ We introduced the question we are trying to answer in [Laying down the infrastru
 Once again - the answer wasn't in neat regularisation techniques, interesting rotation representations or adding proprioceptive features, it lay in core fixes:
 - Encouraging specific biases in the demonstration data
 - Training beyond what we thought was a plateau into the promised land
+- Diagnosing overregularisation 
 - Fixing gradient instabilities
 
 We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
@@ -35,7 +36,11 @@ We'd still like to explore more fun ideas (e.g, composing plans as a sequence of
 
 Artist Michael Johnson once told me that it took him years to re-learn how to paint with the abstract creativity of a child - and it certainly took us months to learn how to 'play'. 
 
+Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, but they interact with objects far more times in a row, wheras we typically performed one interaction then moved to the next. What this meant is that a bias was burned into the plans the model learned to immediately 'zoom away' following an attempted behaviour. Worse - if we weren't careful we teleoperation then there were patterns burnt in as to which object to move to (it is very tempting to push the button after the door). 
+
+This can be bandaged over shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this high-contact way dramatically improves how robust and accurate the model when interacting with the environment.
+
 ### What lies beyond the plateau?
 
-
-
+![alt-text-1](https://sholtodouglas.github.io/images/play/graphs.png "demo of multiple tasks")
+![alt-text-1](https://sholtodouglas.github.io/images/play/promised_land.png "demo of multiple tasks")
