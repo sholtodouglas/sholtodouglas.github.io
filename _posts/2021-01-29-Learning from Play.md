@@ -1,0 +1,41 @@
+---
+layout: post
+title: Transfer learning from play and language - nailing the baseline
+categories: [play, language, imitation, latent]
+---
+
+![alt-text-1](https://sholtodouglas.github.io/images/play/awesome.gif "demo of multiple tasks")
+
+
+> [Code found here](https://colab.research.google.com/github/sholtodouglas/learning_from_play/blob/master/languageXplay.ipynb). 
+> I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this, and we had our questions both technical and directional patiently answered by Corey Lynch, Suraj Nair and Eric Jang. 
+
+* TOC
+{:toc}
+
+# Introduction
+
+
+> "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and much larger, diverse set of human video?"
+
+
+
+
+### Introduction
+We introduced the question we are trying to answer in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/), but at that time we hadn't yet nailed baseline re-implementation of the paper [Learning from play (LFP)](https://learning-from-play.github.io/). We finally have, and wanted to write down a few of the key changes. 
+
+Once again - the answer wasn't in neat regularisation techniques, interesting rotation representations or adding proprioceptive features, it lay in core fixes:
+- Encouraging specific biases in the demonstration data
+- Training beyond what we thought was a plateau into the promised land
+- Fixing gradient instabilities
+
+We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
+
+### Learning to play again
+
+Artist Michael Johnson once told me that it took him years to re-learn how to paint with the abstract creativity of a child - and it certainly took us months to learn how to 'play'. 
+
+### What lies beyond the plateau?
+
+
+
