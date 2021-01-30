@@ -26,7 +26,7 @@ We introduced the question we are trying to answer in [Laying down the infrastru
 
 Once again - the answer wasn't in neat regularisation techniques, interesting rotation representations or adding proprioceptive features, it lay in core fixes:
 - Encouraging specific biases in the demonstration data
-- Training beyond what we thought was a plateau into the promised land
+- Venturing beyond the plateau in our training curves
 - Diagnosing overregularisation 
 - Fixing gradient instabilities
 
