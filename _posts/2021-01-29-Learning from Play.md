@@ -2,6 +2,7 @@
 layout: post
 title: Transfer learning from play and language - nailing the baseline
 categories: [play, language, imitation, latent]
+author: Tristan Frizza
 ---
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/awesome.gif "demo of multiple tasks")
