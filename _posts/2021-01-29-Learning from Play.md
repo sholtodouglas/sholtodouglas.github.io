@@ -45,5 +45,5 @@ This can be bandaged over shortening the re-plan interval - but our preference i
 
 ### What lies beyond the plateau?
 
-![alt-text-1](https://sholtodouglas.github.io/images/play/graphs.png "demo of multiple tasks")
-![alt-text-1](https://sholtodouglas.github.io/images/play/promised_land.png "demo of multiple tasks")
+![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "demo of multiple tasks")
+![alt-text-1](https://sholtodouglas.github.io/images/play/something.pdf "demo of multiple tasks")
