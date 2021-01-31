@@ -52,10 +52,10 @@ This one is a little obvious in retrospect. Train longer! We used Colab TPUs for
 
 ### Diagnosing Overregularisation
 Recall that there are two potential 'plan' inputs to the actor. 
-- The output of the encoder over the full trajectory to reconstruct
-- The output of the planner when given only the current state and the goal state, from which you sample one potential way of going from A-B. 
+- The output of the encoder over the full trajectory to reconstruct, a specific path from A-B
+- The output of the planner when given only the current state and the goal state, from which you sample one potential path from A-B. 
 
-Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance will be limited. The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the ultimate potential performance of the model. 
+Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance will be limited. The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the lower bound of reconstruction loss. 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/overeg.png "Regularisation Demonstration")
 
 As you can see, with a beta value which is too high the planner and encoder latent spaces begin converging too early, and will ultimately converge to a high loss than that of a lower beta value - even though the planner action reconstruction loss is initially lower. Furthermore, goal-conditioned behavioural cloning (GCBC) - without any latent space to model the different ways of going from A-B has a great reconstruction loss! Despite this, it performs much worse on the actual environment. We believe this is because its possible to get to great reconstruction loss by outputting the mean of behaviour (in the same way that VAEs used to output blurry pictures), but to output one of the specific ways runs the risk of being very wrong (on the specific training example shown). As far as ultimate performance goes though - it doesn't really matter if the planner picks the wrong plan to follow (and thus has a commensurately higher loss), so long as all plans which it can pick from are effective (demonstrated by near perfect encoder reconstruction, with a reasonably and well aligned planner latent space). 
