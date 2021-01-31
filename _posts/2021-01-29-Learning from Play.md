@@ -16,24 +16,21 @@ author: Tristan Frizza
 
 # Introduction
 
-This is part of an ongoing series where Tristan and I are trying to re-implement the [Learning from play (LFP)](https://learning-from-play.github.io/) line of research, then build on it to answer a couple of questions we had. 
-
+This is part of an ongoing series where Tristan and I are trying to re-implement the [Learning from play (LFP)](https://learning-from-play.github.io/) line of research, then build on it to answer a couple of questions, above all:
 
 > "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and much larger, diverse set of human video?"
 
+We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - and it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/).
 
+### Heres what it took
 
-
-### Introduction
-We introduced the question we are trying to answer in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/), but at that time we hadn't yet nailed baseline re-implementation of the paper [Learning from play (LFP)](https://learning-from-play.github.io/). We finally have, and wanted to write down a few of the key changes. 
-
-Once again - the answer wasn't in neat regularisation techniques, interesting rotation representations or adding proprioceptive features, it lay in core fixes:
-- Encouraging specific biases in the demonstration data
+Once again - the answer wasn't in neat regularisation techniques, interesting rotation representations, proprioceptive features, learnt initialisations for the LSTM or any of the other highly specific things we tried in response to particular deficiencies -  it lay in core fixes:
+- Realising how our 'play' was biasing the dataset
 - Venturing beyond the plateau in our training curves
 - Diagnosing overregularisation 
 - Fixing gradient instabilities
 
-We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
+
 
 ### Learning to play again
 
@@ -48,5 +45,7 @@ This can be bandaged over shortening the re-plan interval - but our preference i
 ### What lies beyond the plateau?
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/conver.gif "demo of multiple tasks")
+
+We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
 
 
