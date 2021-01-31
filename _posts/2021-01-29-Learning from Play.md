@@ -36,13 +36,14 @@ Once again - the answer wasn't in neat regularisation techniques, interesting ro
 
 I once heard that it takes abstract artists years to re-learn how to paint with the freedom and  creativity of a child - it certainly took us months to learn how to 'play'. 
 
-Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects far more times in a row -  we typically performed one interaction then moved to the next. What this meant is that a bias was burned into the plans the model learned to immediately 'zoom away' following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were patterns in how we moved (it is very tempting to push the button after the door). 
+Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects far more times in a row -  we typically performed one interaction then moved to the next. What this meant is that a bias was burned iin to immediately 'zoom away' following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were patterns in how we moved (it is very tempting to push the button after the door). 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/sidebyside.gif "side by side comparison")
 
-This can be bandaged over shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this high-contact way dramatically improves how robust and accurate the model when interacting with the environment.
+This can be bandaged over shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this high-contact way dramatically improves how robust and accurate the model when interacting with the environment. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
 
 ### What lies beyond the plateau?
+
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/conver.gif "demo of multiple tasks")
 
