@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Transfer learning from play and language - nailing the baseline
+title: Transfer Learning from Play and Language - Nailing the Baseline
 categories: [play, language, imitation, latent]
 author: Tristan Frizza
 ---
