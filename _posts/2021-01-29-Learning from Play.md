@@ -40,7 +40,7 @@ Take a look at this side by side comparison of the original paper's teleoperated
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/sidebyside.gif "side by side comparison")
 
-This can be bandaged over shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this multi-interaction way dramatically improves how robust and accurate the model is. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
+This can be bandaged over by shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this multi-interaction way dramatically improves how robust and accurate the model is. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
 
 Interestingly it is only due to the behaviour itself. We suspected a multi-interaction dataset may also provide more timesteps of interaction with the environment and so counted the proportion of timesteps where an environment variable was different to the previous state (i.e, arm interacting not transitioning), but the difference was neglible. 
 
