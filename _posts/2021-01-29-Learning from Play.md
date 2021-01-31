@@ -51,6 +51,7 @@ This one is a little obvious in retrospect. Train longer! We used Colab TPUs for
 ![alt-text-1](https://sholtodouglas.github.io/images/play/conver.gif "demo of multiple tasks")
 
 ### Diagnosing Overregularisation
+![alt-text-1](https://sholtodouglas.github.io/images/play/overeg.png "Regularisation Demonstration")
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/behaviour_space.png "Quelle separation")
 
