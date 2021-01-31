@@ -40,12 +40,20 @@ Take a look at this side by side comparison of the original paper's teleoperated
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/sidebyside.gif "side by side comparison")
 
-This can be bandaged over shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this high-contact way dramatically improves how robust and accurate the model when interacting with the environment. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
+This can be bandaged over shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this high-contact way dramatically improves how robust and accurate the model is. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
 
 ### What lies beyond the plateau?
 
+This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. As we were doing all our experiments in series due to compute restrictions - it always felt more important to try another experiment. This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the regularisation loss never increases and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. We found B=0.00003 worked well. In the paper, they use B=0.01. This is because they use log-liklihood loss on the actions, wheras we use MAE (with a commensurately lower magnitude). 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/conver.gif "demo of multiple tasks")
+
+### Diagnosing Overregularisation
+
+### Fixing Gradient Instabilities
+
+### Whats next?
+
 
 We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
 
