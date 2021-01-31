@@ -16,6 +16,8 @@ author: Tristan Frizza
 
 # Introduction
 
+This is part of an ongoing series where Tristan and I are trying to re-implement the [Learning from play (LFP)](https://learning-from-play.github.io/) line of research, then build on it to answer a couple of questions we had. 
+
 
 > "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and much larger, diverse set of human video?"
 
@@ -35,7 +37,7 @@ We'd still like to explore more fun ideas (e.g, composing plans as a sequence of
 
 ### Learning to play again
 
-Artist Michael Johnson once told me that it took him years to re-learn how to paint with the abstract creativity of a child - and it certainly took us months to learn how to 'play'. 
+I once heard that it takes abstract artists years to re-learn how to paint with the freedom and  creativity of a child - it certainly took us months to learn how to 'play'. 
 
 Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects far more times in a row -  we typically performed one interaction then moved to the next. What this meant is that a bias was burned into the plans the model learned to immediately 'zoom away' following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were patterns in how we moved (it is very tempting to push the button after the door). 
 
