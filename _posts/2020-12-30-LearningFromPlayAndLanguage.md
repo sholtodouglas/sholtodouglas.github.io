@@ -7,7 +7,7 @@ categories: [play, language, imitation, latent]
 ![alt-text-1](https://sholtodouglas.github.io/images/play/play_gif.gif "title-1")
 
 
-> [Code found here](https://colab.research.google.com/github/sholtodouglas/learning_from_play/blob/master/languageXplay.ipynb). 
+> [Code found here](https://github.com/sholtodouglas/learning_from_play). 
 > I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this, and we had our questions both technical and directional patiently answered by Corey Lynch, Suraj Nair and Eric Jang. 
 
 * TOC
