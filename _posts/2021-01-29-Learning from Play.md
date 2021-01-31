@@ -60,3 +60,4 @@ This one is a little obvious in retrospect. Train longer! We used Colab TPUs for
 We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
 
 
+![alt-text-1](https://sholtodouglas.github.io/images/play/behaviour_space.png "Quelle separation")
