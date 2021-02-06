@@ -5,7 +5,7 @@ categories: [play, language, imitation, latent]
 author: Tristan Frizza
 ---
 
-![alt-text-1](https://sholtodouglas.github.io/images/play/awesome.gif "demo of multiple tasks")
+![alt-text-1](https://sholtodouglas.github.io/images/play/with_latent4.gif "demo of multiple tasks")
 
 
 > [Code found here](https://github.com/sholtodouglas/learning_from_play). 
