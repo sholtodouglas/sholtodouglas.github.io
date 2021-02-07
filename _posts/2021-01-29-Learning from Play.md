@@ -18,7 +18,7 @@ author: Tristan Frizza
 
 This is part of an ongoing series where Tristan and I are trying to re-implement the [Learning from play (LFP)](https://learning-from-play.github.io/) line of research, then build on it to answer a couple of questions, above all:
 
-> "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and much larger, diverse set of human video?"
+> "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and a much larger, diverse set of human video?"
 
 We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/).
 
@@ -36,13 +36,13 @@ Once again - the answer wasn't in neat regularisation techniques, interesting ro
 
 I once heard that it takes abstract artists years to re-learn how to paint with the freedom and  creativity of a child - it certainly took us months to learn how to 'play'. 
 
-Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects far more times in a row -  we typically performed one interaction then moved to the next. What this meant is that a bias was burned in to immediately 'zoom away' following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were patterns in how we moved (it is very tempting to push the button after the door). 
+Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects far more times in a row. We typically performed one interaction then moved to the next. What this meant is that a bias was burned in to immediately transition to another object following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were regular patterns in how we moved (it is very tempting to push the button after the door). 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/cut.gif "side by side comparison")
 
 This can be bandaged over by shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this multi-interaction way dramatically improves how robust and accurate the model is. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
 
-Interestingly it is only due to the behaviour itself. We suspected a multi-interaction dataset may also provide more timesteps of interaction with the environment and so counted the proportion of timesteps where an environment variable was different to the previous state (i.e, arm interacting not transitioning), but the difference was neglible. 
+To verify that this effect was due to the the behaviour demonstrated, and not that a multi-interaction dataset provides more timesteps of interaction with the environment - we counted the proportion of timesteps where an environment variable was different to the previous state (i.e, arm interacting not transitioning), but the difference was neglible.
 
 ### What lies beyond the plateau?
 
