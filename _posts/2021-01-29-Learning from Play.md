@@ -20,7 +20,7 @@ This is part of an ongoing series where Tristan and I are trying to re-implement
 
 > "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and much larger, diverse set of human video?"
 
-We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - and it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/).
+We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/).
 
 ### Heres what it took
 
@@ -46,7 +46,7 @@ Interestingly it is only due to the behaviour itself. We suspected a multi-inter
 
 ### What lies beyond the plateau?
 
-This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. As we were doing all our experiments in series due to compute restrictions - it always felt more important to try another experiment. This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the regularisation loss never increases and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. We found B=0.00003 worked well. In the paper, they use B=0.01. This is because they use log-liklihood loss on the actions, wheras we use MAE (with a commensurately lower magnitude). 
+This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. As we were doing all our experiments in series due to compute restrictions - it always felt more important to try another experiment. This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the regularisation loss never increases and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/conver.gif "demo of multiple tasks")
 
