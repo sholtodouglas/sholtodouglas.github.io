@@ -48,7 +48,7 @@ To verify that this effect was due to the the behaviour demonstrated, and not th
 
 This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. As we were doing all our experiments in series due to compute restrictions - it always felt more important to try another experiment. This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the regularisation loss never increases and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
-![alt-text-1](https://sholtodouglas.github.io/images/play/conver.gif "demo of multiple tasks")
+![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "demo of multiple tasks")
 
 ### Diagnosing Overregularisation [BETTER PLOTS TO COME]
 Recall that there are two potential 'plan' inputs to the actor. 
@@ -56,7 +56,7 @@ Recall that there are two potential 'plan' inputs to the actor.
 - The output of the planner when given only the current state and the goal state, from which you sample one potential path from A-B. 
 
 Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance will be limited. The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the lower bound of reconstruction loss. 
-![alt-text-1](https://sholtodouglas.github.io/images/play/overeg.png "Regularisation Demonstration")
+![alt-text-1](https://sholtodouglas.github.io/images/play/sweep.png "Regularisation Demonstration")
 
 As you can see, with a beta value which is too high the planner and encoder latent spaces begin converging too early, and will ultimately converge to a higher loss than that of a lower beta value - even though the planner action reconstruction loss is initially lower. Furthermore, goal-conditioned behavioural cloning (GCBC) - without any latent space to model the different ways of going from A-B has a great reconstruction loss! Despite this, it performs much worse on the actual environment. We believe this is because its possible to get to great reconstruction loss by outputting the mean of behaviour (in the same way that VAEs used to output blurry pictures), but to output one of the specific ways runs the risk of being very wrong (on the specific training example shown). As far as ultimate performance goes though - it doesn't really matter if the planner picks the wrong plan to follow (and thus has a commensurately higher loss), so long as all plans which it can pick from are effective (demonstrated by near perfect encoder reconstruction, with a reasonably and well aligned planner latent space). 
 
