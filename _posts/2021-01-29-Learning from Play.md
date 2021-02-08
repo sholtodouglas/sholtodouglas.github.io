@@ -76,7 +76,7 @@ We'd still like to explore more fun ideas (e.g, composing plans as a sequence of
 
 <p align="center">
 	<a href="https://sholtodouglas.github.io/images/play/with_latent4.gif">
-		<img src="media/with_latent4.gif">
+		<img src="images/play/with_latent4.gif">
 	</a>
 </p>
 
