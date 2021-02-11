@@ -52,18 +52,20 @@ This one is a little obvious in retrospect. Train longer! We used Colab TPUs for
 This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
 ### Diagnosing Overregularisation [BETTER PLOTS TO COME]
-Recall that there are two potential 'plan' inputs to the actor. 
-- The output of the encoder over the full trajectory to reconstruct, a specific path from A-B
-- The output of the planner when given only the current state and the goal state, from which you sample one potential path from A-B. 
-During training:
-- The actor is trained to reconstruct the 'true' actions over a trajectory using the encoder's output 'latent plan'
+Recall that there are two potential latent vector inputs to the actor. 
+- The output of the encoder over a trajectory, representing the specific path taken from A-B in the sampled trajectory
+- The output of the planner when given only the initial state and the goal state, representing one potential path from A-B. 
+
+**During training:**
+- The actor is trained to reconstruct the true actions over a trajectory using the encoder's outputs, the state at each step of the trajectory, and the goal state
 - The KL divergence between the encoder and planner's outputs is minimsed
-- $ \beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be higher. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder. 
-At test time:
+- $ \beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be worse, which limits the upper bound of performance by the model. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder - as a result the planner's outputs will be wrong for the actor
+
+**At test time:**
 - The planner samples a potential 'latent plan', from which the actor constructs a trajectory. 
 - This may not be the path which was chosen in the demonstration (as there are many valid ways of accomplishing goals)
 
-What this means is t
+Unlike with a typical, single shot VAE where 
 Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise the VAE will suffer from mode collapse, but the action reconstruction from planner inputs will initially be quite good (as the encoder and actor are trained jointly, and a collapsed latent space is a consistent or ignored input for the actor. The planner has to chase ). The actor is an auto-regressive decoder, which means this is less of a problem than with a single-shot VAE b, but ultimately the it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance on the environment is limited because the model fails to account for multimodality. This is the reason VAE's . The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the lower bound of reconstruction loss. 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/sweep.png "Regularisation Demonstration")
 
