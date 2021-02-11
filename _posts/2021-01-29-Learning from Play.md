@@ -51,7 +51,7 @@ This one is a little obvious in retrospect. Train longer! We used Colab TPUs for
 
 This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
-### Diagnosing Overregularisation [BETTER PLOTS TO COME]
+### Diagnosing Overregularisation
 Recall that there are two potential latent vector inputs to the actor. 
 - The output of the encoder over a trajectory, representing the specific path taken from A-B in the sampled trajectory
 - The output of the planner when given only the initial state and the goal state, representing one potential path from A-B. 
