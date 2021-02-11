@@ -58,7 +58,7 @@ Recall that there are two potential 'plan' inputs to the actor.
 During training:
 - The actor is trained to reconstruct the 'true' actions over a trajectory using the encoder's output 'latent plan'
 - The KL divergence between the encoder and planner's outputs is minimsed
-- $ \Beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be higher. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder. 
+- $ \beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be higher. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder. 
 At test time:
 - The planner samples a potential 'latent plan', from which the actor constructs a trajectory. 
 - This may not be the path which was chosen in the demonstration (as there are many valid ways of accomplishing goals)
