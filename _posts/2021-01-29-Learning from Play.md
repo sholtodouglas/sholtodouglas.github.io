@@ -7,7 +7,7 @@ author: Tristan Frizza
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/with_latent5.gif "demo of multiple tasks")
 
-{% include image.html url="/images/play/with_latent5.gif" description="My cat, Robert Downey Jr." %}
+{% include image.html url="/images/play/with_latent5.gif" description="State space model completing a sequence of goals, which are visulaised by the transparent objects. Plans sampled by the planner are visualised on the right in a latent space of hand lablled plans. Look out for where plans are sampled from when interacting with the block and cupboard, and when trying to open the drawer. This video is slightly cherry picked for good variation in behaviour and demonstration of retrying" %}
 
 > [Code found here](https://github.com/sholtodouglas/learning_from_play). 
 > I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this.
