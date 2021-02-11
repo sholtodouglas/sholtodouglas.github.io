@@ -45,17 +45,26 @@ To verify that this effect was due to the the behaviour demonstrated, and not th
 
 ### What lies beyond the plateau?
 
-This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. As we were doing all our experiments in series due to compute restrictions - it always felt more important to try another experiment. This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the regularisation loss never increases and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
+This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough to hit it's stride.
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "demo of multiple tasks")
+
+This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
 ### Diagnosing Overregularisation [BETTER PLOTS TO COME]
 Recall that there are two potential 'plan' inputs to the actor. 
 - The output of the encoder over the full trajectory to reconstruct, a specific path from A-B
 - The output of the planner when given only the current state and the goal state, from which you sample one potential path from A-B. 
+During training:
+- The actor is trained to reconstruct the 'true' actions over a trajectory using the encoder's output 'latent plan'
+- The KL divergence between the encoder and planner's outputs is minimsed
+- $ \Beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be higher. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder. 
+At test time:
+- The planner samples a potential 'latent plan', from which the actor constructs a trajectory. 
+- This may not be the path which was chosen in the demonstration (as there are many valid ways of accomplishing goals)
 
-
-Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance will be limited. The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the lower bound of reconstruction loss. 
+What this means is t
+Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise the VAE will suffer from mode collapse, but the action reconstruction from planner inputs will initially be quite good (as the encoder and actor are trained jointly, and a collapsed latent space is a consistent or ignored input for the actor. The planner has to chase ). The actor is an auto-regressive decoder, which means this is less of a problem than with a single-shot VAE b, but ultimately the it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance on the environment is limited because the model fails to account for multimodality. This is the reason VAE's . The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the lower bound of reconstruction loss. 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/sweep.png "Regularisation Demonstration")
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/all_plots.png "Regularisation Demonstration")
