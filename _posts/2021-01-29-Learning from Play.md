@@ -1,12 +1,13 @@
 ---
 layout: post
 title: Transfer Learning from Play and Language - Nailing the Baseline
-categories: [play, language, imitation, latent]
+categories: [play, language, imitation]
 author: Tristan Frizza
 ---
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/with_latent5.gif "demo of multiple tasks")
 
+{% include image.html url="/images/play/with_latent5.gif" description="My cat, Robert Downey Jr." %}
 
 > [Code found here](https://github.com/sholtodouglas/learning_from_play). 
 > I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this.
