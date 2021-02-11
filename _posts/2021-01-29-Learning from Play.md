@@ -9,7 +9,7 @@ author: Tristan Frizza
 
 
 > [Code found here](https://github.com/sholtodouglas/learning_from_play). 
-> I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this, and we had our questions both technical and directional patiently answered by Corey Lynch, Suraj Nair and Eric Jang. 
+> I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this.
 
 * TOC
 {:toc}
@@ -55,6 +55,7 @@ Recall that there are two potential 'plan' inputs to the actor.
 - The output of the encoder over the full trajectory to reconstruct, a specific path from A-B
 - The output of the planner when given only the current state and the goal state, from which you sample one potential path from A-B. 
 
+
 Planner based action reconstruction loss is not a perfect indicator of end performance because if you overregularise it will be better early (as it is easier for the planner to match the encoder outputs) - but the latent space will be less informative and the ultimate performance will be limited. The encoder reconstruction loss (the lower plots of B0.0001 and B0.00003) is the lower bound of reconstruction loss. 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/sweep.png "Regularisation Demonstration")
 
@@ -74,4 +75,4 @@ First up, we've now set up TFRC and will do proper ablations - our previous comp
 
 We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment) - but for the moment, we've got our baseline and will move on to our original question!
 
-
+> Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
