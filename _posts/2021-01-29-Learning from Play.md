@@ -13,7 +13,7 @@ author: Tristan Frizza
 * TOC
 {:toc}
 
-## Introduction
+# Introduction
 
 This is part of an ongoing series where Tristan and I are trying to re-implement the [Learning from play (LFP)](https://learning-from-play.github.io/) line of research, then build on it to answer a couple of questions, first of all - 
 
@@ -21,7 +21,7 @@ This is part of an ongoing series where Tristan and I are trying to re-implement
 
 We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/).
 
-## What took us so long?
+# What took us so long?
 
 
 Once again - the answer wasn't in neat regularisation techniques, interesting rotation representations, proprioceptive features, learnt initialisations for the LSTM or any of the other highly specific things we tried in response to particular deficiencies -  it lay in more fundamental fixes:
@@ -35,7 +35,7 @@ Once again - the answer wasn't in neat regularisation techniques, interesting ro
 
 I once heard that it takes abstract artists years to re-learn how to paint with the freedom and  creativity of a child - it certainly took us months to learn how to 'play'. 
 
-Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects  **more times in a row**. We typically **performed one interaction** then moved to the next. What this meant is that a bias was burned in to immediately transition to another object following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were regular patterns in how we moved (it is very tempting to push the button after the door). 
+Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects  **more times in a row**. We typically **performed one interaction** then moved to the next. What this meant is that a **bias was burned in to immediately transition to another object following an attempted behaviour**. Worse - if we weren't careful in teleoperating then there were regular patterns in how we moved (it is very tempting to push the button after the door). 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/cut.gif "side by side comparison")
 
