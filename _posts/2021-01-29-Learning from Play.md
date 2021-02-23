@@ -67,7 +67,7 @@ Recall that there are two potential latent vector inputs to the actor.
 
 What this means is that training this model is a delicate balance between over and under regularisation. Neither the 'reconstruction loss from encodings' or 'reconstruction loss from plans' is a perfect guide to this, as overregularised models appear to converge to similar final values as well regularised models with informative latent spaces (but much faster - which would initially appear better). 
 
-{% include image.html url="/images/play/all_plots.png" description="The results of a $ \beta $ sweep. TFRC shortened this to a 3 day affair. " %} 
+{% include image.html url="/images/play/screenshot_ims.png" description="The results of a $ \beta $ sweep. TFRC shortened this to a 3 day affair. " %} 
 
 When deployed, over-regularised models perform noticeably worse - they do not handle the multimodality of the behaviour space as well. This is the commonly seen 'blurry' faces problem from older VAE architectures on images, they simply output mean values which does 'pretty well' on a loss graph, but poorly as an output.
 
