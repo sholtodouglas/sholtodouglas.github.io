@@ -75,8 +75,7 @@ Evaluating training runs is therefore a mix of ensuring the action reconstructio
 
 **Success rate on task plots to come** 
 
-{% include image.html url="/images/play/adversarial2.gif" description="Check out how robust this is!" %}
-
+![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
 ### Whats next?
 
