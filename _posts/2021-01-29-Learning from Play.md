@@ -47,7 +47,7 @@ To verify that this effect was due to the the behaviour demonstrated, and not th
 
 This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough to hit it's stride.
 
-![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "demo of multiple tasks")
+![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "convergence")
 
 This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
