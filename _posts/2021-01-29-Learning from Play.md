@@ -83,6 +83,8 @@ Ultimately, the probabilistic and deterministic actor perform similarly - but th
 
 ### Demonstrating robustness
 
+We could have done this more rigorously - but we wanted to keep progressing. Besides, isn't kinetic punishment the fastest way to a robot's heart?
+
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
 ### Whats next?
