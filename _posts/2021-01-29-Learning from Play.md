@@ -91,13 +91,16 @@ We could have done this more rigorously - but we wanted to keep progressing. Bes
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
 # Learning from pixels
-We currently have various pixel-based models training.
+Our test run using pixels showed the plan and encoding space have not yet converged. We had been using smaller planner and encoder models as early tests indicated these were sufficient for the states-based model. As it is clear that the encoder has sufficient capacity to memorise (it's loss term tracks with the model which learns from states), the planner may need to be increased from 512 back to 2048 - and  $ \beta $ increased to bring the spaces together.
+
+{% include image.html url="/images/play/im_to_not.png" description="Curiously, the same regularisation term was not sufficient to converge the planner and encoder latent spaces from pixels.." %} 
+
  
 # Whats next?
 
-First up, we've now set up TFRC - which is immensely liberating. In the same way the Colab frees you to do experiments without worrying about cost, TFRC is wonderful for being able to compare hyperparameters without burning a week. 
+First up, we refactored the code so that it is an easy, extensible library for us to build on. We're taking the time to explore engineering fixes which might speed up our iteration cycle (e.g, deep diving into TPU utilisation and trialling FP16). We've also decided to take a breather and improve the environment - we're about a week from recreating the environment in Unity - mostly as a reward and a bit of fun, partly as a forcing function to set up conditions closer to a real robot. In particular, the env needs to be asynchronous with the commands sent. 
 
-We're about a week from recreating the environment in Unity - mostly as a reward and a bit of fun, partly as a forcing function to set up conditions closer to a real robot. In particular, the env needs to be asynchronous with the commands sent. After that, we're hoping we've nailed pixels - and we'll recollect data, label a few thousand trajectories and re-implement Lang-LMP. After that, we'll finally be ready to begin asking questions! At last the pace is accelerating!
+By the time these fixes are done, we're hoping a few good models have been trained from pixels - and we'll recollect data, label a few thousand trajectories and re-implement Lang-LMP in our new environment. After that, we'll finally be ready to begin asking questions! At last the pace is accelerating!
 
 We'd still like to explore more fun ideas, here are a few threads
 - Composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment
