@@ -5,7 +5,7 @@ categories: [play, language, imitation]
 author: Tristan Frizza
 ---
 
-{% include image.html url="/images/play/pob1.gif" description="State space model completing a sequence of goals, which are visualised by the transparent objects. Plans sampled by the planner are shown projected into the planners latent space. In particular, look for where plans are sampled from when interacting with the block and cupboard, and when trying to open the drawer. This video is slightly cherry picked - the average success rate on this sequence of tasks is ~11/13" %}
+{% include image.html url="/images/play/pob1.gif" description="State space model completing a sequence of goals, which are visualised by the transparent objects. Plans sampled by the planner are shown projected into the planners latent space. In particular, look for where plans are sampled from when interacting with the block and cupboard, and when trying to open the drawer. This video is slightly cherry picked - the average success rate on this sequence of tasks is ~11/13. The most difficult steps are the block reorientations and stand-up." %}
 
 > [Code found here](https://github.com/sholtodouglas/learning_from_play). 
 > I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this.
@@ -35,7 +35,7 @@ Once again - the answer wasn't in neat regularisation techniques, interesting ro
 
 I once heard that it takes abstract artists years to re-learn how to paint with the freedom and  creativity of a child - it certainly took us months to learn how to 'play'. 
 
-Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects  **more times in a row**. We typically **performed one interaction** then moved to the next. What this meant is that a **bias was burned in to immediately transition to another object following an attempted behaviour**. Worse - if we weren't careful in teleoperating then there were regular patterns in how we moved (it is very tempting to push the button after the door). 
+Take a look at this side by side comparison of the original paper's teleoperated 'play', and our initial dataset. While we did both perform a similar diversity of tasks, they interact with objects  more times in a row. We typically performed one interaction then moved to the next. What this meant is that a bias was burned in to immediately transition to another object following an attempted behaviour. Worse - if we weren't careful in teleoperating then there were regular patterns in how we moved (it is very tempting to push the button after the door). 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/cut.gif "side by side comparison")
 
@@ -45,7 +45,7 @@ To verify that this effect was due to the the behaviour demonstrated, and not th
 
 ### What lies beyond the plateau?
 
-This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough to hit it's stride.
+This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit it's stride.
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "convergence")
 
@@ -59,7 +59,7 @@ Recall that there are two potential latent vector inputs to the actor.
 **During training:**
 - The actor is trained to reconstruct the true actions over a trajectory using the encoder's outputs, the state at each step of the trajectory, and the goal state
 - The KL divergence between the encoder and planner's outputs is minimsed
-- $ \beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be worse, which limits the upper bound of performance by the model. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder - as a result the planner's outputs will be wrong for the actor
+- $ \beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be worse, which limits the upper bound of performance by the model. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder - as a result the planner's outputs will be unfamiliar inputs for the actor
 
 **At test time:**
 - The planner samples a potential 'latent plan', from which the actor constructs a trajectory. 
@@ -69,12 +69,16 @@ What this means is that training this model is a delicate balance between over a
 
 {% include image.html url="/images/play/screenshot_ims.png" description="The results of a $ \beta $ sweep. TFRC shortened this to a 3 day affair. " %} 
 
-When deployed, over-regularised models perform noticeably worse - they do not handle the multimodality of the behaviour space as well. This is the commonly seen 'blurry' faces problem from older VAE architectures on images, they simply output mean values which does 'pretty well' on a loss graph, but poorly as an output.
+When deployed, over-regularised models perform noticeably worse - they do not handle the multimodality of the behaviour space as well. This is the commonly seen 'blurry' faces problem from older VAE architectures on images, they simply output mean values which do fine on a loss graph, but poorly as an output.
 
-Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is maximally distinct. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss - worse then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
+To quantify this, we defined a couple of standard tasks and measured the success rate of each model. Success is defined by placing the object within 5cm and 30 degrees of it's goal position and orientation, or when the switch is flipped in the case of the dial and button. This is a reasonably restrictive goal - and fails to account for behvaiour which is mostly correct. E.g. if it stands up the block on the wrong part of the table then it fails. However - it suffices as a relative comparison. **Its worth noting that these success rates hide greater variation - the over regularised model (B0.0003) displays classic symptoms of being unable to handle multimodality** - without fail it tries to interact with the block on its path to the goal, which reveals a further dataset bias towards playing with the block over other objects. This is why the overregularised model fails catastrophically at button pressing - which is a relatively infrequent task in the dataset, but one which models with a disentangled representation have a 100% success rate at.
+
+**Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is maximally distinct**. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss, worse intitally, then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
+
+Ultimately, a the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is signficiantly more expressive, perhaps because it captures the low level multimodality itself. 
 
 
-{% include image.html url="/images/play/success_rate.png" description="A probabilistic actor allows for a much more expressive latent plan space - potentially because it assumes the burden of low level multimodality onto itself. " %} 
+{% include image.html url="/images/play/success_rate.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs worse than the optimally regularised model (B0.00003 or Probabilistic B0.02). There is little difference between a well regularised probabilistic and deterministic actor." %} 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
@@ -82,10 +86,7 @@ Evaluating training runs is therefore a mix of ensuring the action reconstructio
 
 First up, we've now set up TFRC - which is immensely liberating. In the same way the Colab frees you to do experiments without worrying about cost, TFRC is wonderful for being able to compare hyperparameters without burning a week. 
 
-We currently have probabilistic (the actor is currently deterministic, which performed bette pre-plateau) and pixel-based models training. As they train, we're planning to label a few thousand trajectories and re-implement Lang-LMP. After that, we'll finally be ready to begin asking questions! It is very exciting that the pace is accelerating. 
-
-
-{% include image.html url="/images/play/behaviour_space.png" description="A probabilistic actor allows for a much more expressive latent plan space - potentially because it assumes the burden of low level multimodality onto itself. " %} 
+We currently have various pixel-based models training. We;re about a week from recreating the environment in Unity - mostly as a reward and a bit of fun, partly as a forcing function to set up conditions closer to a real robot. In particular, the env needs to be asynchronous with the commands sent. After that, we'll recollect data, label a few thousand trajectories and re-implement Lang-LMP. After that, we'll finally be ready to begin asking questions! At last - the pace is accelerating. 
 
 We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment).
 
