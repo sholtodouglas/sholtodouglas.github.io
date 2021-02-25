@@ -86,7 +86,7 @@ Ultimately, the probabilistic and deterministic actor perform similarly - but th
 
 # Demonstrating robustness
 
-We could have done this more rigorously - but we wanted to keep progressing. Besides, isn't kinetic punishment the fastest way to a robot's heart? Its worth noting that there are a couple examples of picking the block off the floor in the play dataset - but only around ~5-10 - which means the model is quite robust! It would be interesting to test whether similar behaviour emerged with **no** floor examples, only the differing height of the shelf, table and perhaps one more platform of different height. 
+We could have done this more rigorously - but we wanted to keep progressing. Besides, isn't kinetic punishment the fastest way to a robot's heart? Its worth noting that there are a couple examples of picking the block off the floor in the play dataset - but only around ~5-10 - which means the model is quite robust! It would be interesting to test whether similar behaviour emerged with no floor examples, only the differing height of the shelf, table and perhaps one more platform of different height. 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
@@ -103,8 +103,8 @@ First up, we refactored the code so that it is an easy, extensible library for u
 By the time these fixes are done, we're hoping a few good models have been trained from pixels - and we'll recollect data, label a few thousand trajectories and re-implement Lang-LMP in our new environment. After that, we'll finally be ready to begin asking questions! At last the pace is accelerating!
 
 We'd still like to explore more fun ideas, here are a few threads
-- Composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment
-- Using VQ-VAE as a pretrained feature encoder for the image, the 32x32 breakdown might work well for an object centric scene breakdown - in the same way which spatial softmax does. 
+-**Composing plans as a sequence of quantised latent vectors** like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment
+- **Using VQ-VAE as a pretrained feature encoder for images:** the 32x32 breakdown might work well for an object centric scene breakdown - in the same way which spatial softmax does. 
 - (Long term fun) training a model with two arms teleoperated by two controllers. This doesn't answer any new questions (i.e, we're pretty sure it will work if we try hard enough), so it is on the backburner for now. 
 
 For now, a little more engineering work!
