@@ -82,18 +82,26 @@ Ultimately, the probabilistic and deterministic actor perform similarly - but th
 {% include image.html url="/images/play/succes_rate.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs worse than the optimally regularised models (B0.00003 or Probabilistic B0.02). There is little difference between a well regularised probabilistic and deterministic actor." %} 
 
 
-### Demonstrating robustness
+# Demonstrating robustness
 
 We could have done this more rigorously - but we wanted to keep progressing. Besides, isn't kinetic punishment the fastest way to a robot's heart? Its worth noting that there are a couple examples of picking the block off the floor in the play dataset - but only around ~5-10 - which means the model is quite robust! It would be interesting to test whether similar behaviour emerged with **no** floor examples, only the differing height of the shelf, table and perhaps one more platform of different height. 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
-### Whats next?
+# Learning from pixels
+We currently have various pixel-based models training.
+ 
+# Whats next?
 
 First up, we've now set up TFRC - which is immensely liberating. In the same way the Colab frees you to do experiments without worrying about cost, TFRC is wonderful for being able to compare hyperparameters without burning a week. 
 
-We currently have various pixel-based models training. We;re about a week from recreating the environment in Unity - mostly as a reward and a bit of fun, partly as a forcing function to set up conditions closer to a real robot. In particular, the env needs to be asynchronous with the commands sent. After that, we'll recollect data, label a few thousand trajectories and re-implement Lang-LMP. After that, we'll finally be ready to begin asking questions! At last - the pace is accelerating. 
+ We're about a week from recreating the environment in Unity - mostly as a reward and a bit of fun, partly as a forcing function to set up conditions closer to a real robot. In particular, the env needs to be asynchronous with the commands sent. After that, we'll recollect data, label a few thousand trajectories and re-implement Lang-LMP. After that, we'll finally be ready to begin asking questions! At last - the pace is accelerating. 
 
-We'd still like to explore more fun ideas (e.g, composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment).
+We'd still like to explore more fun ideas, here are a few threads
+- Composing plans as a sequence of quantised latent vectors like VQ-VAE represents images as a sequence of quantised tiles - we think this may lead to a valuable decomposition of parts of skills, e.g sharing grasp encodings between objects or parts of the environment
+- Using VQ-VAE as a pretrained feature encoder for the image, the 32x32 breakdown might work well for an object centric scene breakdown - in the same way which spatial softmax does. 
+- (Long term fun) training a model with two arms teleoperated by two controllers. This doesn't answer any new questions (i.e, we're pretty sure it will work if we try hard enough), so it is on the backburner for now. 
+
+For now, a little more engineering work!
 
 > Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
