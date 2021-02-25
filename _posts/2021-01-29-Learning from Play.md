@@ -77,7 +77,7 @@ To quantify this, we defined a couple of standard tasks and measured the success
 
 {% include image.html url="/images/play/succes_rate.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs worse than the optimally regularised models (B0.00003 or Probabilistic B0.02). There is little difference between a well regularised probabilistic and deterministic actor." %} 
 
-**Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is disentangled**. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss, worse intitally, then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
+**Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is disentangled**. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss, worse initially, then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
 
 Ultimately, the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is signficiantly more expressive, perhaps because it captures the low level multimodality itself. As a result, we will use the probabilistic model going forward. 
 
@@ -86,7 +86,7 @@ Ultimately, the probabilistic and deterministic actor perform similarly - but th
 
 # Demonstrating robustness
 
-We could have done this more rigorously - but we wanted to keep progressing. Besides, isn't kinetic punishment the fastest way to a robot's heart? Its worth noting that there are a couple examples of picking the block off the floor in the play dataset - but only around ~5-10 - which means the model is quite robust! It would be interesting to test whether similar behaviour emerged with no floor examples, only the differing height of the shelf, table and perhaps one more platform of different height. 
+We could have done this more rigorously - but we wanted to keep progressing. Besides, isn't kinetic punishment the fastest way to a robot's heart? Its worth noting that there are a couple examples of picking the block off the floor in the play dataset - but only around ~5-10! It would be interesting to test whether similar behaviour emerged with no floor examples, only the differing height of the shelf, table and drawer interior. 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
