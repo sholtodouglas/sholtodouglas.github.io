@@ -78,9 +78,8 @@ To quantify this, we defined a couple of standard tasks and measured the success
 Ultimately, a the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is signficiantly more expressive, perhaps because it captures the low level multimodality itself. 
 
 
-{% include image.html url="/images/play/success_rate.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs worse than the optimally regularised model (B0.00003 or Probabilistic B0.02). There is little difference between a well regularised probabilistic and deterministic actor." %} 
+{% include image.html url="/images/play/screenshot_ims.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs worse than the optimally regularised model (B0.00003 or Probabilistic B0.02). There is little difference between a well regularised probabilistic and deterministic actor." %} 
 
-{% include image.html url="/images/play/success_rate.png" description="State space model completing a sequence of goals, which are visualised by the transparent objects. Plans sampled by the planner are shown projected into the planners latent space. In particular, look for where plans are sampled from when interacting with the block and cupboard, and when trying to open the drawer. This video is slightly cherry picked - the average success rate on this sequence of tasks is ~11/13. The most difficult steps are the block reorientations and stand-up." %}
 
 ### Demonstrating robustness
 
