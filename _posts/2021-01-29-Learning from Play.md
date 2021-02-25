@@ -91,7 +91,7 @@ We could have done this more rigorously - but we wanted to keep progressing. Bes
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
 # Learning from pixels
-Our test run using pixels showed the plan and encoding space showed promising reconstruction loss decrease - but poor latent space convergence and end-task performance. It is clear that the encoder has sufficient capacity to memorise (it's loss term tracks with the model which learns from states), but the planner may need increased capacity to be able to plan over the space, or $ \beta $ may need to be increased to bring the spaces together.
+Our test run using pixels showed promising reconstruction loss decrease - but poor latent space convergence and end-task performance. It is clear that the encoder has sufficient capacity to memorise (it's loss term tracks with the model which learns from states), but the planner may need increased capacity to be able to plan over the space, or $ \beta $ may need to be increased to bring the spaces together.
 
 {% include image.html url="/images/play/im_to_not.png" description="Curiously, the same regularisation term was not sufficient to converge the planner and encoder latent spaces from pixels.." %} 
 
