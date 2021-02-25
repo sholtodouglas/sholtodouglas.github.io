@@ -73,7 +73,8 @@ When deployed, over-regularised models perform noticeably worse - they do not ha
 
 Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is maximally distinct. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss - worse then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
 
-**Success rate on task plots to come** 
+
+{% include image.html url="/images/play/success_rate.png" description="A probabilistic actor allows for a much more expressive latent plan space - potentially because it assumes the burden of low level multimodality onto itself. " %} 
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/adversarial2.gif "side by side comparison")
 
