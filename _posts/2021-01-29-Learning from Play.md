@@ -75,7 +75,7 @@ To quantify this, we defined a couple of standard tasks and measured the success
 
 **Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is maximally distinct**. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss, worse intitally, then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
 
-Ultimately, a the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is signficiantly more expressive, perhaps because it captures the low level multimodality itself. 
+Ultimately, the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is signficiantly more expressive, perhaps because it captures the low level multimodality itself. 
 
 
 {% include image.html url="/images/play/screenshot_ims.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs worse than the optimally regularised model (B0.00003 or Probabilistic B0.02). There is little difference between a well regularised probabilistic and deterministic actor." %} 
