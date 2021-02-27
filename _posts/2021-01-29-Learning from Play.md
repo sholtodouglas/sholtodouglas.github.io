@@ -130,5 +130,5 @@ For now, a little more engineering work!
 {% include image.html url="/images/play/cts_vs_deterministic.png" description="Well tuned deterministic and probabilistic models perform similarly, which is borne out in the task success rates shown above. Naturally the appropriate   $ \beta $ value is very different as the reconstruction loss magnitudes of NLL and MAE are very different." %} 
 
 ### Over vs well regularised latent spaces
-{% include image.html url="/images/play/latent_comparison.png" description="PLots like these are used to diagnose overregularisation during the training process." %} 
+{% include image.html url="/images/play/latent_comparison.png" description="Plots like these are used to diagnose overregularisation during the training process." %} 
 
