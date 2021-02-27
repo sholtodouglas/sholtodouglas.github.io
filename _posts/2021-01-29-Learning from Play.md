@@ -117,14 +117,14 @@ For now, a little more engineering work!
 
 # Appendix
 
-## Beta sweep of probabilistic models
+### Beta sweep of probabilistic models
 
 {% include image.html url="/images/play/comparison_of_cts.png" description="A sweep of  $ \beta $ values using a continuous action distribution and NLL loss. Curiously, the regularisation loss does not bend back in like it does for deterministic models - but the latent space arrangement of trajectories is nicer. Additionally, NLL of planner actions keeps increasing as though it is overfitting - even though the MAE of sampled actions decreases." %} 
 
 
-## Comparison of quantised vs continuous action distributions
+### Comparison of quantised vs continuous action distributions
 {% include image.html url="/images/play/quant_vs_not.png" description="We noticed neglible difference between actors with a quantised and non-quantised action distribution. Both distributions used a mixture of 5 beta distributions, and each dimension of the actor's outputs was quantised into 256 bins as per the original paper." %} 
 
 
-## Comparison of deterministic vs probabilistic actors
+### Comparison of deterministic vs probabilistic actors
 {% include image.html url="/images/play/cts_vs_deterministic.png" description="Well tuned deterministic and probabilistic models perform similarly, which is borne out in the task success rates shown above. " %} 
