@@ -127,4 +127,4 @@ For now, a little more engineering work!
 
 
 ### Comparison of deterministic vs probabilistic actors
-{% include image.html url="/images/play/cts_vs_deterministic.png" description="Well tuned deterministic and probabilistic models perform similarly, which is borne out in the task success rates shown above. " %} 
+{% include image.html url="/images/play/cts_vs_deterministic.png" description="Well tuned deterministic and probabilistic models perform similarly, which is borne out in the task success rates shown above. Naturally the appropriate   $ \beta $ value is very different as the reconstruction loss magnitudes of NLL and MAE are very different." %} 
