@@ -65,7 +65,7 @@ Recall that there are two potential latent vector inputs to the actor.
 - The planner samples a potential 'latent plan', from which the actor constructs a trajectory. 
 - This may not be the path which was chosen in the demonstration (as there are many valid ways of accomplishing goals)
 
-What this means is that training this model is a delicate balance between over and under regularisation. Neither the 'reconstruction loss from encodings' or 'reconstruction loss from plans' is a perfect guide to this, as **overregularised models appear to converge to similar or better final values as well regularised models with informative latent spaces (but much faster - which would initially appear better). **
+What this means is that training this model is a delicate balance between over and under regularisation. Neither the 'reconstruction loss from encodings' or 'reconstruction loss from plans' is a perfect guide to this, as **overregularised models appear to converge to similar or better final values as well regularised models with informative latent spaces (but much faster - which would initially appear better).**
 
 {% include image.html url="/images/play/comparison_of_deterministic.png" description="The results of a $ \beta $ sweep. We used MAE loss because it performed much better for the relatively discontinuous gripper action space. TFRC shortened this to a 3 day affair! " %} 
 
