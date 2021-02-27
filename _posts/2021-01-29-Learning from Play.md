@@ -67,7 +67,7 @@ Recall that there are two potential latent vector inputs to the actor.
 
 What this means is that training this model is a delicate balance between over and under regularisation. Neither the 'reconstruction loss from encodings' or 'reconstruction loss from plans' is a perfect guide to this, as overregularised models appear to converge to similar final values as well regularised models with informative latent spaces (but much faster - which would initially appear better). 
 
-{% include image.html url="/images/play/screenshot_ims.png" description="The results of a $ \beta $ sweep. TFRC shortened this to a 3 day affair. " %} 
+{% include image.html url="/images/play/comparison_of_deterministic.png" description="The results of a $ \beta $ sweep. TFRC shortened this to a 3 day affair. " %} 
 
 When deployed, over-regularised models perform noticeably worse - they do not handle the multimodality of the behaviour space as well. This is the commonly seen 'blurry' faces problem from older VAE architectures on images, they simply output mean values which do fine on a loss graph, but poorly as an output.
 
@@ -114,3 +114,17 @@ We'd still like to explore more fun ideas, here are a few threads
 For now, a little more engineering work!
 
 > Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
+
+# Appendix
+
+## Beta sweep of probabilistic models
+
+{% include image.html url="/images/play/comparison_of_cts.png" description="A sweep of  $ \beta $ values using a continuous action distribution and NLL loss. Curiously, the regularisation loss does not bend back in like it does for deterministic models - but the latent space arrangement of trajectories is nicer. Additionally, NLL of planner actions keeps increasing as though it is overfitting - even though the MAE of sampled actions decreases." %} 
+
+
+## Comparison of quantised vs continuous action distributions
+{% include image.html url="/images/play/quant_vs_not.png" description="We noticed neglible difference between actors with a quantised and non-quantised action distribution. Both distributions used a mixture of 5 beta distributions, and each dimension of the actor's outputs was quantised into 256 bins as per the original paper." %} 
+
+
+## Comparison of deterministic vs probabilistic actors
+{% include image.html url="/images/play/cts_vs_deterministic.png" description="Well tuned deterministic and probabilistic models perform similarly, which is borne out in the task success rates shown above. " %} 
