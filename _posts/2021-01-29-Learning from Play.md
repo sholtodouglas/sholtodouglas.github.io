@@ -113,6 +113,8 @@ We'd still like to explore more fun ideas, here are a few threads
 
 For now, a little more engineering work!
 
+{% include image.html url="/images/play/unity.gif" description="Work in progress Unity env." %}
+
 > Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
 
 # Appendix
