@@ -111,10 +111,9 @@ We'd still like to explore more fun ideas, here are a few threads
 - **Using VQ-VAE as a pretrained feature encoder for images:** the 32x32 breakdown might work well for an object centric scene breakdown - in the same way which spatial softmax does. 
 - **(Long term fun) training a model with two arms teleoperated by two controllers**. This doesn't answer any new questions (i.e, it will work if we try hard enough), but it would be fun!
 
-For now, a little more engineering work!
+For now, a little more engineering work! Heres a teaser of the unity env - unfortunately hand tracking just wasn't accurate enough - so controllers it was!
 
-{% include image.html url="/images/play/unity.gif" description="Work in progress Unity env. Unfortunately hand tracking just wasn't accurate enough - so controllers it was!" %}
-
+![alt-text-1](https://sholtodouglas.github.io/images/play/unity.gif "side by side comparison")
 > Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
 
 # Appendix
