@@ -45,7 +45,7 @@ To verify that this effect was due to the the behaviour demonstrated, and not th
 
 ### What lies beyond the plateau?
 
-This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit its stride. We didn’t see that the regularisation loss leveling off was in anticipation of it decreasing and bringing in the ‘act with plan’ loss (explained later).
+This one is a little obvious in retrospect. Train longer! Initially we used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit its stride. We didn’t see that the regularisation loss leveling off was in anticipation of it decreasing and bringing in the ‘act with plan’ loss (explained later).
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "convergence")
 
@@ -114,7 +114,7 @@ In addition to our primary question, we're going to sidetrack slightly to check 
 For now, a little more engineering work! Here's a teaser of the unity env - unfortunately hand tracking just wasn't accurate enough - so controllers it was!
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/unity.gif "side by side comparison")
-> Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
+> Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions - and to the TFRC team for their support.
 
 # Appendix
 
