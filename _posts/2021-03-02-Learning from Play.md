@@ -41,11 +41,11 @@ Take a look at this side by side comparison of the original paper's teleoperated
 
 This can be bandaged over by shortening the re-plan interval - but our preference is for a model where the bias is 'fix up the object you just interacted with'.  Recollecting the data in this multi-interaction way dramatically improves how robust and accurate the model is. The 'post interaction' phase of a plan initialises the next plan with an ideal starting point for retrying (on failure), or fixing up (on partial success). 
 
-To verify that this effect was due to the the behaviour demonstrated, and not that a multi-interaction dataset provides more timesteps of interaction with the environment - we counted the proportion of timesteps where an environment variable was different to the previous state (i.e, arm interacting not transitioning), but the difference was neglible.
+To verify that this effect was due to the the behaviour demonstrated, and not that a multi-interaction dataset provides more timesteps of interaction with the environment - we counted the proportion of timesteps where an environment variable was different to the previous state (i.e, arm interacting not transitioning), but the difference was negligible.
 
 ### What lies beyond the plateau?
 
-This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit it's stride.
+This one is a little obvious in retrospect. Train longer! We used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit its stride. We didn’t see that the regularisation loss leveling off was in anticipation of it decreasing and bringing in the ‘act with plan’ loss (explained later).
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "convergence")
 
@@ -58,7 +58,7 @@ Recall that there are two potential latent vector inputs to the actor.
 
 **During training:**
 - The actor is trained to reconstruct the true actions over a trajectory using the encoder's outputs, the state at each step of the trajectory, and the goal state
-- The KL divergence between the encoder and planner's outputs is minimsed
+- The KL divergence between the encoder and planner's outputs is minimised
 - $ \beta $ controls the weighting between KL divergence and action reconstruction loss. Too high, and the encoder is constrained to the planner. As a result, the latent space is uninformative and 'acts with encodings' loss will be worse, which limits the upper bound of performance by the model. Too low, and the planner is unable to catch up to and plan over the latent space created by the encoder - as a result the planner's outputs will be unfamiliar inputs for the actor
 
 **At test time:**
@@ -71,17 +71,17 @@ What this means is that training this model is a delicate balance between over a
 
 **When deployed, over-regularised models perform noticeably worse - they do not handle the multimodality of the behaviour space as well**. This is the commonly seen 'blurry' faces problem from older VAE architectures on images, they simply output mean values which do fine on a loss graph, but poorly as an output.
 
-To quantify this, we defined a couple of standard tasks and measured the success rate of each model. **Success is defined by placing all elements of the state within 5cm and 30 degrees of their goal position and orientation**, or when the switch is flipped in the case of the dial and button. This is a reasonably restrictive goal - and fails to account for behvaiour which is mostly correct. E.g. if it places the block in the cupboard or drawer in the wrong orientation it fails. Adjusting for this would bring the success rate of these tasks to ~85%. In addition, the robot only recieves 4s to complete each task - **given unlimited time the success rate is >90% for most tasks** except placing the object in the drawer (where it runs the risk of knocking the block out of reach). Chaining goals is easier than these success rates would suggest - once the block is grasped subsequent block goals have > 90% success rate, it is the initial grasp which is tough - and sequential goals have higher probability of success than a cold start. However as these goals are entirely arbitrary, and ultimately that level of specificity and speed will be desirable with asymmetric objects - we think it suffices as a relative comparison. 
+To quantify this, we defined a couple of standard tasks and measured the success rate of each model. **Success is defined by placing all elements of the state within 5cm and 30 degrees of their goal position and orientation**, or when the switch is flipped in the case of the dial and button. This is a reasonably restrictive goal - and fails to account for behaviour which is mostly correct. E.g. if it places the block in the cupboard or drawer in the wrong orientation it fails. Adjusting for this would bring the success rate of these tasks to ~85%. In addition, the robot only receives 4s to complete each task - **given unlimited time the success rate is >90% for most tasks** except placing the object in the drawer (where it runs the risk of knocking the block out of reach). Chaining goals is easier than these success rates would suggest - once the block is grasped subsequent block goals have > 90% success rate, it is the initial grasp which is tough - and sequential goals have higher probability of success than a cold start. However as these goals are entirely arbitrary, and ultimately that level of specificity and speed will be desirable with asymmetric objects - we think it suffices as a relative comparison. 
 
-**The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs universally worse than the optimally regularised models (B0.00003 or Probabilistic B0.02) because it displays classic symptoms of being unable to handle multimodality**. Without fail it tries to randomly interact with other objects on it's way to the goal - often shifiting them far enough that the goal state is unsatisified. It's behaviour reveals a further dataset bias towards playing with the block over other objects. This is why it fails catastrophically at button pressing - a less frequent task in the dataset, but an easy enough task that models with a distinct representation succeed 100% of the time.
+**The over regularised model (B0.0003) which has the best overall MAE reconstruction error performs universally worse than the optimally regularised models (B0.00003 or Probabilistic B0.02) because it displays classic symptoms of being unable to handle multimodality**. Without fail it tries to randomly interact with other objects on it's way to the goal - often shifting them far enough that the goal state is unsatisfied. It's behaviour reveals a further dataset bias towards playing with the block over other objects. This is why it fails catastrophically at button pressing - a less frequent task in the dataset, but an easy enough task that models with a distinct representation succeed 100% of the time.
 
-{% include image.html url="/images/play/comparison.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model ($\beta 3 \times 10^{-4}$) which has the best overall MAE reconstruction error performs worse than the optimally regularised models ($\beta 3 \times 10^{-5}$ or Probabilistic $\beta 2 \times 10^{-2}$). There is mild difference between a well regularised probabilistic and deterministic actor." %} 
+{% include image.html url="/images/play/comparison.png" description="The sweet spot for regularisation does not directly follow from reconstruction loss. The over regularised model ($\beta 3 \times 10^{-4}$) which has the best overall MAE reconstruction error performs worse than the optimally regularised models ($\beta 3 \times 10^{-5}$ or Probabilistic $\beta 2 \times 10^{-2}$). There are only mild differences between a well regularised probabilistic and deterministic actor." %} 
 
 **Evaluating training runs is therefore a mix of ensuring the action reconstruction loss converges to the best observed values - while using low enough $ \beta $ values that the latent space is distinct**. The pattern of 'reconstruction loss from plans' should follow that of the regularisation loss, worse initially, then better as the space becomes informative - then plannable. One of the best ways to diagnose overregularisation is to label a set of trajectories with descriptions and plot their arrangement in latent space over the course of training. The latent space should become distinct quite early - and stay that way. 
 
 This is frustratingly qualitative. We were hoping that the encoder and planner reconstruction losses would converge to a lower final value for the well regularised models, even if the planner improved more slowly than for over regularised models - but this wasn't the case.
 
-Ultimately, the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is signficiantly more expressive, perhaps because it captures the low level multimodality itself. As a result, we will use the probabilistic model going forward. 
+Ultimately, the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is significantly more expressive, perhaps because it captures the low level multimodality itself. As a result, we will use the probabilistic model going forward. 
 
 
 
@@ -95,7 +95,7 @@ We could have done this more rigorously - but we wanted to keep progressing. Bes
 # Learning from pixels
 Our test run using pixels showed promising reconstruction loss decrease - but poor latent space convergence and end-task performance. It is clear that the encoder has sufficient capacity to memorise (it's loss term tracks with the model which learns from states), but the planner may need increased capacity to be able to plan over the space, $ \beta $ may need to be increased to bring the spaces together - or it may need to be trained for longer (as we see the beginning of the slope off pattern). 
 
-We'd like to avoid different $ \beta $ values for states and images - as the reconstruction and regularisation magnitudes should be the same, which means their relative weighting should be the same to.
+We'd like to avoid different $ \beta $ values for states and images - as the reconstruction and regularisation magnitudes should be the same, which means their relative weighting should be the same too.
 
 {% include image.html url="/images/play/im_to_not.png" description="Curiously, the same regularisation term was not sufficient to converge the planner and encoder latent spaces from pixels.." %} 
 
@@ -111,7 +111,7 @@ In addition to our primary question, we're going to sidetrack slightly to check 
 - **Using VQ-VAE as a pretrained feature encoder for images:** the 32x32 breakdown might work well for an object centric scene breakdown - in the same way which spatial softmax does. 
 
 
-For now, a little more engineering work! Heres a teaser of the unity env - unfortunately hand tracking just wasn't accurate enough - so controllers it was!
+For now, a little more engineering work! Here's a teaser of the unity env - unfortunately hand tracking just wasn't accurate enough - so controllers it was!
 
 ![alt-text-1](https://sholtodouglas.github.io/images/play/unity.gif "side by side comparison")
 > Thank you to Corey Lynch, Suraj Nair and Eric Jang for patiently answering our questions.
@@ -124,7 +124,7 @@ For now, a little more engineering work! Heres a teaser of the unity env - unfor
 
 
 ### Comparison of quantised vs continuous action distributions
-{% include image.html url="/images/play/quant_vs_not.png" description="We noticed neglible difference between actors with a quantised and non-quantised action distribution. Both distributions used a mixture of 5 beta distributions, and each dimension of the actor's outputs was quantised into 256 bins as per the original paper." %} 
+{% include image.html url="/images/play/quant_vs_not.png" description="We noticed negligible difference between actors with a quantised and non-quantised action distribution. Both distributions used a mixture of 5 beta distributions, and each dimension of the actor's outputs was quantised into 256 bins as per the original paper." %} 
 
 
 ### Comparison of deterministic vs probabilistic actors
@@ -132,4 +132,5 @@ For now, a little more engineering work! Heres a teaser of the unity env - unfor
 
 ### Over vs well regularised latent spaces
 {% include image.html url="/images/play/latent_comparison.png" description="Plots like these are used to diagnose overregularisation during the training process." %} 
+
 
