@@ -19,7 +19,7 @@ This is part of an ongoing series where Tristan and I are trying to re-implement
 
 > "Can we enable fast transfer learning to new scenes or behaviours by using language to structure a joint trajectory embedding space between robot specific data and a much larger, diverse set of human video?"
 
-We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/). The architecture is explained clearly in their papers, so we won't re-hash it here. 
+We've finally nailed a great baseline re-implementation. In the gif above you can see goals specified by the transparent copies of the object - it is capable of reliably completing > 10 different tasks in a row. You can read a little bit more about their papers, the question we are trying to answer and getting the environment right in [Laying down the infrastructure](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/). The architecture is explained clearly in their papers, and we cover the main ideas in our [previous post, so look to those resources if the work is unfamiliar.](https://sholtodouglas.github.io/LearningFromPlayAndLanguage/)
 
 # What took us so long?
 
