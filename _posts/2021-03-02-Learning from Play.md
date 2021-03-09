@@ -5,7 +5,7 @@ categories: [play, language, imitation]
 author: Tristan Frizza
 ---
 
-{% include image.html url="/images/play/headline.gif" description="State space model completing a sequence of goals, which are visualised by the transparent objects. Plans sampled by the planner are shown projected into the planners latent space. In particular, look for where plans are sampled from when interacting with the block and cupboard, and when trying to open the drawer. This video is slightly cherry picked - the average success rate on this sequence of tasks is ~11/13. The most difficult steps are the block reorientations and stand-up." %}
+{% include image.html url="/images/play/headline.gif" description="State space model completing a sequence of goals, which are visualised by the transparent objects. Plans sampled by the planner are shown projected into the planner's latent space. In particular, look for where plans are sampled from when interacting with the block and cupboard, and when trying to open the drawer. This video is slightly cherry picked - the average success rate on this sequence of tasks is ~11/13. The most difficult steps are the block reorientations and stand-up." %}
 
 > [Code found here](https://github.com/sholtodouglas/learning_from_play). 
 > I worked hand in hand with [Tristan Frizza](https://twitter.com/TristanVtx) on this.
