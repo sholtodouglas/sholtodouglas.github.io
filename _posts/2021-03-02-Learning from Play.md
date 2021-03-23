@@ -43,13 +43,7 @@ This can be bandaged over by shortening the re-plan interval - but our preferenc
 
 To verify that this effect was due to the the behaviour demonstrated, and not that a multi-interaction dataset provides more timesteps of interaction with the environment - we counted the proportion of timesteps where an environment variable was different to the previous state (i.e, arm interacting not transitioning), but the difference was negligible.
 
-### What lies beyond the plateau?
 
-This one is a little obvious in retrospect. Train longer! Initially we used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit its stride. We didn’t see that the regularisation loss leveling off was in anticipation of it decreasing and bringing in the ‘act with plan’ loss (explained later).
-
-![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "convergence")
-
-This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
 ### Diagnosing Overregularisation
 Recall that there are two potential latent vector inputs to the actor. 
@@ -85,7 +79,13 @@ This is frustratingly qualitative. We were hoping that the encoder and planner r
 
 Ultimately, the probabilistic and deterministic actor perform similarly - but the latent space of a similar probabilistic actor is significantly more expressive, perhaps because it captures the low level multimodality itself. As a result, we will use the probabilistic model going forward. 
 
+### What lies beyond the plateau?
 
+This one is a little obvious in retrospect. Train longer! Initially we used Colab TPUs for all of our training, and it just so happens that the point at which we break away from the plateau is just after the typical timeout. It always felt more important to try another experiment instead of restarting the old one - and our intuition didn't account for the idea that 10 hours on a TPU might not be enough for the model to hit its stride. We didn’t see that the regularisation loss leveling off was in anticipation of it decreasing and bringing in the ‘act with plan’ loss (explained later).
+
+![alt-text-1](https://sholtodouglas.github.io/images/play/convergence.gif "convergence")
+
+This is compounded by the fact that there is a relatively narrow range of Beta values (the relative weighting between the regularisation term and the action reconstruction term) which work. Too high, and the latent space collapses. Too low, and it would take even longer than it did for the regularisation loss to bend down and allow the planned trajectories to match up to the encoded ones. 
 
 
 # Demonstrating robustness
